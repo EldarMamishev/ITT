@@ -3,6 +3,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using UniversityProject.BusinessLogic.Providers;
 using UniversityProject.BusinessLogic.Providers.Interfaces;
+using UniversityProject.BusinessLogic.Services;
+using UniversityProject.BusinessLogic.Services.Interfaces;
 using UniversityProject.Entities.Entities;
 
 namespace UniversityProject.BusinessLogic.Configs
@@ -30,7 +32,7 @@ namespace UniversityProject.BusinessLogic.Configs
             #endregion
 
             #region Services
-            //services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IAccountService, AccountService>();
             #endregion
         }
     }

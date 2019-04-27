@@ -1,13 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using UniversityProject.WEB.Controllers.Base;
 using UniversityProject.WEB.Models;
 
 namespace UniversityProject.WEB.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public IActionResult Index()
         {
+            if (UserRoles.Contains("Admin"))
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+
             return View();
         }
 
