@@ -1,7 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UniversityProject.DataAccess\UniversityProject.DataAccess.csproj" />
+    <ProjectReference Include="..\UniversityProject.Entities\UniversityProject.Entities.csproj" />
+    <ProjectReference Include="..\UniversityProject.Shared\UniversityProject.Shared.csproj" />
+    <ProjectReference Include="..\UniversityProject.ViewModels\UniversityProject.ViewModels.csproj" />
+  </ItemGroup>
 
 </Project>
