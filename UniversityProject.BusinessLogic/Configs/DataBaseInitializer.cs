@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Threading.Tasks;
 using UniversityProject.Entities.Entities;
 using UniversityProject.Shared.Constants;
 
@@ -8,34 +9,34 @@ namespace UniversityProject.BusinessLogic.Configs
 {
     public static class DataBaseInitializer
     {
-        public static void InitializeDB(this IServiceProvider serviceProvider)
+        public async static Task InitializeDB(this IServiceProvider serviceProvider)
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
             IdentityResult roleResult;
 
-            var adminRoleCheck = roleManager.RoleExistsAsync(ApplicationConstants.ADMIN_ROLE).Result;
+            bool adminRoleCheck = await roleManager.RoleExistsAsync(ApplicationConstants.ADMIN_ROLE);
             if (!adminRoleCheck)
             {
-                roleResult = roleManager.CreateAsync(new ApplicationRole(ApplicationConstants.ADMIN_ROLE)).Result;
-                CreateAdminUser(userManager);
+                roleResult = await roleManager.CreateAsync(new ApplicationRole(ApplicationConstants.ADMIN_ROLE));
+                await CreateAdminUser(userManager);
             }
 
-            var userRoleCheck = roleManager.RoleExistsAsync(ApplicationConstants.USER_ROLE).Result;
+            bool userRoleCheck = await roleManager.RoleExistsAsync(ApplicationConstants.USER_ROLE);
             if (!userRoleCheck)
             {
-                roleResult = roleManager.CreateAsync(new ApplicationRole(ApplicationConstants.USER_ROLE)).Result;
+                roleResult = await roleManager.CreateAsync(new ApplicationRole(ApplicationConstants.USER_ROLE));
             }
 
-            var teacherRoleCheck = roleManager.RoleExistsAsync(ApplicationConstants.TEACHER_ROLE).Result;
+            bool teacherRoleCheck = await roleManager.RoleExistsAsync(ApplicationConstants.TEACHER_ROLE);
             if (!teacherRoleCheck)
             {
-                roleResult = roleManager.CreateAsync(new ApplicationRole(ApplicationConstants.TEACHER_ROLE)).Result;
+                roleResult = await roleManager.CreateAsync(new ApplicationRole(ApplicationConstants.TEACHER_ROLE));
             }
         }
 
-        private static void CreateAdminUser(UserManager<ApplicationUser> userManager)
+        private async static Task CreateAdminUser(UserManager<ApplicationUser> userManager)
         {
             var email = "admin@admin.com";
             var password = "Admin123!";
@@ -56,10 +57,10 @@ namespace UniversityProject.BusinessLogic.Configs
             user.PhoneNumber = "+380451236957";
             user.EmailConfirmed = true;
 
-            userManager.CreateAsync(user, password).GetAwaiter().GetResult();
-            var applicationUser = userManager.FindByNameAsync(user.UserName).GetAwaiter().GetResult();
+            await userManager.CreateAsync(user, password);
+            ApplicationUser applicationUser = await userManager.FindByNameAsync(user.UserName);
 
-            userManager.AddToRoleAsync(applicationUser, ApplicationConstants.ADMIN_ROLE).GetAwaiter().GetResult();
+            await userManager.AddToRoleAsync(applicationUser, ApplicationConstants.ADMIN_ROLE);
         }
     }
 }

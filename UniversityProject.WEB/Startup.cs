@@ -49,7 +49,7 @@ namespace UniversityProject.WEB
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            serviceProvider.InitializeDB();
+            serviceProvider.InitializeDB().GetAwaiter().GetResult();
         }
     }
 }
