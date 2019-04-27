@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using UniversityProject.BusinessLogic.Configs;
 
 namespace UniversityProject.WEB
@@ -25,7 +26,7 @@ namespace UniversityProject.WEB
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -47,6 +48,8 @@ namespace UniversityProject.WEB
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            serviceProvider.InitializeDB();
         }
     }
 }
