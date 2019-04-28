@@ -42,7 +42,7 @@ namespace UniversityProject.BusinessLogic.Services
         {
             ApplicationUser user = new ApplicationUser();//_accountMapper.MapRegisterViewModelToApplicationUser(viewModel);
 
-            if (!(await _userManager.FindByEmailAsync(viewModel.Email) is null) || !(await _userManager.FindByNameAsync(viewModel.UserID) is null))
+            if (!(await _userManager.FindByEmailAsync(viewModel.Email) is null) || !(await _userManager.FindByNameAsync(viewModel.Username) is null))
             {
                 throw new AccountException("Account with such Email or UserID already exists");
             }
@@ -56,7 +56,7 @@ namespace UniversityProject.BusinessLogic.Services
                 throw new AccountException(responseError);
             }
 
-            ApplicationUser userRegistered = await _userManager.FindByNameAsync(viewModel.UserID);
+            ApplicationUser userRegistered = await _userManager.FindByNameAsync(viewModel.Username);
 
             await EmailConfirmation(userRegistered, viewModel.CurrentUrl);
 

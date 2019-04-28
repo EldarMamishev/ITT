@@ -1,5 +1,10 @@
 ﻿@import "pages/account.scss";
+@import "pages/login.scss";
 
 .d-none {
     display: none !important;
+}
+
+.d-block {
+    display: block !important;
 }
