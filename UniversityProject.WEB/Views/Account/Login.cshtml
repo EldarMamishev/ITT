@@ -1,0 +1,111 @@
+﻿@model string
+
+@{
+    Layout = "_AccountLayout";
+    ViewData["Title"] = "Login";
+}
+
+@*<div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card-group mb-0">
+                    <div class="card p-2">
+                        <div class="card-block">
+                            <form asp-action="Login">
+                                <input value="@Model" class="d-none" name="ReturnUrl" />
+                                <h1>Login</h1>
+                                <p class="text-muted">Sign In to your account</p>
+                                <div class="input-group mb-1">
+                                    <span class="input-group-addon">
+                                        <i class="icon-user"></i>
+                                    </span>
+                                    <input type="text" id="userName" name="userName" class="form-control" placeholder="Username">
+                                    <p id="userNameErrorMessage" class="error-message"></p>
+                                </div>
+                                <div class="input-group mb-2">
+                                    <span class="input-group-addon">
+                                        <i class="icon-lock"></i>
+                                    </span>
+                                    <input type="password" id="password" name="password" class="form-control" placeholder="Password">
+                                    <p id="passwordErrorMessage" class="error-message"></p>
+                                </div>
+
+                                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button type="submit" class="btn btn-primary px-2">Login</button>
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        <a asp-action="ForgetPassword" class="btn btn-link px-0">Forgot password?</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card card-inverse card-primary py-3 hidden-md-down" style="width:44%">
+                        <div class="card-block text-center">
+                            <div>
+                                <h2>Sign up</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <a class="btn btn-register active mt-1" asp-action="Register">Register Now!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>*@
+@*<script src="~/js/views/login.js"></script>
+    <script src="~/js/popovers.js"></script>*@
+
+<!-- ESTILOS BOOSTRAP 4 -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+
+<div class="container-fluid register-login">
+    <div class="row wrapper">
+        <div class="col-lg padding-none bg-image-container">
+            <div class="container__image">
+                <div class="image--points"></div>
+            </div>
+        </div>
+        <div class="col-lg form-center d-flex justify-content-center align-items-center">
+            <div class="container-form">
+                <h1 class="register-login-h1">Login</h1>
+                <p class="register-login-p">Welcome to university project! Please enter your credentials</p>
+                <form asp-action="Login" name="loginForm" id="loginForm">
+                    <input value="@Model" class="d-none" name="ReturnUrl" />
+                    <div class="form-group">
+                        <input type="text" id="apodo" name="apodo" class="form-control" required>
+                        <label for="apodo" class="form-label">Username</label>
+                    </div>
+                    <div class="form-group margin--bottom">
+                        <input type="password" id="password" name="password" class="form-control" required>
+                        <label for="password" class="form-label">Password</label>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <input class="form-check-input checked--form--input" type="checkbox" id="remember" value="">
+                            <label class="form-check-label order-2" for="remember">Remember me</label>
+                            <label class="label--ckecked order-1" for="remember"></label>
+                        </div>
+                        <a href="#" class="forgot__password--link">Forgot your password?</a>
+                    </div>
+                    <div class="d-flex justify-content-lg-between">
+                        <button type="submit" class="btn btn-login align-self-center" name="acceso" id="acceso">Log in</button>
+                    </div>
+                    <a href="#" class="register-link--haveaccount">You do not have an account? Sign up</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ARCHIVOS JS DE BOOSTRAP 4 -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
