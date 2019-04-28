@@ -16,7 +16,7 @@ namespace UniversityProject.BusinessLogic.Services
     public class AccountService : IAccountService
     {
         #region Properties
-        private IAccountMapper _accountMapper;
+        //private IAccountMapper _accountMapper;
 
         private IEmailProvider _emailProvider;
 
@@ -25,10 +25,10 @@ namespace UniversityProject.BusinessLogic.Services
         #endregion
 
         #region Constructors
-        public AccountService(IAccountMapper accountMapper, IEmailProvider emailProvider, 
+        public AccountService(/*IAccountMapper accountMapper,*/ IEmailProvider emailProvider, 
             UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
-            _accountMapper = accountMapper;
+            //_accountMapper = accountMapper;
 
             _emailProvider = emailProvider;
 
@@ -38,114 +38,114 @@ namespace UniversityProject.BusinessLogic.Services
         #endregion
 
         #region Public Methods
-        public async Task RegisterNewUser(RegisterNewUserView viewModel)
-        {
-            ApplicationUser user = _accountMapper.MapRegisterViewModelToApplicationUser(viewModel);
+        //public async Task RegisterNewUser(RegisterNewUserView viewModel)
+        //{
+        //    ApplicationUser user = _accountMapper.MapRegisterViewModelToApplicationUser(viewModel);
 
-            if (!(await _userManager.FindByEmailAsync(viewModel.Email) is null) || !(await _userManager.FindByNameAsync(viewModel.UserID) is null))
-            {
-                throw new AccountException("Account with such Email or UserID already exists");
-            }
+        //    if (!(await _userManager.FindByEmailAsync(viewModel.Email) is null) || !(await _userManager.FindByNameAsync(viewModel.UserID) is null))
+        //    {
+        //        throw new AccountException("Account with such Email or UserID already exists");
+        //    }
 
-            IdentityResult result = await _userManager.CreateAsync(user, viewModel.Password);
+        //    IdentityResult result = await _userManager.CreateAsync(user, viewModel.Password);
 
-            if (!result.Succeeded)
-            {
-                string responseError = result.GetFirstError();
+        //    if (!result.Succeeded)
+        //    {
+        //        string responseError = result.GetFirstError();
 
-                throw new AccountException(responseError);
-            }
+        //        throw new AccountException(responseError);
+        //    }
 
-            ApplicationUser userRegistered = await _userManager.FindByNameAsync(viewModel.UserID);
+        //    ApplicationUser userRegistered = await _userManager.FindByNameAsync(viewModel.UserID);
 
-            await EmailConfirmation(userRegistered, viewModel.CurrentUrl);
+        //    await EmailConfirmation(userRegistered, viewModel.CurrentUrl);
 
-            await _userManager.AddToRoleAsync(userRegistered, ApplicationConstants.USER_ROLE);
-        }
+        //    await _userManager.AddToRoleAsync(userRegistered, ApplicationConstants.USER_ROLE);
+        //}
 
-        public async Task<IdentityResult> ConfirmAccount(ConfirmAccountAccountView viewModel)
-        {
-            var result = new IdentityResult();
+        //public async Task<IdentityResult> ConfirmAccount(ConfirmAccountAccountView viewModel)
+        //{
+        //    var result = new IdentityResult();
 
-            if (viewModel.UserId is null || viewModel.Token is null)
-            {
-                return result;
-            }
+        //    if (viewModel.UserId is null || viewModel.Token is null)
+        //    {
+        //        return result;
+        //    }
 
-            ApplicationUser user = await _userManager.FindByIdAsync(viewModel.UserId);
+        //    ApplicationUser user = await _userManager.FindByIdAsync(viewModel.UserId);
 
-            if (user is null)
-            {
-                return result;
-            }
+        //    if (user is null)
+        //    {
+        //        return result;
+        //    }
 
-            if (user.EmailConfirmed)
-            {
-                result = IdentityResult.Success;
+        //    if (user.EmailConfirmed)
+        //    {
+        //        result = IdentityResult.Success;
 
-                return result;
-            }
+        //        return result;
+        //    }
 
-            result = await _userManager.ConfirmEmailAsync(user, viewModel.Token);
+        //    result = await _userManager.ConfirmEmailAsync(user, viewModel.Token);
 
-            return result;
-        }
+        //    return result;
+        //}
 
-        public async Task ResetPassword(ResetPasswordAccountView viewModel)
-        {
-            ApplicationUser user = await _userManager.FindByIdAsync(viewModel.UserID);
+        //public async Task ResetPassword(ResetPasswordAccountView viewModel)
+        //{
+        //    ApplicationUser user = await _userManager.FindByIdAsync(viewModel.UserID);
 
-            if (user is null)
-            {
-                throw new AccountException("User not found.");
-            }
+        //    if (user is null)
+        //    {
+        //        throw new AccountException("User not found.");
+        //    }
 
-            if (!viewModel.Password.Equals(viewModel.ConfirmPassword))
-            {
-                throw new AccountException("Passwords are different.");
-            }
+        //    if (!viewModel.Password.Equals(viewModel.ConfirmPassword))
+        //    {
+        //        throw new AccountException("Passwords are different.");
+        //    }
 
-            await _userManager.ResetPasswordAsync(user, viewModel.Token, viewModel.Password);
-        }
+        //    await _userManager.ResetPasswordAsync(user, viewModel.Token, viewModel.Password);
+        //}
 
-        public async Task ForgetPassword(ForgetPasswordAccountView viewModel)
-        {
-            ApplicationUser user = await _userManager.FindByNameAsync(viewModel.UserID);
+        //public async Task ForgetPassword(ForgetPasswordAccountView viewModel)
+        //{
+        //    ApplicationUser user = await _userManager.FindByNameAsync(viewModel.UserID);
 
-            if (user is null)
-            {
-                throw new AccountException("User is not found.");
-            }
+        //    if (user is null)
+        //    {
+        //        throw new AccountException("User is not found.");
+        //    }
 
-            if (!user.Email.Equals(viewModel.Email))
-            {
-                throw new AccountException("Emails are different.");
-            }
+        //    if (!user.Email.Equals(viewModel.Email))
+        //    {
+        //        throw new AccountException("Emails are different.");
+        //    }
 
-            await CreateForgetPasswordEmail(user, viewModel.CurrentUrl);
-        }
+        //    await CreateForgetPasswordEmail(user, viewModel.CurrentUrl);
+        //}
 
-        public async Task SignIn(LoginAccountAccountView loginAccountAccountView)
-        {
-            var user = await _userManager.FindByNameAsync(loginAccountAccountView.UserName);
+        //public async Task SignIn(LoginAccountAccountView loginAccountAccountView)
+        //{
+        //    var user = await _userManager.FindByNameAsync(loginAccountAccountView.UserName);
 
-            if (user is null)
-            {
-                throw new AccountException("Couldn't sign in. UserName or password is incorrect.");
-            }
+        //    if (user is null)
+        //    {
+        //        throw new AccountException("Couldn't sign in. UserName or password is incorrect.");
+        //    }
 
-            if (!user.EmailConfirmed)
-            {
-                throw new AccountException("Couldn't sign in. Please, confirm your email address.");
-            }
+        //    if (!user.EmailConfirmed)
+        //    {
+        //        throw new AccountException("Couldn't sign in. Please, confirm your email address.");
+        //    }
 
-            SignInResult result = await _signInManager.PasswordSignInAsync(loginAccountAccountView.UserName, loginAccountAccountView.Password, false, false);
+        //    SignInResult result = await _signInManager.PasswordSignInAsync(loginAccountAccountView.UserName, loginAccountAccountView.Password, false, false);
 
-            if (!result.Succeeded)
-            {
-                throw new AccountException("Couldn't sign in. UserName or password is incorrect.");
-            }
-        }
+        //    if (!result.Succeeded)
+        //    {
+        //        throw new AccountException("Couldn't sign in. UserName or password is incorrect.");
+        //    }
+        //}
 
         public async Task SignOut()
         {

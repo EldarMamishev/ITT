@@ -1,0 +1,20 @@
+{
+  "name": "asp.net",
+  "dependencies": {
+    "del": "^2.2.2",
+    "bootstrap": "^4.3.1",
+    "gulp": "^3.9.1",
+    "node-sass": "^4.11.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-filter": "^4.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-sass": "^4.0.2",
+    "gulp-uglify": "^2.0.0",
+    "main-bower-files": "^2.13.1",
+    "run-sequence": "^1.2.2"
+  }
+}

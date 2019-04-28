@@ -16,4 +16,8 @@
     <ProjectReference Include="..\UniversityProject.ViewModels\UniversityProject.ViewModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\css\" />
+  </ItemGroup>
+
 </Project>
