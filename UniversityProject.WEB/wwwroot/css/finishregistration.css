@@ -1,0 +1,118 @@
+﻿body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+ol {
+    margin-left:20px !important;
+}
+
+.info {
+    background-color: #3498db;
+    height: 100vh;
+    overflow: auto;
+    color: #fdfdfd;
+    position: relative;
+}
+
+.btn-sbmt-blue {
+    background-color: #3498db;
+    color: #fff;
+}
+    .info .overlay {
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        background-position: center center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        opacity: 0.2;
+        z-index: 2;
+    }
+
+    .info .content {
+        position: absolute;
+        z-index: 100;
+        padding: 40px 40px;
+    }
+
+        .info .content h2 {
+            margin-bottom: 20px;
+        }
+
+        .info .content p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .info .content ol li {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+.form {
+    background-color: #F1F9FF;
+    height: 100vh;
+    overflow: auto;
+}
+
+    .form .cont-form {
+        padding: 40px 40px;
+    }
+
+        .form .cont-form .section-title {
+            color: #95989A;
+            margin-bottom: 15px;
+        }
+
+        .form .cont-form .section-form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 3px 3px 5px rgba(238, 238, 238, 0.6), -3px -3px 5px rgba(238, 238, 238, 0.6);
+            -webkit-box-shadow: 3px 3px 5px rgba(238, 238, 238, 0.6), -3px -3px 5px rgba(238, 238, 238, 0.6);
+            margin-bottom: 40px;
+            color: #95989A;
+        }
+
+        .form .cont-form .section-form {
+        }
+
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.col-md-4,
+.col-md-8 {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+@media (min-width: 576px) {
+}
+
+/* medium devices */
+@media (min-width: 768px) {
+}
+
+/* large devices */
+@media (min-width: 992px) {
+}
+
+/* extra large devices */
+@media (min-width: 1200px) {
+}
+
+@media (max-width: 1000px) {
+    .info .content,
+    .form .cont-form {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+

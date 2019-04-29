@@ -106,7 +106,13 @@ namespace UniversityProject.WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ConfirmAccount(ConfirmAccountAccountView viewModel)
+        public IActionResult FinishRegistration(FinishRegistrationAccountView viewModel)
+        {
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ConfirmAccount([FromForm]ConfirmAccountAccountView viewModel)
         {
             IdentityResult result = await _accountService.ConfirmAccount(viewModel);
 

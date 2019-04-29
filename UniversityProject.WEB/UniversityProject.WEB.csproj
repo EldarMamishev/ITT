@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\emailTemplates\ConfirmationEmailTemplate.html" />
+    <Content Remove="wwwroot\emailTemplates\ForgetPasswordEmailTemplate.html" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="bootstrap" Version="4.3.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
@@ -18,7 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\css\" />
+    <None Include="wwwroot\emailTemplates\ConfirmationEmailTemplate.html" />
+    <None Include="wwwroot\emailTemplates\ForgetPasswordEmailTemplate.html" />
   </ItemGroup>
 
 </Project>

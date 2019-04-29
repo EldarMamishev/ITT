@@ -1,0 +1,117 @@
+﻿@using UniversityProject.ViewModels.AccountViewModels
+@model FinishRegistrationAccountView
+
+@{
+    Layout = "_AccountLayout";
+    ViewData["Title"] = "FinishRegistration";
+}
+
+<link rel="stylesheet" href="~/css/finishregistration.css" />
+<body>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="info">
+                <div class="overlay"></div>
+                <div class="content">
+                    <h2>Hello @Model.Username</h2>
+                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officiaExcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
+                    <h2>Terms &amp; Conditions:</h2>
+                    <ol>
+                        <li>Team members should not exceed 6.</li>
+                        <li>A banner with information about the project should be printed (Template will be provided).</li>
+                        <li>A filtration process will be done based on answers and accepted projects will be asked for a video explaining the project.</li>
+                        <li>A prototype should be provided.</li>
+                        <li>Registration fee of 100 LE per team will be paid for accepted final projects.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="form">
+                <div class="cont-form">
+                    <form asp-action="ConfirmAccount">
+                        <input value="@Model.UserId" class="d-none" name="userId" />
+                        <input value="@Model.Token" class="d-none" name="token" />
+
+                        <h3 class="section-title">User information</h3>
+                        <div class="section-form">
+                            <div class="form-group">
+                                <label for="">FirstName <span>*</span></label>
+                                <input type="text" name="firstName" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="">LastName <span>*</span></label>
+                                <input type="text" name="lastName" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="">MiddleName</label>
+                                <input type="text" name="middleName" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Parent's Phone Number <span>*</span></label>
+                                <input type="text" name="parentsPhoneNumber" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Birth Date <span>*</span></label>
+                                <input type="datetime" name="birthDate" class="form-control">
+                            </div>
+                        </div>
+
+                        <h3 class="section-title">Living information</h3>
+                        <div class="section-form">
+                            <div class="form-group">
+                                <label for="">Country <span>*</span></label>
+                                <input type="text" class="form-control" name="country">
+                            </div>
+                            <div class="form-group">
+                                <label for="">City <span>*</span></label>
+                                <input type="text" class="form-control" name="city">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Address <span>*</span></label>
+                                <input type="text" class="form-control" name="addressLine">
+                            </div>
+                        </div>
+
+                        <h3 class="section-title">Education information</h3>
+                        <div class="section-form">
+                            <div class="form-group">
+                                <label for="">University <span>*</span></label>
+                                <input type="text" class="form-control" name="" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Faculty <span>*</span></label>
+                                <input type="text" class="form-control" name="" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Department <span>*</span></label>
+                                <input type="text" class="form-control" name="" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Project Title <span>*</span></label>
+                                <small id="" class="form-text text-muted">Please, Provide a clear title for your project</small>
+                                <input type="text" class="form-control" name="" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="">What is the category of your project ? <span>*</span></label>
+                                <small id="" class="form-text text-muted">You can select more than one option</small>
+                                <select class="form-control" name="" id="">
+                                    <option></option>
+                                    <option></option>
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <input type="submit" class="btn btn-sbmt-blue btn-block" value="Finish registration">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="~/js/pages/finishRegistration.js"></script>

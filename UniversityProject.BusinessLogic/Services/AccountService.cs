@@ -40,7 +40,10 @@ namespace UniversityProject.BusinessLogic.Services
         #region Public Methods
         public async Task RegisterNewUser(RegisterNewUserAccountView viewModel)
         {
-            ApplicationUser user = new ApplicationUser();//_accountMapper.MapRegisterViewModelToApplicationUser(viewModel);
+            var user = new Student();//_accountMapper.MapRegisterViewModelToApplicationUser(viewModel);
+            user.Email = viewModel.Email;
+            user.UserName = viewModel.Username;
+            user.ParentsPhoneNumber = "123456789";
 
             if (!(await _userManager.FindByEmailAsync(viewModel.Email) is null) || !(await _userManager.FindByNameAsync(viewModel.Username) is null))
             {
@@ -162,7 +165,7 @@ namespace UniversityProject.BusinessLogic.Services
             string token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             string tokenHtmlVersion = HttpUtility.UrlEncode(token);
 
-            string linkAddress = $"{uri}Account/ConfirmAccount?userId={user.Id}&token={tokenHtmlVersion}";
+            string linkAddress = $"{uri}Account/FinishRegistration?userId={user.Id}&token={tokenHtmlVersion}&username={user.UserName}";
 
             string solutionDir = Directory.GetCurrentDirectory();
             string path = $"{solutionDir}{ApplicationConstants.PATH_TO_CONFIRMATION_EMAIL_TEMPLATE}";
