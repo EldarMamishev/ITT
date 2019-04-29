@@ -32,7 +32,7 @@ namespace UniversityProject.BusinessLogic.Configs
                 options.Cookie.Name = ApplicationConstants.APPLICATION_COOKIE_NAME;
 
                 options.LoginPath = "/Account/Login";
-                options.AccessDeniedPath = "/Account/Login";
+                options.AccessDeniedPath = "/";
                 options.SlidingExpiration = true;
             });
         }

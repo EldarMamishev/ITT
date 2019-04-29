@@ -145,7 +145,7 @@ namespace UniversityProject.BusinessLogic.Services
 
         public async Task SignIn(LoginAccountAccountView loginAccountAccountView)
         {
-            var user = await _userManager.FindByNameAsync(loginAccountAccountView.Username);
+            var user = await _userManager.FindByEmailAsync(loginAccountAccountView.Email);
 
             if (user is null)
             {
@@ -157,7 +157,7 @@ namespace UniversityProject.BusinessLogic.Services
                 throw new AccountException("Couldn't sign in. Please, confirm your email address.");
             }
 
-            SignInResult result = await _signInManager.PasswordSignInAsync(loginAccountAccountView.Username, loginAccountAccountView.Password, false, false);
+            SignInResult result = await _signInManager.PasswordSignInAsync(user.UserName, loginAccountAccountView.Password, false, false);
 
             if (!result.Succeeded)
             {
