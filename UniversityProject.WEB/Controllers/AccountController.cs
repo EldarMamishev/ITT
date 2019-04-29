@@ -42,16 +42,19 @@ namespace UniversityProject.WEB.Controllers
                 return View();
             }
         }
+
         [HttpGet]
         public IActionResult Login(string returnUrl)
         {
             return View(returnUrl as object);
         }
+
         [HttpGet]
         public IActionResult ForgetPassword()
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> ForgetPassword(ForgetPasswordAccountView forgetPasswordView)
         {
@@ -68,11 +71,13 @@ namespace UniversityProject.WEB.Controllers
                 return View();
             }
         }
+
         [HttpGet]
         public IActionResult ResetPassword(string userID, string token)
         {
             return View((userID, token));
         }
+
         [HttpPost]
         public async Task<IActionResult> TryResetPassword(ResetPasswordAccountView viewModel)
         {
@@ -87,6 +92,7 @@ namespace UniversityProject.WEB.Controllers
                 return View();
             }
         }
+
         [HttpPost]
         public async Task<IActionResult> RegisterNewStudentUser([FromForm]RegisterNewStudentUserAccountView registerNewUserView)
         {

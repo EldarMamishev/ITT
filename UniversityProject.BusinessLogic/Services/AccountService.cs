@@ -123,7 +123,7 @@ namespace UniversityProject.BusinessLogic.Services
                 throw new AccountException("Passwords are different.");
             }
 
-            await _userManager.ResetPasswordAsync(user, viewModel.Token, viewModel.Password);
+            IdentityResult result = await _userManager.ResetPasswordAsync(user, viewModel.Token, viewModel.Password);
         }
 
         public async Task ForgetPassword(ForgetPasswordAccountView viewModel)
@@ -206,7 +206,7 @@ namespace UniversityProject.BusinessLogic.Services
             string token = await _userManager.GeneratePasswordResetTokenAsync(user);
             string tokenHtmlVersion = HttpUtility.UrlEncode(token);
 
-            string linkAddress = $"{uri}Account/ResetPassword?userID={user.Id}&token={tokenHtmlVersion}";
+            string linkAddress = $"{uri}Account/ResetPassword?userId={user.Id}&token={tokenHtmlVersion}";
 
             string solutionDir = Directory.GetCurrentDirectory();
             string path = $"{solutionDir}{ApplicationConstants.PATH_TO_FORGET_PASSWORD_EMAIL_TEMPLATE}";
@@ -217,7 +217,6 @@ namespace UniversityProject.BusinessLogic.Services
                 body = reader.ReadToEnd();
             }
 
-            body = body.Replace("{UserName}", user.UserName);
             body = body.Replace("{Name}", user.FirstName);
             body = body.Replace("{Action_url}", linkAddress);
 
