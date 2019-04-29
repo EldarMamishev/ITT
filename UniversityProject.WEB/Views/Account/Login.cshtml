@@ -5,7 +5,7 @@
     ViewData["Title"] = "Login";
 }
 
-<div class="container go-register">
+<div class="container-login go-register">
     <div class="form__container form__container-login">
         <form asp-action="Login" class="form">
             <input value="@Model" class="d-none" name="ReturnUrl" />
@@ -17,7 +17,7 @@
         </form>
     </div>
     <div class="form__container form__container-register">
-        <form asp-action="Register" class="form">
+        <form asp-action="RegisterNewStudentUser" class="form">
             <input value="@Model" class="d-none" name="ReturnUrl" />
             <h3 class="form__heading">Create Account</h3>
             <input type="text" name="username" placeholder="username" class="form__field">

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using UniversityProject.BusinessLogic.Mappers;
+using UniversityProject.BusinessLogic.Mappers.Interfaces;
 using UniversityProject.BusinessLogic.Providers;
 using UniversityProject.BusinessLogic.Providers.Interfaces;
 using UniversityProject.BusinessLogic.Services;
@@ -24,7 +26,7 @@ namespace UniversityProject.BusinessLogic.Configs
             #endregion
 
             #region Mappers
-            //services.AddTransient<IAccountMapper, AccountMapper>();
+            services.AddTransient<IAccountMapper, AccountMapper>();
             #endregion
 
             #region Repositories

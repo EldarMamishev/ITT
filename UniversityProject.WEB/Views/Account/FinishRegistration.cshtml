@@ -3,7 +3,7 @@
 
 @{
     Layout = "_AccountLayout";
-    ViewData["Title"] = "FinishRegistration";
+    ViewData["Title"] = "Finish Registration";
 }
 
 <link rel="stylesheet" href="~/css/finishregistration.css" />
@@ -30,11 +30,11 @@
         <div class="col-md-8">
             <div class="form">
                 <div class="cont-form">
-                    <form asp-action="ConfirmAccount">
+                    <form asp-action="FinishRegistrationAndConfirmAccount">
                         <input value="@Model.UserId" class="d-none" name="userId" />
                         <input value="@Model.Token" class="d-none" name="token" />
 
-                        <h3 class="section-title">User information</h3>
+                        <h3 class="section-title">Personal information</h3>
                         <div class="section-form">
                             <div class="form-group">
                                 <label for="">FirstName <span>*</span></label>
@@ -47,6 +47,10 @@
                             <div class="form-group">
                                 <label for="">MiddleName</label>
                                 <input type="text" name="middleName" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Personal Phone Number <span>*</span></label>
+                                <input type="text" name="phoneNumber" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="">Parent's Phone Number <span>*</span></label>

@@ -88,13 +88,13 @@ namespace UniversityProject.WEB.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> Register([FromForm]RegisterNewUserAccountView registerNewUserView)
+        public async Task<IActionResult> RegisterNewStudentUser([FromForm]RegisterNewStudentUserAccountView registerNewUserView)
         {
             try
             {
                 var url = new Uri($"{Request.Scheme}://{Request.Host}");
                 registerNewUserView.CurrentUrl = url;
-                await _accountService.RegisterNewUser(registerNewUserView);
+                await _accountService.RegisterNewStudentUser(registerNewUserView);
 
                 return RedirectToAction("LogIn", "Account");
             }
@@ -112,18 +112,13 @@ namespace UniversityProject.WEB.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ConfirmAccount([FromForm]ConfirmAccountAccountView viewModel)
+        public async Task<IActionResult> FinishRegistrationAndConfirmAccount([FromForm]FinishRegistrationAndConfirmAccountAccountView viewModel)
         {
-            IdentityResult result = await _accountService.ConfirmAccount(viewModel);
+            IdentityResult result = await _accountService.FinishRegistrationAndConfirmAccount(viewModel);
 
             return RedirectToAction("LogIn", "Account");
         }
 
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
         [HttpGet]
         public async Task<IActionResult> LogOut()
         {

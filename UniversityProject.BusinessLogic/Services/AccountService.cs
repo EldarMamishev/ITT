@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using UniversityProject.BusinessLogic.Exceptions;
 using UniversityProject.BusinessLogic.Extentions;
+using UniversityProject.BusinessLogic.Mappers.Interfaces;
 using UniversityProject.BusinessLogic.Providers.Interfaces;
 using UniversityProject.BusinessLogic.Services.Interfaces;
 using UniversityProject.Entities.Entities;
@@ -16,7 +17,7 @@ namespace UniversityProject.BusinessLogic.Services
     public class AccountService : IAccountService
     {
         #region Properties
-        //private IAccountMapper _accountMapper;
+        private IAccountMapper _accountMapper;
 
         private IEmailProvider _emailProvider;
 
@@ -25,10 +26,10 @@ namespace UniversityProject.BusinessLogic.Services
         #endregion
 
         #region Constructors
-        public AccountService(/*IAccountMapper accountMapper,*/ IEmailProvider emailProvider, 
+        public AccountService(IAccountMapper accountMapper, IEmailProvider emailProvider, 
             UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
-            //_accountMapper = accountMapper;
+            _accountMapper = accountMapper;
 
             _emailProvider = emailProvider;
 
@@ -38,12 +39,17 @@ namespace UniversityProject.BusinessLogic.Services
         #endregion
 
         #region Public Methods
-        public async Task RegisterNewUser(RegisterNewUserAccountView viewModel)
+        public async Task RegisterNewStudentUser(RegisterNewStudentUserAccountView viewModel)
         {
-            var user = new Student();//_accountMapper.MapRegisterViewModelToApplicationUser(viewModel);
+            var user = new Student();
+
             user.Email = viewModel.Email;
             user.UserName = viewModel.Username;
-            user.ParentsPhoneNumber = "123456789";
+
+            if (!viewModel.Password.Equals(viewModel.ConfirmPassword))
+            {
+                throw new AccountException("Passwords are different");
+            }
 
             if (!(await _userManager.FindByEmailAsync(viewModel.Email) is null) || !(await _userManager.FindByNameAsync(viewModel.Username) is null))
             {
@@ -66,20 +72,20 @@ namespace UniversityProject.BusinessLogic.Services
             await _userManager.AddToRoleAsync(userRegistered, ApplicationConstants.USER_ROLE);
         }
 
-        public async Task<IdentityResult> ConfirmAccount(ConfirmAccountAccountView viewModel)
+        public async Task<IdentityResult> FinishRegistrationAndConfirmAccount(FinishRegistrationAndConfirmAccountAccountView viewModel)
         {
             var result = new IdentityResult();
 
             if (viewModel.UserId is null || viewModel.Token is null)
             {
-                return result;
+                throw new AccountException("Error finishing registration.");
             }
 
             ApplicationUser user = await _userManager.FindByIdAsync(viewModel.UserId);
 
             if (user is null)
             {
-                return result;
+                throw new AccountException("User not found.");
             }
 
             if (user.EmailConfirmed)
@@ -89,8 +95,17 @@ namespace UniversityProject.BusinessLogic.Services
                 return result;
             }
 
-            result = await _userManager.ConfirmEmailAsync(user, viewModel.Token);
+            _accountMapper.MapFinishRegistrationAndConfirmAccountToApplicationUser(viewModel, user as Student);
 
+            IdentityResult updateResult = await _userManager.UpdateAsync(user);
+
+            if (!updateResult.Succeeded)
+            {
+                throw new AccountException("Error updating user.");
+            }
+
+            result = await _userManager.ConfirmEmailAsync(user, viewModel.Token);
+            
             return result;
         }
 
