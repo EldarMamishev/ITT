@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UniversityProject.BusinessLogic.Exceptions
+namespace UniversityProject.Shared.Exceptions.BusinessLogicExceptions
 {
     public class AccountException : Exception
     {

@@ -9,6 +9,8 @@ using UniversityProject.BusinessLogic.Providers;
 using UniversityProject.BusinessLogic.Providers.Interfaces;
 using UniversityProject.BusinessLogic.Services;
 using UniversityProject.BusinessLogic.Services.Interfaces;
+using UniversityProject.DataAccess.Interfaces;
+using UniversityProject.DataAccess.Repositories;
 using UniversityProject.Entities.Entities;
 
 namespace UniversityProject.BusinessLogic.Configs
@@ -32,7 +34,10 @@ namespace UniversityProject.BusinessLogic.Configs
             #endregion
 
             #region Repositories
-            //services.AddTransient<IAccountRepository, AccountRepository>();
+            services.AddTransient<IFacultyRepository, FacultyRepository>();
+            services.AddTransient<IGroupRepository, GroupRepository>();
+            services.AddTransient<IChairRepository, ChairRepository>();
+            services.AddTransient<ISubjectRepository, SubjectRepository>();
             #endregion
 
             #region Services

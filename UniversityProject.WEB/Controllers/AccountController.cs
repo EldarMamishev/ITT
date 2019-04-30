@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using UniversityProject.BusinessLogic.Exceptions;
 using UniversityProject.BusinessLogic.Services.Interfaces;
+using UniversityProject.Shared.Exceptions.BusinessLogicExceptions;
 using UniversityProject.ViewModels.AccountViewModels;
 
 namespace UniversityProject.WEB.Controllers

@@ -3,13 +3,13 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Web;
-using UniversityProject.BusinessLogic.Exceptions;
 using UniversityProject.BusinessLogic.Extentions;
 using UniversityProject.BusinessLogic.Mappers.Interfaces;
 using UniversityProject.BusinessLogic.Providers.Interfaces;
 using UniversityProject.BusinessLogic.Services.Interfaces;
 using UniversityProject.Entities.Entities;
 using UniversityProject.Shared.Constants;
+using UniversityProject.Shared.Exceptions.BusinessLogicExceptions;
 using UniversityProject.ViewModels.AccountViewModels;
 
 namespace UniversityProject.BusinessLogic.Services
