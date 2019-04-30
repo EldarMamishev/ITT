@@ -10,8 +10,7 @@ namespace UniversityProject.Entities.Entities
     {
         public PartOfEducationYearType PartOfEducationYear { get; set; }
         public DateTime Year { get; set; }
-        //public int? JournalId { get; set; }
-        //[ForeignKey("JournalId")]
+
         public Journal Journal { get; set; }
 
         public ICollection<SemesterSubject> SemesterSubjects { get; set; }

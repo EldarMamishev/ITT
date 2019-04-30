@@ -16,8 +16,6 @@ namespace UniversityProject.Entities.Entities
         [ForeignKey("CourseId")]
         public Course Course { get; set; }
 
-        //public int? JournalId { get; set; }
-        //[ForeignKey("JournalId")]
         public Journal Journal { get; set; }
 
         public ICollection<Student> Students { get; set; }
