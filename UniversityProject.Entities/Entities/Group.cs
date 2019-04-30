@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using UniversityProject.Entities.Entities.Base;
+using UniversityProject.Entities.Enums;
 
 namespace UniversityProject.Entities.Entities
 {
@@ -11,10 +12,11 @@ namespace UniversityProject.Entities.Entities
         [MaxLength(30)]
         public string Cipher { get; set; }
         public DateTime CreationYear { get; set; }
+        public CourseNumberType CourseNumberType { get; set; }
 
-        public int? CourseId { get; set; }
-        [ForeignKey("CourseId")]
-        public Course Course { get; set; }
+        public int? FacultyId { get; set; }
+        [ForeignKey("FacultyId")]
+        public Faculty Faculty { get; set; }
 
         public Journal Journal { get; set; }
 

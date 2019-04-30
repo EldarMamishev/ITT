@@ -21,12 +21,12 @@ namespace UniversityProject.Entities.Entities
         //public string ViceDeanName { get; set; }
 
         public ICollection<Chair> Chairs { get; set; }
-        public ICollection<Course> Courses { get; set; }
+        public ICollection<Group> Groups { get; set; }
 
         public Faculty() : base()
         {
-            Courses = new List<Course>();
             Chairs = new List<Chair>();
+            Groups = new List<Group>();
         }
     }
 }

@@ -13,6 +13,9 @@
             <input type="email" name="email" placeholder="email" class="form__field">
             <input type="password" name="password" placeholder="password" class="form__field">
             <a asp-action="ForgetPassword" class="form__text d-block">Forgot password?</a>
+            
+            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
             <button type="submit" class="btn btn--main">Sign In</button>
         </form>
     </div>
@@ -24,12 +27,15 @@
             <input type="email" name="email" placeholder="email" class="form__field">
             <input type="password" name="password" placeholder="password" class="form__field">
             <input type="password" name="confirmPassword" placeholder="confirm password" class="form__field">
+
+            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
             <button type="submit" class="btn btn--main">Sign Up</button>
         </form>
     </div>
     <div class="overlay-container">
         <div class="overlay overlay--right">
-            <h3 class="overlay__heading">Hello Friend</h3>
+            <h3 class="overlay__heading">Hello Friend!</h3>
             <p class="overlay__desc">Enter your personal details and start journey with us</p>
             <button type="button" id="go-register" class="btn btn--main-outline">Sign Up</button>
         </div>
