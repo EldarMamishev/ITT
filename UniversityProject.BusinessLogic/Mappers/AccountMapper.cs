@@ -14,7 +14,6 @@ namespace UniversityProject.BusinessLogic.Mappers
             mapTo.BirthDate = mapFrom.BirthDate;
             mapTo.PhoneNumber = mapFrom.PhoneNumber;
             mapTo.ParentsPhoneNumber = mapFrom.ParentsPhoneNumber;
-            mapTo.CurrentCourseYear = mapFrom.CurrentCourseYear;
             mapTo.Country = mapFrom.Country;
             mapTo.City = mapFrom.City;
             mapTo.AddressLine = mapFrom.AddressLine;

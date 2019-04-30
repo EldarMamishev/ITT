@@ -1,14 +1,30 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using UniversityProject.Entities.Entities.Base;
 
 namespace UniversityProject.Entities.Entities
 {
     public class Group : BaseEntity
     {
-        [MaxLength(20)]
-        public string Name { get; set; }
         [MaxLength(30)]
         public string Cipher { get; set; }
-        public int FacultyId { get; set; }
+        public DateTime CreationYear { get; set; }
+
+        public int? CourseId { get; set; }
+        [ForeignKey("CourseId")]
+        public Course Course { get; set; }
+
+        //public int? JournalId { get; set; }
+        //[ForeignKey("JournalId")]
+        public Journal Journal { get; set; }
+
+        public ICollection<Student> Students { get; set; }
+
+        public Group()
+        {
+            Students = new List<Student>();
+        }
     }
 }

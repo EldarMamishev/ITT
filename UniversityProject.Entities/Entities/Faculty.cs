@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using UniversityProject.Entities.Entities.Base;
 
 namespace UniversityProject.Entities.Entities
@@ -7,10 +8,25 @@ namespace UniversityProject.Entities.Entities
     {
         [MaxLength(30)]
         public string Name { get; set; }
-        public int StudentsCount { get; set; }
         [MaxLength(30)]
-        public string DeanName { get; set; }
-        [MaxLength(30)]
-        public string ViceDeanName { get; set; }
+        public string Cipher { get; set; }
+        [MaxLength(50)]
+        public string Address { get; set; }
+        [MaxLength(20)]
+        public string PhoneNumber { get; set; }
+        public uint StudentsCount { get; set; }
+        //[MaxLength(30)]
+        //public string DeanName { get; set; }
+        //[MaxLength(30)]
+        //public string ViceDeanName { get; set; }
+
+        public ICollection<Chair> Chairs { get; set; }
+        public ICollection<Course> Courses { get; set; }
+
+        public Faculty() : base()
+        {
+            Courses = new List<Course>();
+            Chairs = new List<Chair>();
+        }
     }
 }

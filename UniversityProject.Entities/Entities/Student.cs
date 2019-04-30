@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UniversityProject.Entities.Entities
@@ -7,15 +8,16 @@ namespace UniversityProject.Entities.Entities
     {
         [MaxLength(20)]
         public string ParentsPhoneNumber { get; set; }
-
-        public int? FacultyId { get; set; }
-        [ForeignKey("FacultyId")]
-        public Faculty Faculty { get; set; }
-
+        
         public int? GroupId { get; set; }
         [ForeignKey("GroupId")]
         public Group Group { get; set; }
 
-        public int CurrentCourseYear { get; set; }
+        public ICollection<StudentStatement> StudentStatements { get; set; }
+
+        public Student() : base()
+        {
+            StudentStatements = new List<StudentStatement>();
+        }
     }
 }
