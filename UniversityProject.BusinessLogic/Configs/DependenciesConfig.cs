@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using UniversityProject.BusinessLogic.Fabrics;
+using UniversityProject.BusinessLogic.Fabrics.Interfaces;
 using UniversityProject.BusinessLogic.Mappers;
 using UniversityProject.BusinessLogic.Mappers.Interfaces;
 using UniversityProject.BusinessLogic.Providers;
@@ -35,6 +37,10 @@ namespace UniversityProject.BusinessLogic.Configs
 
             #region Services
             services.AddTransient<IAccountService, AccountService>();
+            #endregion
+
+            #region Register Fabrics
+            services.AddTransient<IMenuItemsFabric, MenuItemsFabric>();
             #endregion
         }
     }
