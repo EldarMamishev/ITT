@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UniversityProject.BusinessLogic.Fabrics.Interfaces;
 using UniversityProject.Shared.Constants;
+using UniversityProject.ViewModels.Faculty;
 using UniversityProject.WEB.Controllers.Base;
 
 namespace UniversityProject.WEB.Controllers
@@ -32,6 +29,17 @@ namespace UniversityProject.WEB.Controllers
             return View(viewName: "Faculty");
         }
 
+        [HttpGet]
+        public IActionResult CreateFaculty()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateFaculty(CreateFacultyAdminView viewModel)
+        {
+            return RedirectToAction("ShowFaculties");
+        }
         #endregion
     }
 }

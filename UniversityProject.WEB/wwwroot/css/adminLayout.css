@@ -1,6 +1,59 @@
 @charset "UTF-8";
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,400italic);
 @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css);
+.form {
+  width: 100%; }
+  .form__heading {
+    font-size: 40px;
+    margin-bottom: 15px; }
+  .form__field {
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+    padding-left: 15px;
+    margin-bottom: 15px;
+    background: #f4f8f7;
+    border: none; }
+    .form__field:last-child {
+      margin-bottom: 0; }
+    .form__field::-webkit-input-placeholder {
+      /* Chrome/Opera/Safari */
+      text-transform: capitalize; }
+    .form__field::-moz-placeholder {
+      /* Firefox 19+ */
+      text-transform: capitalize; }
+    .form__field:-ms-input-placeholder {
+      /* IE 10+ */
+      text-transform: capitalize; }
+    .form__field:-moz-placeholder {
+      /* Firefox 18- */
+      text-transform: capitalize; }
+    .form__field:focus, .form__field:active {
+      outline: 0; }
+  .form__text {
+    margin-bottom: 15px;
+    font-size: 14px; }
+
+.btn {
+  padding: 10px 30px;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px; }
+  .btn--main {
+    background: linear-gradient(45deg, #2980b9, #3498db);
+    color: #fff; }
+  .btn--main-outline {
+    border: 2px solid linear-gradient(45deg, #2980b9, #3498db);
+    color: #2980b9; }
+  .btn:hover {
+    cursor: pointer; }
+  .btn:focus, .btn:active {
+    outline: 0; }
+
+.panel-navbar {
+  display: flex;
+  justify-content: space-between; }
+
 html {
   box-sizing: border-box; }
 
@@ -346,3 +399,36 @@ td {
       width: 96%; }
     .panel.secondary {
       width: 23%; } }
+
+.form {
+  width: 100%; }
+  .form__heading {
+    font-size: 40px;
+    margin-bottom: 15px; }
+  .form__field {
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+    padding-left: 15px;
+    margin-bottom: 15px;
+    background: #f4f8f7;
+    border: none; }
+    .form__field:last-child {
+      margin-bottom: 0; }
+    .form__field::-webkit-input-placeholder {
+      /* Chrome/Opera/Safari */
+      text-transform: capitalize; }
+    .form__field::-moz-placeholder {
+      /* Firefox 19+ */
+      text-transform: capitalize; }
+    .form__field:-ms-input-placeholder {
+      /* IE 10+ */
+      text-transform: capitalize; }
+    .form__field:-moz-placeholder {
+      /* Firefox 18- */
+      text-transform: capitalize; }
+    .form__field:focus, .form__field:active {
+      outline: 0; }
+  .form__text {
+    margin-bottom: 15px;
+    font-size: 14px; }

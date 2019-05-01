@@ -1,0 +1,24 @@
+﻿@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "CreateFaculty";
+}
+
+<section class="panel important">
+    <div class="panel-navbar">
+        <h2>Create Faculty</h2>
+    </div>
+</section>
+
+<section class="panel important">
+    <form asp-action="CreateFaculty" class="form">
+        <input type="text" name="name" placeholder="faculty name" class="form__field">
+        <input type="text" name="cipher" placeholder="faculty cipher" class="form__field">
+        <input type="text" name="address" placeholder="faculty address" class="form__field">
+        <input type="text" name="phoneNumber" placeholder="faculty phone number" class="form__field">
+        <input type="number" name="studentsCount" placeholder="students count" class="form__field">
+
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+        <button type="submit" class="btn btn--main">Create Faculty</button>
+    </form>
+</section>

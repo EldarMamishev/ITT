@@ -1,40 +1,15 @@
-﻿
-@{
+﻿@{
     Layout = "_AdminLayout";
     ViewData["Title"] = "Faculty";
 }
 
 <section class="panel important">
-    <h2>Faculties</h2>
+    <div class="panel-navbar">
+        <h2>Faculties</h2>
+        <a asp-action="CreateFaculty" id="go-login" class="btn btn--main-outline">Create Faculty</a>
+    </div>
 </section>
 
-@*<div class="tab-pane fade show active" id="nav-reminders" role="tabpanel" aria-labelledby="reminders-tab">
-    <div class="user-details">
-        <div class="row d-flex justify-content-between mb-4 m-0">
-            <div class="col-md-12">
-                <input id="documentReminderSearch" name="documentReminderSearch" placeholder="Search..." class="form-control search-input" autocomplete="off" />
-            </div>
-        </div>
-        <div class="loader-wrap">
-            <div class="loader table-loader" id="gridRemaindersLoader">
-                <div class="spinner-wrap">
-                    <div class="spinner"></div>
-                </div>
-            </div>
-            <div id="gridReminders" class="mt-4"></div>
-        </div>
-
-        <div class="row m-0">
-            <div class="mt-3 d-flex justify-content-between col-md-12 pagination-wrap">
-                <div class="d-flex my-1">
-                    <select id="remindersPageSize" class="form-control select-footer">
-                        <option>10</option>
-                        <option>20</option>
-                    </select>
-                    <span class="d-flex align-items-center ml-3">Records per pages</span>
-                </div>
-                <div id="jsGridReminderPages" class="my-1"></div>
-            </div>
-        </div>
-    </div>
-</div>*@
+<div class="panel important">
+    
+</div>

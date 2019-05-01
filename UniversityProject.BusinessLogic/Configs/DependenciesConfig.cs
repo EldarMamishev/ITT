@@ -42,6 +42,7 @@ namespace UniversityProject.BusinessLogic.Configs
 
             #region Services
             services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IAdminService, AdminService>();
             #endregion
 
             #region Register Fabrics
