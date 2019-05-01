@@ -406,3 +406,6 @@ body {
 
 .d-block {
   display: block !important; }
+
+.container-show {
+  padding-top: 50px; }

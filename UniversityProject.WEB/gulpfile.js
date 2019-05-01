@@ -21,7 +21,7 @@ gulp.task('serve', ['sass'], function () {
 
 // Static Server without watching scss files
 gulp.task('sass', function () {
-    return gulp.src('./Sass/style.scss')
+    return gulp.src(['./Sass/style.scss', './Sass/layouts/adminLayout.scss'])
         .pipe(sass())
         .pipe(gulp.dest('./wwwroot/css'));
 });

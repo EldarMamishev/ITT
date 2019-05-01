@@ -23,3 +23,30 @@
     $goLogin.addEventListener('click', _toggleForm);
     $goRegister.addEventListener('click', _toggleForm);
 })(document);
+
+let emailField = "#email";
+let emailErrorMessage = "#registerErrorMessage";
+$(emailField).focusout(function () {
+    validateEmailField();
+});
+function validateEmailField() {
+    let fieldValue = $(emailField).val();
+    let regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    if (fieldValue === "") {
+        $(emailErrorMessage).text("The field can't be empty.");
+        $(emailErrorMessage).removeClass("d-none");
+        emailValidation = false;
+        return;
+    }
+
+    if (!regex.test(fieldValue)) {
+        $(emailErrorMessage).text("The field does not fit the requirements. Please, try again.");
+        $(emailErrorMessage).removeClass("d-none");
+        emailValidation = false;
+        return;
+    }
+
+    $(emailErrorMessage).addClass("d-none");
+    emailValidation = true;
+}
