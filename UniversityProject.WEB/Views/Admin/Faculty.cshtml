@@ -9,6 +9,26 @@
 <link href="~/lib/kendo/kendo.material.css" rel="stylesheet" />
 <link href="~/lib/kendo/kendo.material.mobile.css" rel="stylesheet" />
 
+<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="delete-profile-header">
+                    <h3>Delete Faculty</h3>
+                    <i class="fa fa-times" aria-hidden="true" onclick="closeModal()"></i>
+                </div>
+            </div>
+            <div class="modal-body text-center">
+                Are you sure to delete item?
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn confirm-button" onclick="confirmDelete()">Confirm</button>
+                <button type="button" class="btn cancel-button" onclick="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <section class="panel important">
     <div class="panel-navbar">
         <h2>Faculties</h2>

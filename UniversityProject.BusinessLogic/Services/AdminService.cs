@@ -61,6 +61,18 @@ namespace UniversityProject.BusinessLogic.Services
 
             await _facultyRepository.Update(faculty);
         }
+
+        public async Task DeleteFaculty(int id)
+        {
+            Faculty faculty = await _facultyRepository.Get(id);
+
+            if (faculty is null)
+            {
+                throw new AccountException("Such faculty doesn't exist.");
+            }
+
+            await _facultyRepository.Delete(id);
+        }
         #endregion
     }
 }

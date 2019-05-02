@@ -67,6 +67,14 @@ namespace UniversityProject.WEB.Controllers
 
             return RedirectToAction("ShowFaculties");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteFaculty(int id)
+        {
+            await _adminService.DeleteFaculty(id);
+
+            return new JsonResult(new OkResult());
+        }
         #endregion
     }
 }

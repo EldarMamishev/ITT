@@ -24,13 +24,12 @@ $(document).ready(function () {
             {
                 command: [
                     { text: "View Details", click: showDetails },
-                    { name: "edit", text: "Edit", click: openEditFacultyItem },
-                    { name: "destroy", text: "Delete" }
+                    { text: "Edit", click: openEditFacultyItem },
+                    { text: "Delete", click: onDeleteFacultyItem }
                 ],
                 title: "&nbsp;",
                 width: "180px"
             }
-            //{ command: ["View Details", "Edit", "destroy"], title: "&nbsp;", width: "180px" }
         ]
     }).data("kendoGrid");
 
@@ -57,4 +56,37 @@ function showDetails(e) {
 function openEditFacultyItem(e) {
     let dataItem = this.dataItem($(e.currentTarget).closest("tr"));
     window.location.href = "EditFaculty?id=" + dataItem.id;
+}
+
+var itemToDelete;
+var rowToDelete;
+function onDeleteFacultyItem(e) {
+    itemToDelete = this.dataItem($(e.currentTarget).closest("tr"));
+    rowToDelete = $(e.currentTarget).closest("tr");
+    
+    $("#confirmDelete").modal();
+}
+
+function confirmDelete() {
+    $.ajax({
+        type: "GET",
+        async: false,
+        url: "/Admin/DeleteFaculty",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: {
+            "id": itemToDelete.id
+        },
+        success: function (data) {
+            $("#grid").data("kendoGrid").removeRow(rowToDelete);
+            closeModal();
+        },
+        error: function (data) {
+            console.log(data.responseJSON.message);
+        }
+    });    
+}
+
+function closeModal() {
+    $('#confirmDelete').modal('hide');
 }

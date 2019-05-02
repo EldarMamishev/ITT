@@ -67,6 +67,110 @@
   margin: 0;
   display: inline; }
 
+.delete-profile-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #5D5C5C;
+  padding-bottom: 10px;
+  color: #5D5C5C; }
+  .delete-profile-header h3 {
+    font-size: 20px;
+    font-weight: 400; }
+  .delete-profile-header i {
+    cursor: pointer;
+    color: #5D5C5C; }
+
+.change-pass-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #3498db;
+  padding-bottom: 10px;
+  color: #3498db; }
+  .change-pass-header h3 {
+    font-size: 20px;
+    font-weight: 400; }
+  .change-pass-header i {
+    cursor: pointer;
+    color: #3498db; }
+
+.modal-content {
+  min-width: 600px;
+  border-color: #5D5C5C; }
+  @media screen and (max-width: 767px) {
+    .modal-content {
+      min-width: 300px; } }
+  .modal-content .modal-items {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    padding-bottom: 36px; }
+    @media screen and (max-width: 620px) {
+      .modal-content .modal-items {
+        flex-direction: column; } }
+    .modal-content .modal-items .modal-item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 0 40px;
+      color: #686868;
+      font-size: 14px; }
+
+.modal {
+  z-index: 99999;
+  padding: 0 !important; }
+  .modal .modal-dialog {
+    max-width: 100%;
+    height: 100%;
+    display: flex;
+    margin: 0; }
+  .modal .modal-header .header-block {
+    color: #7B7B7B;
+    border-bottom: 1px solid #7B7B7B; }
+    .modal .modal-header .header-block i {
+      color: #7B7B7B; }
+  .modal .modal-content {
+    max-width: 600px;
+    margin: auto; }
+    .modal .modal-content.modal-large {
+      max-width: 1280px; }
+    .modal .modal-content.modal-middle {
+      max-width: 716px; }
+  .modal.modal-external-upload .modal-header {
+    padding: 30px;
+    padding-bottom: 0; }
+  .modal.modal-external-upload .modal-body {
+    padding: 0 30px 0px 20px; }
+    @media screen and (max-width: 767px) {
+      .modal.modal-external-upload .modal-body .contant-wrap {
+        flex-direction: column; } }
+  .modal.modal-external-upload .button-group {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 21px;
+    min-width: 221px;
+    border-right: 1px solid #CCCCCC; }
+    .modal.modal-external-upload .button-group button {
+      height: 31px;
+      background: transparent;
+      border: none;
+      color: #7B7B7B;
+      cursor: pointer; }
+      .modal.modal-external-upload .button-group button.active {
+        background: #3498db;
+        color: white; }
+
+.modal-header {
+  border: 0px; }
+
+.modal-table-wrap {
+  max-height: 410px;
+  overflow: auto; }
+
 html {
   box-sizing: border-box; }
 
