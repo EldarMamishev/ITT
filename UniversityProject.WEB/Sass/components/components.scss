@@ -80,3 +80,21 @@ $sec-color: #3498db;
     display: flex;
     justify-content: space-between;
 }
+
+//faculty table
+#details-container {
+    padding: 10px;
+}
+
+#details-container h2 {
+    margin: 0;
+}
+
+#details-container em {
+    color: #8c8c8c;
+}
+
+#details-container dt {
+    margin: 0;
+    display: inline;
+}

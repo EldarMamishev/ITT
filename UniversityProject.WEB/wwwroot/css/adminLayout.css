@@ -54,6 +54,19 @@
   display: flex;
   justify-content: space-between; }
 
+#details-container {
+  padding: 10px; }
+
+#details-container h2 {
+  margin: 0; }
+
+#details-container em {
+  color: #8c8c8c; }
+
+#details-container dt {
+  margin: 0;
+  display: inline; }
+
 html {
   box-sizing: border-box; }
 
@@ -334,8 +347,9 @@ td {
   padding: 0 10px; }
 
 @media screen and (min-width: 600px) {
-  html, body {
-    height: 100%; }
+  /*html, body {
+        height: 100%;
+    }*/
   header[role=banner] {
     position: fixed;
     top: 0;

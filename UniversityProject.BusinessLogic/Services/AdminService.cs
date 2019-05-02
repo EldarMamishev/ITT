@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using UniversityProject.BusinessLogic.Mappers.Interfaces;
 using UniversityProject.BusinessLogic.Services.Interfaces;
 using UniversityProject.DataAccess.Interfaces;
@@ -24,6 +25,15 @@ namespace UniversityProject.BusinessLogic.Services
         #endregion
 
         #region Public Methods
+        public async Task<ShowFacultiesAdminView> ShowFaculties()
+        {
+            List<Faculty> faculties = await _facultyRepository.GetAll() as List<Faculty>;
+
+            ShowFacultiesAdminView result = _facultyMapper.MapAllFacultiesToViewModel(faculties);
+
+            return result;
+        }
+
         public async Task CreateFaculty(CreateFacultyAdminView viewModel)
         {
             Faculty faculty = _facultyMapper.MapToFacultyModel(viewModel);

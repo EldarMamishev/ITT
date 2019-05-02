@@ -31,9 +31,11 @@ namespace UniversityProject.WEB.Controllers
         }
 
         [HttpGet]
-        public IActionResult ShowFaculties()
+        public async Task<IActionResult> ShowFaculties()
         {
-            return View(viewName: "Faculty");
+            ShowFacultiesAdminView result = await _adminService.ShowFaculties();
+
+            return View(viewName: "Faculty", result);
         }
 
         [HttpGet]
