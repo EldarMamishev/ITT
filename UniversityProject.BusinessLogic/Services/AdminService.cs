@@ -182,6 +182,24 @@ namespace UniversityProject.BusinessLogic.Services
 
             await _chairRepository.Create(chair);
         }
+
+        //TODO EditChair zakonchit, mappers
+        public async Task<EditChairDataAdminView> EditChair(int id)
+        {
+            var faculties = await _facultyRepository.GetAll() as List<Faculty>;
+
+            var viewModel = new CreateChairDataAdminView();
+
+            foreach (Faculty faculty in faculties)
+            {
+                var item = new CreateChairDataAdminViewItem();
+
+                item.Id = faculty.Id;
+                item.FacultyName = faculty.Name;
+
+                viewModel.Faculties.Add(item);
+            }
+        }
         #endregion
 
         #endregion

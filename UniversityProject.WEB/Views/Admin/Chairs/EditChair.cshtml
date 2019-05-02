@@ -1,0 +1,34 @@
+﻿@using UniversityProject.ViewModels.AdminViewModels.ChairViewModels
+@model EditChairDataAdminView
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Edit Chair";
+}
+
+<section class="panel important">
+    <div class="panel-navbar">
+        <h2>Edit Chair</h2>
+    </div>
+</section>
+
+<section class="panel important">
+    <form asp-action="EditChair" class="form">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <input type="hidden" name="previousName" value="@Model.Name" />
+        <input type="hidden" name="previousCipher" value="@Model.Cipher" />
+        <input type="text" name="name" placeholder="chair name" class="form__field" value="@Model.Name">
+        <input type="text" name="cipher" placeholder="chair cipher" class="form__field" value="@Model.Cipher">
+        <select name="facultyId" value="@Model.FacultyId">
+            @foreach (var faculty in Model.Faculties)
+            {
+                <option value="@faculty.Id">@faculty.FacultyName</option>
+            }
+        </select>
+
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+        <a asp-action="ShowChairs" class="btn btn--main-outline">Go Back</a>
+        <button type="submit" class="btn btn--main">Edit Chair</button>
+    </form>
+</section>

@@ -139,6 +139,30 @@ namespace UniversityProject.WEB.Controllers
                 return View("Chairs/CreateChair");
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> EditChair(int id)
+        {
+            EditChairDataAdminView result = await _adminService.EditChair(id);
+
+            return View("Chairs/EditChair", result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditChair(EditChairAdminView viewModel)
+        {
+            try
+            {
+                await _adminService.EditChair(viewModel);
+
+                return RedirectToAction("ShowChairs");
+            }
+            catch (AdminException ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View("Chairs/EditChair", viewModel);
+            }
+        }
         #endregion
 
         #endregion
