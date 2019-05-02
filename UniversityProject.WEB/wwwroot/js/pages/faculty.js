@@ -1,4 +1,4 @@
-﻿var window, detailsTemplate, deleteTemplate;
+﻿var wnd, detailsTemplate, deleteTemplate;
 
 $(document).ready(function () {
     let grid = $("#grid").kendoGrid({
@@ -37,7 +37,7 @@ $(document).ready(function () {
         }
     }).data("kendoGrid");
 
-    window = $("#details")
+    wnd = $("#details")
         .kendoWindow({
             title: "Faculty Details",
             modal: true,
@@ -54,13 +54,13 @@ function showDetails(e) {
     e.preventDefault();
 
     let dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-    window.content(detailsTemplate(dataItem));
-    window.center().open();
+    wnd.content(detailsTemplate(dataItem));
+    wnd.center().open();
 }
 
 function openEditFacultyItem(e) {
     let dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-    window.location.href = "EditFaculty?id=" + dataItem.id;
+    wnd.location.href = "EditFaculty?id=" + dataItem.id;
 }
 
 var itemToDelete;
@@ -69,8 +69,8 @@ function onDeleteFacultyItem(e) {
     itemToDelete = this.dataItem($(e.currentTarget).closest("tr"));
     rowToDelete = $(e.currentTarget).closest("tr");
 
-    window.content(deleteTemplate(itemToDelete));
-    window.center().open();
+    wnd.content(deleteTemplate(itemToDelete));
+    wnd.center().open();
 }
 
 function confirmDelete(e) {
