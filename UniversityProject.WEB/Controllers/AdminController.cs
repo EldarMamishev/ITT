@@ -124,21 +124,21 @@ namespace UniversityProject.WEB.Controllers
             return View("Chairs/CreateChair", result);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> CreateChair(CreateChairAdminView viewModel)
-        //{
-        //    try
-        //    {
-        //        await _adminService.CreateChair(viewModel);
+        [HttpPost]
+        public async Task<IActionResult> CreateChair(CreateChairAdminView viewModel)
+        {
+            try
+            {
+                await _adminService.CreateChair(viewModel);
 
-        //        return RedirectToAction("ShowChairs");
-        //    }
-        //    catch (AdminException ex)
-        //    {
-        //        ModelState.AddModelError(string.Empty, ex.Message);
-        //        return View("Chairs/CreateChair");
-        //    }
-        //}
+                return RedirectToAction("ShowChairs");
+            }
+            catch (AdminException ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View("Chairs/CreateChair");
+            }
+        }
         #endregion
 
         #endregion

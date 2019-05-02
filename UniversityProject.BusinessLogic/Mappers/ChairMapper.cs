@@ -25,5 +25,16 @@ namespace UniversityProject.BusinessLogic.Mappers
 
             return viewModel;
         }
+
+        public Chair MapToChairModel(CreateChairAdminView viewModel)
+        {
+            var model = new Chair();
+
+            model.Name = viewModel.Name;
+            model.Cipher = viewModel.Cipher;
+            model.FacultyId = viewModel.FacultyId;
+
+            return model;
+        }
     }
 }

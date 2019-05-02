@@ -13,8 +13,8 @@
 
 <section class="panel important">
     <form asp-action="CreateChair" class="form">
-        <input type="text" name="name" placeholder="faculty name" class="form__field">
-        <input type="text" name="cipher" placeholder="faculty cipher" class="form__field">
+        <input type="text" name="name" placeholder="chair name" class="form__field">
+        <input type="text" name="cipher" placeholder="chair cipher" class="form__field">
         <select name="facultyId">
             @foreach (var faculty in Model.Faculties)
             {

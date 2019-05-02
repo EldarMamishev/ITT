@@ -22,5 +22,19 @@ namespace UniversityProject.DataAccess.Repositories
 
             return chairs;
         }
+
+        public async Task<Chair> FindChairByName(string name)
+        {
+            Chair faculty = await _context.Chairs.FirstOrDefaultAsync(f => f.Name.Equals(name));
+
+            return faculty;
+        }
+
+        public async Task<Chair> FindFacultyByCipher(string cipher)
+        {
+            Chair faculty = await _context.Chairs.FirstOrDefaultAsync(f => f.Cipher.Equals(cipher));
+
+            return faculty;
+        }
     }
 }

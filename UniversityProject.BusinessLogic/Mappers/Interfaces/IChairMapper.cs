@@ -7,5 +7,6 @@ namespace UniversityProject.BusinessLogic.Mappers.Interfaces
     public interface IChairMapper
     {
         ShowChairsAdminView MapAllChairsToViewModel(List<Chair> model);
+        Chair MapToChairModel(CreateChairAdminView viewModel);
     }
 }

@@ -8,5 +8,7 @@ namespace UniversityProject.DataAccess.Interfaces
     public interface IChairRepository : IBaseRepository<Chair>
     {
         Task<List<Chair>> GetAllChairsWithFaculty();
+        Task<Chair> FindChairByName(string name);
+        Task<Chair> FindFacultyByCipher(string cipher);
     }
 }

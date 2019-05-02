@@ -53,14 +53,14 @@ namespace UniversityProject.BusinessLogic.Services
 
             if (!(faculty is null))
             {
-                throw new AdminException("Such faculty already exist.");
+                throw new AdminException("Entered faculty already exist.");
             }
 
             faculty = await _facultyRepository.FindFacultyByCipher(viewModel.Cipher);
 
             if (!(faculty is null))
             {
-                throw new AdminException("Such cipher already occupied.");
+                throw new AdminException("Entered cipher already occupied.");
             }
 
             faculty = _facultyMapper.MapToFacultyModel(viewModel);
@@ -87,7 +87,7 @@ namespace UniversityProject.BusinessLogic.Services
 
                 if (!(faculty is null))
                 {
-                    throw new AdminException("Such faculty already exist.");
+                    throw new AdminException("Entered faculty already exist.");
                 }
             }
 
@@ -97,7 +97,7 @@ namespace UniversityProject.BusinessLogic.Services
 
                 if (!(faculty is null))
                 {
-                    throw new AdminException("Such cipher already occupied.");
+                    throw new AdminException("Entered cipher already occupied.");
                 }
             }
 
@@ -105,7 +105,7 @@ namespace UniversityProject.BusinessLogic.Services
 
             if (faculty is null)
             {
-                throw new AdminException("Such faculty doesn't exist.");
+                throw new AdminException("Entered faculty doesn't exist.");
             }
 
             _facultyMapper.MapFacultyEditViewModelToFacultyModel(faculty, viewModel);
@@ -119,7 +119,7 @@ namespace UniversityProject.BusinessLogic.Services
 
             if (faculty is null)
             {
-                throw new AdminException("Such faculty doesn't exist.");
+                throw new AdminException("Selected faculty doesn't exist.");
             }
 
             await _facultyRepository.Delete(id);
@@ -155,6 +155,33 @@ namespace UniversityProject.BusinessLogic.Services
             return viewModel;
         }
 
+        public async Task CreateChair(CreateChairAdminView viewModel)
+        {
+            Chair chair = await _chairRepository.FindChairByName(viewModel.Name);
+
+            if (!(chair is null))
+            {
+                throw new AdminException("Entered chair already exist.");
+            }
+
+            chair = await _chairRepository.FindFacultyByCipher(viewModel.Cipher);
+
+            if (!(chair is null))
+            {
+                throw new AdminException("Entered cipher already occupied.");
+            }
+
+            Faculty faculty = await _facultyRepository.Get(viewModel.FacultyId);
+
+            if (faculty is null)
+            {
+                throw new AdminException("Selected faculty doesn't exist.");
+            }
+
+            chair = _chairMapper.MapToChairModel(viewModel);
+
+            await _chairRepository.Create(chair);
+        }
         #endregion
 
         #endregion
