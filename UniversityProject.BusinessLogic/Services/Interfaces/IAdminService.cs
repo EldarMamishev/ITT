@@ -7,5 +7,7 @@ namespace UniversityProject.BusinessLogic.Services.Interfaces
     {
         Task<ShowFacultiesAdminView> ShowFaculties();
         Task CreateFaculty(CreateFacultyAdminView viewModel);
+        Task<EditFacultyAdminView> EditFaculty(int id);
+        Task EditFaculty(EditFacultyAdminView viewModel);
     }
 }

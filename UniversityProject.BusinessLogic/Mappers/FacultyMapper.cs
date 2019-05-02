@@ -9,15 +9,15 @@ namespace UniversityProject.BusinessLogic.Mappers
     {
         public Faculty MapToFacultyModel(CreateFacultyAdminView viewModel)
         {
-            var faculty = new Faculty();
+            var model = new Faculty();
 
-            faculty.Name = viewModel.Name;
-            faculty.Cipher = viewModel.Cipher;
-            faculty.Address = viewModel.Address;
-            faculty.PhoneNumber = viewModel.PhoneNumber;
-            faculty.StudentsCount = viewModel.StudentsCount;
+            model.Name = viewModel.Name;
+            model.Cipher = viewModel.Cipher;
+            model.Address = viewModel.Address;
+            model.PhoneNumber = viewModel.PhoneNumber;
+            model.StudentsCount = viewModel.StudentsCount;
 
-            return faculty;
+            return model;
         }
 
         public ShowFacultiesAdminView MapAllFacultiesToViewModel(List<Faculty> faculties)
@@ -39,6 +39,29 @@ namespace UniversityProject.BusinessLogic.Mappers
             }
 
             return returnViewModel;
+        }
+
+        public EditFacultyAdminView MapToEditFacultyViewModel(Faculty model)
+        {
+            var viewModel = new EditFacultyAdminView();
+
+            viewModel.Id = model.Id;
+            viewModel.Name = model.Name;
+            viewModel.Cipher = model.Cipher;
+            viewModel.Address = model.Address;
+            viewModel.PhoneNumber = model.PhoneNumber;
+            viewModel.StudentsCount = model.StudentsCount;
+
+            return viewModel;
+        }
+
+        public void MapFacultyEditViewModelToFacultyModel(Faculty model, EditFacultyAdminView viewModel)
+        {
+            model.Name = viewModel.Name;
+            model.Cipher = viewModel.Cipher;
+            model.Address = viewModel.Address;
+            model.PhoneNumber = viewModel.PhoneNumber;
+            model.StudentsCount = viewModel.StudentsCount;
         }
     }
 }

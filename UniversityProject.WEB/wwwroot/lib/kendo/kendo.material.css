@@ -3753,3 +3753,18 @@ table.k-editor {
     text-transform: uppercase
 }
 /*# sourceMappingURL=kendo.material.min.css.map */
+
+.k-header {
+    background-color: #3498db !important;
+    border-color: #3498db;
+    color: #fff !important;
+}
+
+    .k-header > .k-link {
+        color: #fff !important;
+    }
+
+.k-pager-numbers .k-state-selected {
+    border-color: #3498db !important;
+    color: #3498db !important;
+}

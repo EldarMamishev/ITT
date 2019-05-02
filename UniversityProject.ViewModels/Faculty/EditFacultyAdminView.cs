@@ -1,7 +1,8 @@
 ﻿namespace UniversityProject.ViewModels.Faculty
 {
-    public class CreateFacultyAdminView
+    public class EditFacultyAdminView
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Cipher { get; set; }
         public string Address { get; set; }

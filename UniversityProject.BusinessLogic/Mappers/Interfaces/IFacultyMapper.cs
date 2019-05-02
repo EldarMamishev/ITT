@@ -8,5 +8,7 @@ namespace UniversityProject.BusinessLogic.Mappers.Interfaces
     {
         Faculty MapToFacultyModel(CreateFacultyAdminView viewModel);
         ShowFacultiesAdminView MapAllFacultiesToViewModel(List<Faculty> faculties);
+        EditFacultyAdminView MapToEditFacultyViewModel(Faculty model);
+        void MapFacultyEditViewModelToFacultyModel(Faculty model, EditFacultyAdminView viewModel);
     }
 }

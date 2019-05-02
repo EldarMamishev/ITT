@@ -4,6 +4,7 @@ using UniversityProject.BusinessLogic.Mappers.Interfaces;
 using UniversityProject.BusinessLogic.Services.Interfaces;
 using UniversityProject.DataAccess.Interfaces;
 using UniversityProject.Entities.Entities;
+using UniversityProject.Shared.Exceptions.BusinessLogicExceptions;
 using UniversityProject.ViewModels.Faculty;
 
 namespace UniversityProject.BusinessLogic.Services
@@ -40,22 +41,26 @@ namespace UniversityProject.BusinessLogic.Services
             await _facultyRepository.Create(faculty);
         }
 
-        //private async Task<UsersSummaryResponse> GetSummaryAsync(string accessToken, int locationDetailId, int pageSize, int pageNumber = 1, string searchQuery = null)
-        //{
-        //    UsersSummaryRequest request = new UsersSummaryRequest
-        //    {
-        //        VersionNumber = VERSION_NUMBER,
-        //        Token = _requestToken,
-        //        LocationDetailId = locationDetailId,
-        //        PageSize = pageSize,
-        //        PageNumber = pageNumber,
-        //        QuickSearch = searchQuery
-        //    };
-        //    string requestResult = await ExecutePostAsync(GET_SUMMARY_URL, request, accessToken);
-        //    UsersSummaryResponse result = JsonConvert.DeserializeObject<UsersSummaryResponse>(requestResult);
-        //    PayloadListNullCheck(result.PayLoad);
-        //    return result;
-        //}
+        public async Task<EditFacultyAdminView> EditFaculty(int id)
+        {
+            Faculty faculty = await _facultyRepository.Get(id);
+            EditFacultyAdminView result = _facultyMapper.MapToEditFacultyViewModel(faculty);
+            return result;
+        }
+
+        public async Task EditFaculty(EditFacultyAdminView viewModel)
+        {
+            Faculty faculty = await _facultyRepository.Get(viewModel.Id);
+
+            if (faculty is null)
+            {
+                throw new AccountException("Such faculty doesn't exist.");
+            }
+
+            _facultyMapper.MapFacultyEditViewModelToFacultyModel(faculty, viewModel);
+
+            await _facultyRepository.Update(faculty);
+        }
         #endregion
     }
 }

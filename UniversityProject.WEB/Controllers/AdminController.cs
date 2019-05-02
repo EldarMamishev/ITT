@@ -51,6 +51,22 @@ namespace UniversityProject.WEB.Controllers
 
             return RedirectToAction("ShowFaculties");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> EditFaculty(int id)
+        {
+            EditFacultyAdminView result = await _adminService.EditFaculty(id);
+
+            return View(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditFaculty(EditFacultyAdminView viewModel)
+        {
+            await _adminService.EditFaculty(viewModel);
+
+            return RedirectToAction("ShowFaculties");
+        }
         #endregion
     }
 }
