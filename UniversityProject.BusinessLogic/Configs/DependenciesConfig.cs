@@ -32,6 +32,7 @@ namespace UniversityProject.BusinessLogic.Configs
             #region Mappers
             services.AddTransient<IAccountMapper, AccountMapper>();
             services.AddTransient<IFacultyMapper, FacultyMapper>();
+            services.AddTransient<IChairMapper, ChairMapper>();
             #endregion
 
             #region Repositories

@@ -5,6 +5,7 @@ using UniversityProject.BusinessLogic.Fabrics.Interfaces;
 using UniversityProject.BusinessLogic.Services.Interfaces;
 using UniversityProject.Shared.Constants;
 using UniversityProject.Shared.Exceptions.BusinessLogicExceptions;
+using UniversityProject.ViewModels.AdminViewModels.ChairViewModels;
 using UniversityProject.ViewModels.Faculty;
 using UniversityProject.WEB.Controllers.Base;
 
@@ -25,18 +26,22 @@ namespace UniversityProject.WEB.Controllers
         #endregion
 
         #region Public Methods   
+
+        #region Home
         [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
+        #endregion
 
+        #region Faculties
         [HttpGet]
         public async Task<IActionResult> ShowFaculties()
         {
             ShowFacultiesAdminView result = await _adminService.ShowFaculties();
 
-            return View(viewName: "Faculties/Faculty", result);
+            return View(viewName: "Faculties/Faculties", result);
         }
 
         [HttpGet]
@@ -52,7 +57,7 @@ namespace UniversityProject.WEB.Controllers
             {
                 await _adminService.CreateFaculty(viewModel);
 
-                return RedirectToAction("Faculties/ShowFaculties");
+                return RedirectToAction("ShowFaculties");
             }
             catch (AdminException ex)
             {
@@ -76,7 +81,7 @@ namespace UniversityProject.WEB.Controllers
             {
                 await _adminService.EditFaculty(viewModel);
 
-                return RedirectToAction("Faculties/ShowFaculties");
+                return RedirectToAction("ShowFaculties");
             }
             catch (AdminException ex)
             {
@@ -100,6 +105,42 @@ namespace UniversityProject.WEB.Controllers
                 return View("Faculties/ShowFaculties");
             }
         }
+        #endregion
+
+        #region Chairs
+        [HttpGet]
+        public async Task<IActionResult> ShowChairs()
+        {
+            ShowChairsAdminView result = await _adminService.ShowChairs();
+
+            return View(viewName: "Chairs/Chairs", result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CreateChair()
+        {
+            CreateChairDataAdminView result = await _adminService.LoadDataForCreateChairPage();
+
+            return View("Chairs/CreateChair", result);
+        }
+
+        //[HttpPost]
+        //public async Task<IActionResult> CreateChair(CreateChairAdminView viewModel)
+        //{
+        //    try
+        //    {
+        //        await _adminService.CreateChair(viewModel);
+
+        //        return RedirectToAction("ShowChairs");
+        //    }
+        //    catch (AdminException ex)
+        //    {
+        //        ModelState.AddModelError(string.Empty, ex.Message);
+        //        return View("Chairs/CreateChair");
+        //    }
+        //}
+        #endregion
+
         #endregion
     }
 }

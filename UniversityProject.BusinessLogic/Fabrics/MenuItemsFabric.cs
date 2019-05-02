@@ -35,7 +35,6 @@ namespace UniversityProject.BusinessLogic.Fabrics
                 {
                     AddAdminMenuViewModelItems(result.Items);
                 }
-                //TODO
                 if (userRole == ApplicationConstants.TEACHER_ROLE)
                 {
                     AddTeacherMenuViewModelItems(result.Items);
@@ -44,14 +43,6 @@ namespace UniversityProject.BusinessLogic.Fabrics
                 {
                     AddUserMenuViewModelItems(result.Items);
                 }
-                ////TODO: remove after preview.
-                //var item = new MenuViewModelItem()
-                //{
-                //    Title = "Preview: Admin KnowledgeBase",
-                //    ControllerName = "KnowledgeBase",
-                //    ActionName = "IndexEdit"
-                //};
-                //TryAddMenuViewModelItem(result.Items, item);
             }
 
             return result;
@@ -86,6 +77,14 @@ namespace UniversityProject.BusinessLogic.Fabrics
                 Title = "Faculties",
                 ControllerName = "Admin",
                 ActionName = "ShowFaculties"
+            };
+            TryAddMenuViewModelItem(items, item);
+
+            item = new MenuViewModelItem()
+            {
+                Title = "Chairs",
+                ControllerName = "Admin",
+                ActionName = "ShowChairs"
             };
             TryAddMenuViewModelItem(items, item);
 

@@ -5,6 +5,7 @@ using UniversityProject.BusinessLogic.Services.Interfaces;
 using UniversityProject.DataAccess.Interfaces;
 using UniversityProject.Entities.Entities;
 using UniversityProject.Shared.Exceptions.BusinessLogicExceptions;
+using UniversityProject.ViewModels.AdminViewModels.ChairViewModels;
 using UniversityProject.ViewModels.Faculty;
 
 namespace UniversityProject.BusinessLogic.Services
@@ -13,19 +14,30 @@ namespace UniversityProject.BusinessLogic.Services
     {
         #region Properties
         private IFacultyRepository _facultyRepository;
+        private IChairRepository _chairRepository;
 
         private IFacultyMapper _facultyMapper;
+        private IChairMapper _chairMapper;
         #endregion
 
         #region Constructors
-        public AdminService(IFacultyRepository facultyRepository, IFacultyMapper facultyMapper)
+        public AdminService(
+            IFacultyRepository facultyRepository,
+            IChairRepository chairRepository, 
+            IFacultyMapper facultyMapper,
+            IChairMapper chairMapper)
         {
             _facultyRepository = facultyRepository;
+            _chairRepository = chairRepository;
+
             _facultyMapper = facultyMapper;
+            _chairMapper = chairMapper;
         }
         #endregion
 
         #region Public Methods
+
+        #region Faculties
         public async Task<ShowFacultiesAdminView> ShowFaculties()
         {
             List<Faculty> faculties = await _facultyRepository.GetAll() as List<Faculty>;
@@ -69,7 +81,7 @@ namespace UniversityProject.BusinessLogic.Services
         {
             Faculty faculty = null;
 
-            if (!(viewModel.LastName.Equals(viewModel.Name)))
+            if (!(viewModel.LastName.ToUpper().Equals(viewModel.Name.ToUpper())))
             {
                 faculty = await _facultyRepository.FindFacultyByName(viewModel.Name);
 
@@ -79,7 +91,7 @@ namespace UniversityProject.BusinessLogic.Services
                 }
             }
 
-            if (!(viewModel.LastCipher.Equals(viewModel.Cipher)))
+            if (!(viewModel.LastCipher.ToUpper().Equals(viewModel.Cipher.ToUpper())))
             {
                 faculty = await _facultyRepository.FindFacultyByCipher(viewModel.Cipher);
 
@@ -112,6 +124,39 @@ namespace UniversityProject.BusinessLogic.Services
 
             await _facultyRepository.Delete(id);
         }
+        #endregion
+
+        #region Chairs
+        public async Task<ShowChairsAdminView> ShowChairs()
+        {
+            List<Chair> chairs = await _chairRepository.GetAllChairsWithFaculty();
+
+            ShowChairsAdminView result = _chairMapper.MapAllChairsToViewModel(chairs);
+
+            return result;
+        }
+
+        public async Task<CreateChairDataAdminView> LoadDataForCreateChairPage()
+        {
+            var faculties = await _facultyRepository.GetAll() as List<Faculty>;
+
+            var viewModel = new CreateChairDataAdminView();
+
+            foreach (Faculty faculty in faculties)
+            {
+                var item = new CreateChairDataAdminViewItem();
+
+                item.Id = faculty.Id;
+                item.FacultyName = faculty.Name;
+
+                viewModel.Faculties.Add(item);
+            }
+
+            return viewModel;
+        }
+
+        #endregion
+
         #endregion
     }
 }

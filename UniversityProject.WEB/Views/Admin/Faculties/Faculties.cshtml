@@ -2,7 +2,7 @@
 @model ShowFacultiesAdminView
 @{
     Layout = "_AdminLayout";
-    ViewData["Title"] = "Faculty";
+    ViewData["Title"] = "Faculties";
 }
 
 <link href="~/lib/kendo/kendo.common-material.css" rel="stylesheet" />
@@ -21,7 +21,7 @@
     <div id="details"></div>
 </div>
 
-<script type="text/x-kendo-template" id="template">
+<script type="text/x-kendo-template" id="detailWindowTemplate">
     <div id="details-container">
         <h4>Faculty: <em>#= name #</em></h4><br />
         <h4>Cipher: <em>#= cipher #</em></h4><br />

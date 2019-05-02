@@ -1,4 +1,7 @@
-﻿using UniversityProject.DataAccess.DataAccept;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using UniversityProject.DataAccess.DataAccept;
 using UniversityProject.DataAccess.Interfaces;
 using UniversityProject.DataAccess.Repositories.Base;
 using UniversityProject.Entities.Entities;
@@ -9,6 +12,15 @@ namespace UniversityProject.DataAccess.Repositories
     {
         public ChairRepository(ApplicationDbContext context) : base(context)
         {
+        }
+
+        public async Task<List<Chair>> GetAllChairsWithFaculty()
+        {
+            List<Chair> chairs = await _context.Chairs
+                .Include(item => item.Faculty)
+                .ToListAsync();
+
+            return chairs;
         }
     }
 }

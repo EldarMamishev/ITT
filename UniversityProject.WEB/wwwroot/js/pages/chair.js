@@ -1,10 +1,10 @@
 ﻿var window, detailsTemplate, deleteTemplate;
 
 $(document).ready(function () {
-    let grid = $("#grid").kendoGrid({
+    let grid = $("#chairsGrid").kendoGrid({
         dataSource: {
             pageSize: 10,
-            data: faculties
+            data: chairs
         },
         sortable: {
             mode: "single",
@@ -20,7 +20,7 @@ $(document).ready(function () {
             },
             { field: "name", title: "Name", width: "50px" },
             { field: "cipher", title: "Cipher", width: "80px" },
-            { field: "phoneNumber", title: "PhoneNumber", width: "140px" },
+            { field: "facultyName", title: "Faculty Name", width: "140px" },
             {
                 command: [
                     { text: "View Details", click: showDetails },
@@ -33,13 +33,13 @@ $(document).ready(function () {
         ],
         noRecords: true,
         messages: {
-            noRecords: "There are no faculties on current page"
+            noRecords: "There are no chairs on current page"
         }
     }).data("kendoGrid");
 
-    window = $("#details")
+    window = $("#chairDetails")
         .kendoWindow({
-            title: "Faculty Details",
+            title: "Chair Details",
             modal: true,
             visible: false,
             resizable: false,
@@ -60,7 +60,7 @@ function showDetails(e) {
 
 function openEditFacultyItem(e) {
     let dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-    window.location.href = "EditFaculty?id=" + dataItem.id;
+    window.location.href = "EditChair?id=" + dataItem.id;
 }
 
 var itemToDelete;
@@ -76,7 +76,7 @@ function onDeleteFacultyItem(e) {
 function confirmDelete(e) {
     $.ajax({
         type: "GET",
-        url: "/Admin/DeleteFaculty",
+        url: "/Admin/DeleteChair",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: {
@@ -89,7 +89,7 @@ function confirmDelete(e) {
         error: function (data) {
             console.log(data.responseJSON.message);
         }
-    });    
+    });
 }
 
 function closeModal(e) {

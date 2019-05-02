@@ -1,6 +1,9 @@
-﻿namespace UniversityProject.DataAccess.Interfaces
+﻿using UniversityProject.DataAccess.Interfaces.Base;
+using UniversityProject.Entities.Entities;
+
+namespace UniversityProject.DataAccess.Interfaces
 {
-    public interface IGroupRepository
+    public interface IGroupRepository : IBaseRepository<Group>
     {
     }
 }

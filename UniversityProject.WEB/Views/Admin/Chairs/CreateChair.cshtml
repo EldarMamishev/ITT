@@ -1,0 +1,30 @@
+﻿@using UniversityProject.ViewModels.AdminViewModels.ChairViewModels
+@model CreateChairDataAdminView
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Create Chair";
+}
+
+<section class="panel important">
+    <div class="panel-navbar">
+        <h2>Create Chair</h2>
+    </div>
+</section>
+
+<section class="panel important">
+    <form asp-action="CreateChair" class="form">
+        <input type="text" name="name" placeholder="faculty name" class="form__field">
+        <input type="text" name="cipher" placeholder="faculty cipher" class="form__field">
+        <select name="facultyId">
+            @foreach (var faculty in Model.Faculties)
+            {
+                <option value="@faculty.Id">@faculty.FacultyName</option>
+            }
+        </select>
+
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+        <a asp-action="ShowChairs" class="btn btn--main-outline">Go Back</a>
+        <button type="submit" class="btn btn--main">Create Chair</button>
+    </form>
+</section>
