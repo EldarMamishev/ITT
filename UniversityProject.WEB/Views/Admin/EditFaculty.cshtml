@@ -14,6 +14,8 @@
 <section class="panel important">
     <form asp-action="EditFaculty" class="form">
         <input type="hidden" name="id" value="@Model.Id" />
+        <input type="hidden" name="lastName" value="@Model.LastName" />
+        <input type="hidden" name="lastCipher" value="@Model.LastCipher" />
         <input type="text" name="name" placeholder="faculty name" class="form__field" value="@Model.Name">
         <input type="text" name="cipher" placeholder="faculty cipher" class="form__field" value="@Model.Cipher">
         <input type="text" name="address" placeholder="faculty address" class="form__field" value="@Model.Address">
@@ -23,7 +25,6 @@
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
         
         <a asp-action="ShowFaculties" class="btn btn--main-outline">Go Back</a>
-
         <button type="submit" class="btn btn--main">Edit Faculty</button>
     </form>
 </section>

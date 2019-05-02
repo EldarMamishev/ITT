@@ -1,4 +1,4 @@
-﻿var wnd, detailsTemplate;
+﻿var wnd, detailsTemplate, deleteTemplate;
 
 $(document).ready(function () {
     var grid = $("#grid").kendoGrid({
@@ -30,7 +30,11 @@ $(document).ready(function () {
                 title: "&nbsp;",
                 width: "180px"
             }
-        ]
+        ],
+        noRecords: true,
+        messages: {
+            noRecords: "There are no faculties on current page"
+        }
     }).data("kendoGrid");
 
     wnd = $("#details")
@@ -43,6 +47,7 @@ $(document).ready(function () {
         }).data("kendoWindow");
 
     detailsTemplate = kendo.template($("#template").html());
+    deleteTemplate = kendo.template($("#deleteWindowTemplate").html());
 });
 
 function showDetails(e) {
@@ -63,14 +68,14 @@ var rowToDelete;
 function onDeleteFacultyItem(e) {
     itemToDelete = this.dataItem($(e.currentTarget).closest("tr"));
     rowToDelete = $(e.currentTarget).closest("tr");
-    
-    $("#confirmDelete").modal();
+
+    wnd.content(deleteTemplate(itemToDelete));
+    wnd.center().open();
 }
 
-function confirmDelete() {
+function confirmDelete(e) {
     $.ajax({
         type: "GET",
-        async: false,
         url: "/Admin/DeleteFaculty",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -79,7 +84,7 @@ function confirmDelete() {
         },
         success: function (data) {
             $("#grid").data("kendoGrid").removeRow(rowToDelete);
-            closeModal();
+            closeModal(e);
         },
         error: function (data) {
             console.log(data.responseJSON.message);
@@ -87,6 +92,6 @@ function confirmDelete() {
     });    
 }
 
-function closeModal() {
-    $('#confirmDelete').modal('hide');
+function closeModal(e) {
+    $(e).closest("[data-role=window]").data("kendoWindow").close();
 }

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using UniversityProject.BusinessLogic.Fabrics.Interfaces;
 using UniversityProject.BusinessLogic.Services.Interfaces;
 using UniversityProject.Shared.Constants;
+using UniversityProject.Shared.Exceptions.BusinessLogicExceptions;
 using UniversityProject.ViewModels.Faculty;
 using UniversityProject.WEB.Controllers.Base;
 
@@ -47,9 +48,17 @@ namespace UniversityProject.WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateFaculty(CreateFacultyAdminView viewModel)
         {
-            await _adminService.CreateFaculty(viewModel);
+            try
+            {
+                await _adminService.CreateFaculty(viewModel);
 
-            return RedirectToAction("ShowFaculties");
+                return RedirectToAction("ShowFaculties");
+            }
+            catch (AdminException ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View();
+            }
         }
 
         [HttpGet]
@@ -63,17 +72,33 @@ namespace UniversityProject.WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> EditFaculty(EditFacultyAdminView viewModel)
         {
-            await _adminService.EditFaculty(viewModel);
+            try
+            {
+                await _adminService.EditFaculty(viewModel);
 
-            return RedirectToAction("ShowFaculties");
+                return RedirectToAction("ShowFaculties");
+            }
+            catch (AdminException ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View();
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> DeleteFaculty(int id)
         {
-            await _adminService.DeleteFaculty(id);
+            try
+            {
+                await _adminService.DeleteFaculty(id);
 
-            return new JsonResult(new OkResult());
+                return new JsonResult(new OkResult());
+            }
+            catch (AdminException ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View();
+            }
         }
         #endregion
     }

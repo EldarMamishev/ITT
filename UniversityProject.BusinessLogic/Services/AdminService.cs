@@ -37,24 +37,63 @@ namespace UniversityProject.BusinessLogic.Services
 
         public async Task CreateFaculty(CreateFacultyAdminView viewModel)
         {
-            Faculty faculty = _facultyMapper.MapToFacultyModel(viewModel);
+            Faculty faculty = await _facultyRepository.FindFacultyByName(viewModel.Name);
+
+            if (!(faculty is null))
+            {
+                throw new AdminException("Such faculty already exist.");
+            }
+
+            faculty = await _facultyRepository.FindFacultyByCipher(viewModel.Cipher);
+
+            if (!(faculty is null))
+            {
+                throw new AdminException("Such cipher already occupied.");
+            }
+
+            faculty = _facultyMapper.MapToFacultyModel(viewModel);
+
             await _facultyRepository.Create(faculty);
         }
 
         public async Task<EditFacultyAdminView> EditFaculty(int id)
         {
             Faculty faculty = await _facultyRepository.Get(id);
+
             EditFacultyAdminView result = _facultyMapper.MapToEditFacultyViewModel(faculty);
+
             return result;
         }
 
         public async Task EditFaculty(EditFacultyAdminView viewModel)
         {
-            Faculty faculty = await _facultyRepository.Get(viewModel.Id);
+            Faculty faculty = null;
+
+            if (!(viewModel.LastName.Equals(viewModel.Name)))
+            {
+                faculty = await _facultyRepository.FindFacultyByName(viewModel.Name);
+
+                if (!(faculty is null))
+                {
+                    throw new AdminException("Such faculty already exist.");
+                }
+            }
+
+            if (!(viewModel.LastCipher.Equals(viewModel.Cipher)))
+            {
+                faculty = await _facultyRepository.FindFacultyByCipher(viewModel.Cipher);
+
+                if (!(faculty is null))
+                {
+                    throw new AdminException("Such cipher already occupied.");
+                }
+            }
+
+            faculty = await _facultyRepository.Get(viewModel.Id);
 
             if (faculty is null)
             {
-                throw new AccountException("Such faculty doesn't exist.");
+                throw new AdminException("Such faculty doesn't exist.");
             }
 
             _facultyMapper.MapFacultyEditViewModelToFacultyModel(faculty, viewModel);
@@ -68,7 +107,7 @@ namespace UniversityProject.BusinessLogic.Services
 
             if (faculty is null)
             {
-                throw new AccountException("Such faculty doesn't exist.");
+                throw new AdminException("Such faculty doesn't exist.");
             }
 
             await _facultyRepository.Delete(id);
