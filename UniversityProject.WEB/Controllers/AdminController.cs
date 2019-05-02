@@ -36,13 +36,13 @@ namespace UniversityProject.WEB.Controllers
         {
             ShowFacultiesAdminView result = await _adminService.ShowFaculties();
 
-            return View(viewName: "Faculty", result);
+            return View(viewName: "Faculties/Faculty", result);
         }
 
         [HttpGet]
         public IActionResult CreateFaculty()
         {
-            return View();
+            return View("Faculties/CreateFaculty");
         }
 
         [HttpPost]
@@ -52,12 +52,12 @@ namespace UniversityProject.WEB.Controllers
             {
                 await _adminService.CreateFaculty(viewModel);
 
-                return RedirectToAction("ShowFaculties");
+                return RedirectToAction("Faculties/ShowFaculties");
             }
             catch (AdminException ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                return View();
+                return View("Faculties/CreateFaculty");
             }
         }
 
@@ -66,7 +66,7 @@ namespace UniversityProject.WEB.Controllers
         {
             EditFacultyAdminView result = await _adminService.EditFaculty(id);
 
-            return View(result);
+            return View("Faculties/EditFaculty", result);
         }
 
         [HttpPost]
@@ -76,12 +76,12 @@ namespace UniversityProject.WEB.Controllers
             {
                 await _adminService.EditFaculty(viewModel);
 
-                return RedirectToAction("ShowFaculties");
+                return RedirectToAction("Faculties/ShowFaculties");
             }
             catch (AdminException ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                return View();
+                return View("Faculties/EditFaculty", viewModel);
             }
         }
 
@@ -97,7 +97,7 @@ namespace UniversityProject.WEB.Controllers
             catch (AdminException ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                return View();
+                return View("Faculties/ShowFaculties");
             }
         }
         #endregion
