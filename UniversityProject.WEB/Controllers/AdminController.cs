@@ -190,7 +190,34 @@ namespace UniversityProject.WEB.Controllers
         {
             //ShowChairsAdminView result = await _adminService.ShowGroups();
 
-            return View(viewName: "Groups/ShowGroups");
+            return View(viewName: "Groups/Groups");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CreateGroup()
+        {
+            //CreateGroupDataAdminView result = await _adminService.LoadDataForCreateGroupPage();
+
+            return View("Group/CreateGroup");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateGroup(CreateChairAdminView viewModel)
+        {
+            try
+            {
+                await _adminService.CreateChair(viewModel);
+
+                return RedirectToAction("ShowChairs");
+            }
+            catch (AdminException ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+
+                CreateChairDataAdminView result = await _adminService.LoadDataForCreateChairPage();
+
+                return View("Chairs/CreateChair", result);
+            }
         }
         #endregion
 

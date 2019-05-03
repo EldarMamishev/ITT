@@ -19,12 +19,10 @@
         <input type="hidden" name="previousCipher" value="@Model.Cipher" />
         <input type="text" name="name" placeholder="chair name" class="form__field" value="@Model.Name">
         <input type="text" name="cipher" placeholder="chair cipher" class="form__field" value="@Model.Cipher">
-        <select name="facultyId" value="@Model.FacultyId">
-            @foreach (var faculty in Model.Faculties)
-            {
-                <option value="@faculty.Id">@faculty.FacultyName</option>
-            }
-        </select>
+        
+        @Html.DropDownListFor(x => Model.FacultyId, 
+           new SelectList(Model.Faculties, "Id", "FacultyName"), 
+           htmlAttributes: new { @class = "form__field", @name="facultyId"})
 
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
 
