@@ -60,7 +60,7 @@ function showDetails(e) {
 
 function openEditFacultyItem(e) {
     let dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-    wnd.location.href = "EditFaculty?id=" + dataItem.id;
+    window.location.href = "EditFaculty?id=" + dataItem.id;
 }
 
 var itemToDelete;

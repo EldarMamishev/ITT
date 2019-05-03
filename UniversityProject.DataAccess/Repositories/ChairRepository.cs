@@ -30,7 +30,7 @@ namespace UniversityProject.DataAccess.Repositories
             return faculty;
         }
 
-        public async Task<Chair> FindFacultyByCipher(string cipher)
+        public async Task<Chair> FindChairByCipher(string cipher)
         {
             Chair faculty = await _context.Chairs.FirstOrDefaultAsync(f => f.Cipher.Equals(cipher));
 

@@ -8,5 +8,7 @@ namespace UniversityProject.BusinessLogic.Mappers.Interfaces
     {
         ShowChairsAdminView MapAllChairsToViewModel(List<Chair> model);
         Chair MapToChairModel(CreateChairAdminView viewModel);
+        EditChairDataAdminView MapToEditChairDataModel(Chair model, List<Faculty> faculties);
+        void MapChairEditViewModelToChairModel(Chair model, EditChairAdminView viewModel);
     }
 }

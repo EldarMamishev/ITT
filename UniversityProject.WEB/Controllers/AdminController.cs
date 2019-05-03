@@ -136,7 +136,10 @@ namespace UniversityProject.WEB.Controllers
             catch (AdminException ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                return View("Chairs/CreateChair");
+
+                CreateChairDataAdminView result = await _adminService.LoadDataForCreateChairPage();
+
+                return View("Chairs/CreateChair", result);
             }
         }
 
@@ -161,6 +164,22 @@ namespace UniversityProject.WEB.Controllers
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View("Chairs/EditChair", viewModel);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteChair(int id)
+        {
+            try
+            {
+                await _adminService.DeleteChair(id);
+
+                return new JsonResult(new OkResult());
+            }
+            catch (AdminException ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View("Chairs/ShowChairs");
             }
         }
         #endregion

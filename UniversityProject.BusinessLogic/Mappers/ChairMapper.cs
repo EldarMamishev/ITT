@@ -36,5 +36,35 @@ namespace UniversityProject.BusinessLogic.Mappers
 
             return model;
         }
+
+        public EditChairDataAdminView MapToEditChairDataModel(Chair model, List<Faculty> faculties)
+        {
+            var viewModel = new EditChairDataAdminView();
+
+            viewModel.Id = model.Id;
+            viewModel.Name = model.Name;
+            viewModel.Cipher = model.Cipher;
+            viewModel.FacultyId = model.FacultyId is null ? 0 : model.FacultyId.Value;
+
+            foreach (Faculty faculty in faculties)
+            {
+                var viewItem = new EditChairDataAdminViewItem();
+
+                viewItem.Id = faculty.Id;
+                viewItem.FacultyName = faculty.Name;
+
+                viewModel.Faculties.Add(viewItem);
+            }
+
+            return viewModel;
+        }
+
+        public void MapChairEditViewModelToChairModel(Chair model, EditChairAdminView viewModel)
+        {
+            model.Id = viewModel.Id;
+            model.Name = viewModel.Name;
+            model.Cipher = viewModel.Cipher;
+            model.FacultyId = viewModel.FacultyId;
+        }
     }
 }

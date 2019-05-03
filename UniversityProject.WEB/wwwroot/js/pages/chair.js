@@ -60,7 +60,7 @@ function showDetails(e) {
 
 function openEditFacultyItem(e) {
     let dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-    wnd.location.href = "EditChair?id=" + dataItem.id;
+    window.location.href = "EditChair?id=" + dataItem.id;
 }
 
 var itemToDelete;
@@ -83,7 +83,7 @@ function confirmDelete(e) {
             "id": itemToDelete.id
         },
         success: function (data) {
-            $("#grid").data("kendoGrid").removeRow(rowToDelete);
+            $("#chairsGrid").data("kendoGrid").removeRow(rowToDelete);
             closeModal(e);
         },
         error: function (data) {

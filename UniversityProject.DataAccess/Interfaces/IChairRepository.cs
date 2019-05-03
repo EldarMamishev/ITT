@@ -9,6 +9,6 @@ namespace UniversityProject.DataAccess.Interfaces
     {
         Task<List<Chair>> GetAllChairsWithFaculty();
         Task<Chair> FindChairByName(string name);
-        Task<Chair> FindFacultyByCipher(string cipher);
+        Task<Chair> FindChairByCipher(string cipher);
     }
 }

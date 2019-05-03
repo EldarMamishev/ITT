@@ -19,6 +19,8 @@ namespace UniversityProject.BusinessLogic.Services.Interfaces
         Task<CreateChairDataAdminView> LoadDataForCreateChairPage();
         Task CreateChair(CreateChairAdminView viewModel);
         Task<EditChairDataAdminView> EditChair(int id);
+        Task EditChair(EditChairAdminView viewModel);
+        Task DeleteChair(int id);
         #endregion
     }
 }

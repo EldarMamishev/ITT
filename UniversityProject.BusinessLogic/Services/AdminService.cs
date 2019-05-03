@@ -72,6 +72,11 @@ namespace UniversityProject.BusinessLogic.Services
         {
             Faculty faculty = await _facultyRepository.Get(id);
 
+            if (faculty is null)
+            {
+                throw new AdminException("Selected faculty doesn't exist.");
+            }
+
             EditFacultyAdminView result = _facultyMapper.MapToEditFacultyViewModel(faculty);
 
             return result;
@@ -164,7 +169,7 @@ namespace UniversityProject.BusinessLogic.Services
                 throw new AdminException("Entered chair already exist.");
             }
 
-            chair = await _chairRepository.FindFacultyByCipher(viewModel.Cipher);
+            chair = await _chairRepository.FindChairByCipher(viewModel.Cipher); 
 
             if (!(chair is null))
             {
@@ -183,22 +188,75 @@ namespace UniversityProject.BusinessLogic.Services
             await _chairRepository.Create(chair);
         }
 
-        //TODO EditChair zakonchit, mappers
         public async Task<EditChairDataAdminView> EditChair(int id)
         {
+            Chair chair = await _chairRepository.Get(id);
+
+            if (chair is null)
+            {
+                throw new AdminException("Selected chair doesn't exist.");
+            }
+
             var faculties = await _facultyRepository.GetAll() as List<Faculty>;
 
-            var viewModel = new CreateChairDataAdminView();
+            EditChairDataAdminView viewModel = _chairMapper.MapToEditChairDataModel(chair, faculties);
+            
+            return viewModel;
+        }
 
-            foreach (Faculty faculty in faculties)
+        public async Task EditChair(EditChairAdminView viewModel)
+        {
+            Chair chair = null;
+            
+            if (!(viewModel.PreviousName.ToUpper().Equals(viewModel.Name.ToUpper())))
             {
-                var item = new CreateChairDataAdminViewItem();
+                chair = await _chairRepository.FindChairByName(viewModel.Name);
 
-                item.Id = faculty.Id;
-                item.FacultyName = faculty.Name;
-
-                viewModel.Faculties.Add(item);
+                if (!(chair is null))
+                {
+                    throw new AdminException("Entered chair already exist.");
+                }
             }
+
+            if (!(viewModel.PreviousCipher.ToUpper().Equals(viewModel.Cipher.ToUpper())))
+            {
+                chair = await _chairRepository.FindChairByCipher(viewModel.Cipher);
+
+                if (!(chair is null))
+                {
+                    throw new AdminException("Entered cipher already occupied.");
+                }
+            }
+
+            Faculty faculty = await _facultyRepository.Get(viewModel.FacultyId);
+
+            if (faculty is null)
+            {
+                throw new AdminException("Selected faculty doesn't exist.");
+            }
+
+            chair = await _chairRepository.Get(viewModel.Id);
+
+            if (chair is null)
+            {
+                throw new AdminException("Entered chair doesn't exist.");
+            }
+
+            _chairMapper.MapChairEditViewModelToChairModel(chair, viewModel);
+
+            await _chairRepository.Update(chair);
+        }
+
+        public async Task DeleteChair(int id)
+        {
+            Chair chair = await _chairRepository.Get(id);
+
+            if (chair is null)
+            {
+                throw new AdminException("Selected chair doesn't exist.");
+            }
+
+            await _chairRepository.Delete(id);
         }
         #endregion
 
