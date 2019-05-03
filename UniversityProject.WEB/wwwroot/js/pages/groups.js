@@ -92,7 +92,7 @@ function confirmDelete(e) {
         error: function (data) {
             console.log(data.responseJSON.message);
         }
-    });    
+    });
 }
 
 function closeModal(e) {

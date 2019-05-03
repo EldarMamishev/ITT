@@ -17,10 +17,12 @@ namespace UniversityProject.Entities.Entities
         public Faculty Faculty { get; set; }
 
         public ICollection<Teacher> Teachers { get; set; }
+        public ICollection<Group> Groups { get; set; }
 
         public Chair() : base()
         {
             Teachers = new List<Teacher>();
+            Groups = new List<Group>();
         }
     }
 }

@@ -13,10 +13,11 @@ namespace UniversityProject.Entities.Entities
         public string Cipher { get; set; }
         public DateTime CreationYear { get; set; }
         public CourseNumberType CourseNumberType { get; set; }
+        public int GroupNumber { get; set; }
 
-        public int? FacultyId { get; set; }
-        [ForeignKey("FacultyId")]
-        public Faculty Faculty { get; set; }
+        public int? ChairId { get; set; }
+        [ForeignKey("ChairId")]
+        public Chair Chair { get; set; }
 
         public Journal Journal { get; set; }
 

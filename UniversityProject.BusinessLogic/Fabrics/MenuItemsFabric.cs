@@ -52,7 +52,9 @@ namespace UniversityProject.BusinessLogic.Fabrics
         #region Private Methods
         private void TryAddMenuViewModelItem(List<MenuViewModelItem> items, MenuViewModelItem itemToAdd)
         {
-            if (items.Any(item => item.Title == itemToAdd.Title || (item.ControllerName == itemToAdd.ControllerName && item.ActionName == itemToAdd.ActionName)))
+            if (items.Any(item => item.Title == itemToAdd.Title 
+            || (item.ControllerName == itemToAdd.ControllerName 
+            && item.ActionName == itemToAdd.ActionName)))
             {
                 return;
             }
@@ -85,6 +87,22 @@ namespace UniversityProject.BusinessLogic.Fabrics
                 Title = "Chairs",
                 ControllerName = "Admin",
                 ActionName = "ShowChairs"
+            };
+            TryAddMenuViewModelItem(items, item);
+
+            item = new MenuViewModelItem()
+            {
+                Title = "Groups",
+                ControllerName = "Admin",
+                ActionName = "ShowGroups"
+            };
+            TryAddMenuViewModelItem(items, item);
+
+            item = new MenuViewModelItem()
+            {
+                Title = "Journals",
+                ControllerName = "Admin",
+                ActionName = "ShowJournals"
             };
             TryAddMenuViewModelItem(items, item);
 

@@ -184,6 +184,16 @@ namespace UniversityProject.WEB.Controllers
         }
         #endregion
 
+        #region Groups
+        [HttpGet]
+        public async Task<IActionResult> ShowGroups()
+        {
+            //ShowChairsAdminView result = await _adminService.ShowGroups();
+
+            return View(viewName: "Groups/ShowGroups");
+        }
+        #endregion
+
         #endregion
     }
 }

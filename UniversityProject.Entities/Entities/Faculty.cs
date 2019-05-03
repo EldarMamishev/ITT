@@ -15,18 +15,12 @@ namespace UniversityProject.Entities.Entities
         [MaxLength(20)]
         public string PhoneNumber { get; set; }
         public uint StudentsCount { get; set; }
-        //[MaxLength(30)]
-        //public string DeanName { get; set; }
-        //[MaxLength(30)]
-        //public string ViceDeanName { get; set; }
 
         public ICollection<Chair> Chairs { get; set; }
-        public ICollection<Group> Groups { get; set; }
 
         public Faculty() : base()
         {
             Chairs = new List<Chair>();
-            Groups = new List<Group>();
         }
     }
 }
