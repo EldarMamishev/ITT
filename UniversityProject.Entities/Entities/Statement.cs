@@ -13,12 +13,10 @@ namespace UniversityProject.Entities.Entities
         public Journal Journal { get; set; }
 
         public ICollection<SubjectStatement> SubjectStatements { get; set; }
-        public ICollection<StudentStatement> StudentStatements { get; set; }
 
         public Statement() : base()
         {
             SubjectStatements = new List<SubjectStatement>();
-            StudentStatements = new List<StudentStatement>();
         }
     }
 }

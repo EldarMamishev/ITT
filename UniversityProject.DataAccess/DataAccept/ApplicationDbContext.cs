@@ -14,7 +14,6 @@ namespace UniversityProject.DataAccess.DataAccept
         public DbSet<Semester> Semesters { get; set; }
         public DbSet<SemesterSubject> SemesterSubjects { get; set; }
         public DbSet<Statement> Statements { get; set; }
-        public DbSet<StudentStatement> StudentStatements { get; set; }
         public DbSet<SubjectStatement> SubjectStatements { get; set; }
         public DbSet<TeacherSubject> TeacherSubjects { get; set; }
         public DbSet<Student> Students { get; set; }

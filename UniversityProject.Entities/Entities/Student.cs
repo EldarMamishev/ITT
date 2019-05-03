@@ -13,11 +13,8 @@ namespace UniversityProject.Entities.Entities
         [ForeignKey("GroupId")]
         public Group Group { get; set; }
 
-        public ICollection<StudentStatement> StudentStatements { get; set; }
-
         public Student() : base()
         {
-            StudentStatements = new List<StudentStatement>();
         }
     }
 }
