@@ -28,9 +28,10 @@ namespace UniversityProject.BusinessLogic.Services.Interfaces
         Task<ShowGroupsAdminView> ShowGroups();
         Task<CreateGroupDataAdminView> LoadDataForCreateGroupPage();
         Task CreateGroup(CreateGroupAdminView viewModel);
-        //Task<EditGroupDataAdminView> EditGroup(int id);
-        //Task EditGroup(EditGroupAdminView viewModel);
-        //Task DeleteGroup(int id);
+
+        Task<EditGroupDataAdminView> EditGroup(int id);
+        Task EditGroup(EditGroupAdminView viewModel);
+        Task DeleteGroup(int id);
         #endregion
     }
 }

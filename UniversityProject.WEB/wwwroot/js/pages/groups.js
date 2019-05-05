@@ -86,7 +86,7 @@ function confirmDelete(e) {
             "id": itemToDelete.id
         },
         success: function (data) {
-            $("#grid").data("kendoGrid").removeRow(rowToDelete);
+            $("#groupsGrid").data("kendoGrid").removeRow(rowToDelete);
             closeModal(e);
         },
         error: function (data) {

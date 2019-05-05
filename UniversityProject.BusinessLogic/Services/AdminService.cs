@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UniversityProject.BusinessLogic.Enums;
 using UniversityProject.BusinessLogic.Helpers.Interfaces;
 using UniversityProject.BusinessLogic.Mappers.Interfaces;
 using UniversityProject.BusinessLogic.Services.Interfaces;
@@ -102,6 +103,8 @@ namespace UniversityProject.BusinessLogic.Services
         {
             Faculty faculty = null;
 
+            var changeCiphers = false;
+
             if (!(viewModel.LastName.ToUpper().Equals(viewModel.Name.ToUpper())))
             {
                 faculty = await _facultyRepository.FindFacultyByName(viewModel.Name);
@@ -120,6 +123,8 @@ namespace UniversityProject.BusinessLogic.Services
                 {
                     throw new AdminException("Entered cipher already occupied.");
                 }
+
+                changeCiphers = true;
             }
 
             faculty = await _facultyRepository.Get(viewModel.Id);
@@ -132,6 +137,11 @@ namespace UniversityProject.BusinessLogic.Services
             _facultyMapper.MapFacultyEditViewModelToFacultyModel(faculty, viewModel);
 
             await _facultyRepository.Update(faculty);
+
+            if (changeCiphers)
+            {
+                await UpdateFacultiesCiphers(UpdatingCipherType.Faculty, faculty.Id);
+            }
         }
 
         public async Task DeleteFaculty(int id)
@@ -222,9 +232,16 @@ namespace UniversityProject.BusinessLogic.Services
 
         public async Task EditChair(EditChairAdminView viewModel)
         {
-            Chair chair = null;
+            Chair chair = await _chairRepository.Get(viewModel.Id);
 
-            if (!(viewModel.PreviousName.ToUpper().Equals(viewModel.Name.ToUpper())))
+            if (chair is null)
+            {
+                throw new AdminException("Entered chair doesn't exist.");
+            }
+
+            var changeCiphers = false;
+
+            if (!(chair.Name.ToUpper().Equals(viewModel.Name.ToUpper())))
             {
                 chair = await _chairRepository.FindChairByName(viewModel.Name);
 
@@ -234,7 +251,7 @@ namespace UniversityProject.BusinessLogic.Services
                 }
             }
 
-            if (!(viewModel.PreviousCipher.ToUpper().Equals(viewModel.Cipher.ToUpper())))
+            if (!(chair.Cipher.ToUpper().Equals(viewModel.Cipher.ToUpper())))
             {
                 chair = await _chairRepository.FindChairByCipher(viewModel.Cipher);
 
@@ -242,25 +259,39 @@ namespace UniversityProject.BusinessLogic.Services
                 {
                     throw new AdminException("Entered cipher already occupied.");
                 }
+
+                chair.Cipher = viewModel.Cipher;
+
+                changeCiphers = true;
             }
 
-            Faculty faculty = await _facultyRepository.Get(viewModel.FacultyId);
-
-            if (faculty is null)
+            if (!chair.FacultyId.Equals(viewModel.FacultyId))
             {
-                throw new AdminException("Selected faculty doesn't exist.");
-            }
+                Faculty faculty = await _facultyRepository.Get(viewModel.FacultyId);
 
-            chair = await _chairRepository.Get(viewModel.Id);
+                if (faculty is null)
+                {
+                    throw new AdminException("Selected faculty doesn't exist.");
+                }
 
-            if (chair is null)
-            {
-                throw new AdminException("Entered chair doesn't exist.");
+                Chair checkExistedCipher = await _chairRepository.FindChairByCipherAndFaculty(chair.Cipher, viewModel.FacultyId);
+
+                if (!(checkExistedCipher is null))
+                {
+                    throw new AdminException("Entered chair's cipher has already existed.");
+                }
+
+                changeCiphers = true;
             }
 
             _chairMapper.MapChairEditViewModelToChairModel(chair, viewModel);
 
             await _chairRepository.Update(chair);
+
+            if (changeCiphers)
+            {
+                await UpdateFacultiesCiphers(UpdatingCipherType.Chair, chair.Id);
+            }
         }
 
         public async Task DeleteChair(int id)
@@ -302,7 +333,8 @@ namespace UniversityProject.BusinessLogic.Services
                 result.Chairs.Add(chairViewItem);
             }
 
-            result.CourseNumberTypes = Enum.GetValues(typeof(CourseNumberType)).Cast<int>().Where(item => !item.Equals(0)).ToList();
+            result.CourseNumberTypes = Enum.GetValues(typeof(CourseNumberType)).Cast<int>()
+                .Where(item => !item.Equals(0)).ToList();
 
             return result;
         }
@@ -332,8 +364,99 @@ namespace UniversityProject.BusinessLogic.Services
 
             await _groupRepository.Create(group);
         }
+
+        public async Task<EditGroupDataAdminView> EditGroup(int id)
+        {
+            Group group = await _groupRepository.GetWithChair(id);
+
+            if (group is null)
+            {
+                throw new AdminException("Selected group doesn't exist.");
+            }
+
+            var chairs = await _chairRepository.GetAll() as List<Chair>;
+
+            EditGroupDataAdminView viewModel = _groupMapper.MapToEditGroupDataModel(group, chairs);
+
+            return viewModel;
+        }
+
+        public async Task EditGroup(EditGroupAdminView viewModel)
+        {
+            Group group = await _groupRepository.Get(viewModel.Id);
+
+            if (group is null)
+            {
+                throw new AdminException("Selected group doesn't exist.");
+            }
+
+            Chair chair = await _chairRepository.GetChairWithFacultyById(viewModel.ChairId);
+
+            if (chair is null)
+            {
+                throw new AdminException("Selected chair doesn't exist.");
+            }
+
+            group.CourseNumberType = (CourseNumberType)Enum.Parse(typeof(CourseNumberType), viewModel.CourseNumberTypeId.ToString());
+            group.GroupNumber = viewModel.GroupNumber;
+            group.CreationYear = _dateParseHelper.ParseStringToOnlyYearDatetime(viewModel.CreationYear).Value;
+            group.ChairId = viewModel.ChairId;
+
+            var newCipher = $"{chair.Faculty.Cipher}.{chair.Cipher}.{group.CreationYear.ToString("yy")}.{group.GroupNumber}";
+
+            if (!group.Cipher.Equals(newCipher))
+            {
+                Group checkGroup = await _groupRepository.FindGroupByCipher(newCipher);
+
+                if (!(checkGroup is null))
+                {
+                    throw new AdminException("Entered group has already existed.");
+                }
+
+                group.Cipher = newCipher;
+
+                await _groupRepository.Update(group);
+            }
+        }
+
+        public async Task DeleteGroup(int id)
+        {
+            Group group = await _groupRepository.Get(id);
+
+            if (group is null)
+            {
+                throw new AdminException("Selected group doesn't exist.");
+            }
+
+            await _groupRepository.Delete(id);
+        }
         #endregion
 
+        #endregion
+
+        #region Private Methods
+        private async Task UpdateFacultiesCiphers(UpdatingCipherType updatingType, int id)
+        {
+            var groups = new List<Group>();
+
+            if (updatingType.Equals(UpdatingCipherType.Faculty))
+            {
+                groups = await _groupRepository.FindGroupsByFacultyId(id);
+            }
+
+            if (updatingType.Equals(UpdatingCipherType.Chair))
+            {
+                groups = await _groupRepository.FindGroupsByChairId(id);
+            }
+
+            foreach (Group group in groups)
+            {
+                var newCipher = $"{group.Chair.Faculty.Cipher}.{group.Chair.Cipher}.{group.CreationYear.ToString("yy")}.{group.GroupNumber}";
+                group.Cipher = newCipher;
+            }
+
+            await _groupRepository.UpdateMultiple(groups);
+        }
         #endregion
     }
 }

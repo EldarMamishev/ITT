@@ -14,13 +14,20 @@ namespace UniversityProject.DataAccess.Repositories
         public GroupRepository(ApplicationDbContext context) : base(context)
         {
         }
+        public async Task<Group> GetWithChair(int id)
+        {
+            Group group = await _context.Groups
+                .FirstOrDefaultAsync(item => item.Id.Equals(id));
+
+            return group;
+        }
 
         public async Task<List<Group>> GetAllGroups()
         {
             List<Group> groups = await _context.Groups
                 .Include(item => item.Chair)
-                .ThenInclude(chair => chair.Faculty).
-                ToListAsync();
+                .ThenInclude(chair => chair.Faculty)
+                .ToListAsync();
 
             return groups;
         }
@@ -33,9 +40,26 @@ namespace UniversityProject.DataAccess.Repositories
             return group;
         }
 
-        public Task<Group> FindGroupByName(string name)
+        public async Task<List<Group>> FindGroupsByFacultyId(int id)
         {
-            throw new System.NotImplementedException();
+            List<Group> groups = await _context.Groups
+                .Include(item => item.Chair)
+                .ThenInclude(chair => chair.Faculty)
+                .Where(item => item.Chair.FacultyId.Equals(id))
+               . ToListAsync();
+
+            return groups;
+        }
+
+        public async Task<List<Group>> FindGroupsByChairId(int id)
+        {
+            List<Group> groups = await _context.Groups
+                .Include(item => item.Chair)
+                .ThenInclude(chair => chair.Faculty)
+                .Where(item => item.ChairId.Equals(id))
+               .ToListAsync();
+
+            return groups;
         }
     }
 }

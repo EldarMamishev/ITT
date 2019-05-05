@@ -88,7 +88,10 @@ namespace UniversityProject.WEB.Controllers
             catch (AdminException ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                return View("Faculties/EditFaculty", viewModel);
+
+                EditFacultyAdminView result = await _adminService.EditFaculty(viewModel.Id);
+
+                return View("Faculties/EditFaculty", result);
             }
         }
 
@@ -101,10 +104,9 @@ namespace UniversityProject.WEB.Controllers
 
                 return new JsonResult(new OkResult());
             }
-            catch (AdminException ex)
+            catch (AdminException)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
-                return View("Faculties/ShowFaculties");
+                return RedirectToAction("ShowFaculties");
             }
         }
         #endregion
@@ -165,7 +167,10 @@ namespace UniversityProject.WEB.Controllers
             catch (AdminException ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                return View("Chairs/EditChair", viewModel);
+
+                EditChairDataAdminView result = await _adminService.EditChair(viewModel.Id);
+
+                return View("Chairs/EditChair", result);
             }
         }
 
@@ -178,10 +183,9 @@ namespace UniversityProject.WEB.Controllers
 
                 return new JsonResult(new OkResult());
             }
-            catch (AdminException ex)
+            catch (AdminException)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
-                return View("Chairs/ShowChairs");
+                return RedirectToAction("ShowChairs");
             }
         }
         #endregion
@@ -219,6 +223,48 @@ namespace UniversityProject.WEB.Controllers
                 CreateGroupDataAdminView result = await _adminService.LoadDataForCreateGroupPage();
 
                 return View("Groups/CreateGroup", result);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditGroup(int id)
+        {
+            EditGroupDataAdminView result = await _adminService.EditGroup(id);
+
+            return View("Groups/EditGroup", result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditGroup(EditGroupAdminView viewModel)
+        {
+            try
+            {
+                await _adminService.EditGroup(viewModel);
+
+                return RedirectToAction("ShowGroups");
+            }
+            catch (AdminException ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+
+                EditGroupDataAdminView result = await _adminService.EditGroup(viewModel.Id);
+
+                return View("Groups/EditGroup", result);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteGroup(int id)
+        {
+            try
+            {
+                await _adminService.DeleteGroup(id);
+
+                return new JsonResult(new OkResult());
+            }
+            catch (AdminException)
+            {
+                return RedirectToAction("ShowGroups");
             }
         }
         #endregion
