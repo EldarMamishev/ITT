@@ -17,9 +17,11 @@
 
 <section class="panel important">
     <form asp-action="CreateGroup" class="form">
+        @Html.DropDownList(string.Empty, new SelectList(Model.Faculties, "Id", "FacultyName"),
+        htmlAttributes: new { @class = "form__field", @name = "facultyId", @id = "facultyBox" })
 
         @Html.DropDownList(string.Empty, new SelectList(Model.Chairs, "Id", "ChairName"),
-        htmlAttributes: new { @class = "form__field", @name = "chairId" })
+        htmlAttributes: new { @class = "form__field", @name = "chairId", @id = "chairBox" })
 
         <input type="text" name="groupNumber" placeholder="group number" class="form__field">
 
@@ -45,6 +47,7 @@
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/kendo/kendo.all.min.js"></script>
+<script src="~/js/pages/createGroup.js"></script>
 <script>
     $("#yearpicker").kendoDatePicker({
         start: "decade",

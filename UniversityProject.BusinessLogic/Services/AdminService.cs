@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -316,27 +317,62 @@ namespace UniversityProject.BusinessLogic.Services
 
             return result;
         }
-
+        //TODO CACHEDATA
         public async Task<CreateGroupDataAdminView> LoadDataForCreateGroupPage()
         {
             var result = new CreateGroupDataAdminView();
 
-            var chairs = await _chairRepository.GetAll() as List<Chair>;
+            var faculties = await _facultyRepository.GetAll() as List<Faculty>;
 
-            foreach (Chair chair in chairs)
+            foreach (Faculty faculty in faculties)
             {
-                var chairViewItem = new CreateGroupDataAdminViewItem();
+                var facultyViewItem = new FacultyCreateGroupDataAdminViewItem();
 
-                chairViewItem.Id = chair.Id;
-                chairViewItem.ChairName = chair.Name;
+                facultyViewItem.Id = faculty.Id;
+                facultyViewItem.FacultyName = faculty.Name;
 
-                result.Chairs.Add(chairViewItem);
+                result.Faculties.Add(facultyViewItem);
             }
 
+            if (!(faculties is null))
+            {
+                int facultyId = faculties.FirstOrDefault().Id;
+
+                var chairs = await _chairRepository.GetAllChairsByFacultyId(facultyId) as List<Chair>;
+
+                foreach (Chair chair in chairs)
+                {
+                    var chairViewItem = new ChairCreateGroupDataAdminViewItem();
+
+                    chairViewItem.Id = chair.Id;
+                    chairViewItem.ChairName = chair.Name;
+
+                    result.Chairs.Add(chairViewItem);
+                }
+            }
+            
             result.CourseNumberTypes = Enum.GetValues(typeof(CourseNumberType)).Cast<int>()
                 .Where(item => !item.Equals(0)).ToList();
 
             return result;
+        }
+        //TODO CACHEDATA
+        public async Task<JsonResult> LoadChairsByFacultyId(int facultyId)
+        {
+            var result = new List<ChairCreateGroupDataAdminViewItem>();
+            var chairs = await _chairRepository.GetAllChairsByFacultyId(facultyId) as List<Chair>;
+
+            foreach (Chair chair in chairs)
+            {
+                var chairViewItem = new ChairCreateGroupDataAdminViewItem();
+
+                chairViewItem.Id = chair.Id;
+                chairViewItem.ChairName = chair.Name;
+
+                result.Add(chairViewItem);
+            }
+
+            return new JsonResult(result);
         }
 
         public async Task CreateGroup(CreateGroupAdminView viewModel)

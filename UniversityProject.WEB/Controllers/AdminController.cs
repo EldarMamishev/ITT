@@ -227,6 +227,14 @@ namespace UniversityProject.WEB.Controllers
         }
 
         [HttpGet]
+        public async Task<JsonResult> LoadChairsByFacultyId(int facultyId)
+        {
+            JsonResult result = await _adminService.LoadChairsByFacultyId(facultyId);
+
+            return result;
+        }
+
+        [HttpGet]
         public async Task<IActionResult> EditGroup(int id)
         {
             EditGroupDataAdminView result = await _adminService.EditGroup(id);

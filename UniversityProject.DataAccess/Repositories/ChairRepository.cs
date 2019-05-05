@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using UniversityProject.DataAccess.DataAccept;
@@ -22,7 +23,16 @@ namespace UniversityProject.DataAccess.Repositories
 
             return chair;
         }
+        public async Task<List<Chair>> GetAllChairsByFacultyId(int facultyId)
+        {
+            List<Chair> chairs = await _context.Chairs
+                .Include(item => item.Faculty)
+                .Where(item => item.FacultyId.Equals(facultyId))
+                .ToListAsync();
 
+            return chairs;
+        }
+        
         public async Task<List<Chair>> GetAllChairsWithFaculty()
         {
             List<Chair> chairs = await _context.Chairs
