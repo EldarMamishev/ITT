@@ -4,8 +4,10 @@ using System.Threading.Tasks;
 using UniversityProject.BusinessLogic.Fabrics.Interfaces;
 using UniversityProject.BusinessLogic.Services.Interfaces;
 using UniversityProject.Shared.Constants;
+using UniversityProject.Shared.Exceptions.BaseExceptions;
 using UniversityProject.Shared.Exceptions.BusinessLogicExceptions;
 using UniversityProject.ViewModels.AdminViewModels.ChairViewModels;
+using UniversityProject.ViewModels.AdminViewModels.GroupViewModels;
 using UniversityProject.ViewModels.Faculty;
 using UniversityProject.WEB.Controllers.Base;
 
@@ -188,35 +190,35 @@ namespace UniversityProject.WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> ShowGroups()
         {
-            //ShowChairsAdminView result = await _adminService.ShowGroups();
+            ShowGroupsAdminView result = await _adminService.ShowGroups();
 
-            return View(viewName: "Groups/Groups");
+            return View(viewName: "Groups/Groups", result);
         }
 
         [HttpGet]
         public async Task<IActionResult> CreateGroup()
         {
-            //CreateGroupDataAdminView result = await _adminService.LoadDataForCreateGroupPage();
+            CreateGroupDataAdminView result = await _adminService.LoadDataForCreateGroupPage();
 
-            return View("Group/CreateGroup");
+            return View("Groups/CreateGroup", result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateGroup(CreateChairAdminView viewModel)
+        public async Task<IActionResult> CreateGroup(CreateGroupAdminView viewModel)
         {
             try
             {
-                await _adminService.CreateChair(viewModel);
+                await _adminService.CreateGroup(viewModel);
 
-                return RedirectToAction("ShowChairs");
+                return RedirectToAction("ShowGroups");
             }
-            catch (AdminException ex)
+            catch (BaseException ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
 
-                CreateChairDataAdminView result = await _adminService.LoadDataForCreateChairPage();
+                CreateGroupDataAdminView result = await _adminService.LoadDataForCreateGroupPage();
 
-                return View("Chairs/CreateChair", result);
+                return View("Groups/CreateGroup", result);
             }
         }
         #endregion

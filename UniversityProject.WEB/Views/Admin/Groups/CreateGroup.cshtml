@@ -1,8 +1,13 @@
-﻿
-@{   
+﻿@using UniversityProject.ViewModels.AdminViewModels.GroupViewModels
+@model CreateGroupDataAdminView
+@{
     Layout = "_AdminLayout";
     ViewData["Title"] = "Create Group";
 }
+
+<link href="~/lib/kendo/kendo.common-material.css" rel="stylesheet" />
+<link href="~/lib/kendo/kendo.material.css" rel="stylesheet" />
+<link href="~/lib/kendo/kendo.material.mobile.css" rel="stylesheet" />
 
 <section class="panel important">
     <div class="panel-navbar">
@@ -12,14 +17,24 @@
 
 <section class="panel important">
     <form asp-action="CreateGroup" class="form">
-        <input type="text" name="name" placeholder="chair name" class="form__field">
-        <input type="text" name="cipher" placeholder="chair cipher" class="form__field">
-        <select name="facultyId">
-            @foreach (var faculty in Model.Faculties)
+
+        @Html.DropDownList(string.Empty, new SelectList(Model.Chairs, "Id", "ChairName"),
+        htmlAttributes: new { @class = "form__field", @name = "chairId" })
+
+        <input type="text" name="groupNumber" placeholder="group number" class="form__field">
+
+        @{
+            var courses = Model.CourseNumberTypes.Select(item => new SelectListItem
             {
-                <option value="@faculty.Id">@faculty.FacultyName</option>
-            }
-        </select>
+                Text = item.ToString(),
+                Value = item.ToString()
+            });
+        }
+
+        @Html.DropDownList(string.Empty, new SelectList(courses, "Text", "Value"),
+        htmlAttributes: new { @class = "form__field", @name = "courseNumberTypeId" })
+
+        <input id="yearpicker" name="creationYear" />
 
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
 
@@ -27,3 +42,13 @@
         <button type="submit" class="btn btn--main">Create Group</button>
     </form>
 </section>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/kendo/kendo.all.min.js"></script>
+<script>
+    $("#yearpicker").kendoDatePicker({
+        start: "decade",
+        depth: "decade",
+        format: "yyyy"
+    });
+</script>

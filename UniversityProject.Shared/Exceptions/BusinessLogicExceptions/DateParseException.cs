@@ -2,9 +2,9 @@
 
 namespace UniversityProject.Shared.Exceptions.BusinessLogicExceptions
 {
-    public class AdminException : BaseException
+    public class DateParseException : BaseException
     {
-        public AdminException(string message) : base(message)
+        public DateParseException(string message) : base(message)
         {
         }
     }

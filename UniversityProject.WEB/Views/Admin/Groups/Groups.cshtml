@@ -1,8 +1,13 @@
-﻿
+﻿@using UniversityProject.ViewModels.AdminViewModels.GroupViewModels
+@model ShowGroupsAdminView
 @{
     Layout = "_AdminLayout";
     ViewData["Title"] = "Groups";
 }
+
+<link href="~/lib/kendo/kendo.common-material.css" rel="stylesheet" />
+<link href="~/lib/kendo/kendo.material.css" rel="stylesheet" />
+<link href="~/lib/kendo/kendo.material.mobile.css" rel="stylesheet" />
 
 <section class="panel important">
     <div class="panel-navbar">
@@ -10,3 +15,31 @@
         <a asp-action="CreateGroup" id="go-login" class="btn btn--main-outline">Create Group</a>
     </div>
 </section>
+
+<div class="panel important">
+    <div id="groupsGrid"></div>
+    <div id="groupDetails"></div>
+</div>
+
+<script type="text/x-kendo-template" id="detailWindowTemplate">
+    <div id="details-container">
+        <h4>Chair: <em>#= name #</em></h4><br />
+        <h4>Cipher: <em>#= cipher #</em></h4><br />
+        <h4>Faculty: <em>#= facultyName #</em></h4><br />
+    </div>
+</script>
+
+<script type="text/x-kendo-template" id="deleteWindowTemplate">
+    <div id="details-container">
+        <h4>Are you sure to delete item?</h4><br />
+        <button type="button" class="btn confirm-button" onclick="confirmDelete(this)">Confirm</button>
+        <button type="button" class="btn cancel-button" onclick="closeModal(this)">Cancel</button>
+    </div>
+</script>
+
+<script>
+    var groups = @Html.Raw(Json.Serialize(Model.Groups));
+</script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/kendo/kendo.all.min.js"></script>
+<script src="~/js/pages/groups.js"></script>

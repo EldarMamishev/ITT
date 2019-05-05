@@ -1,11 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using UniversityProject.BusinessLogic.Helpers.Interfaces;
 using UniversityProject.BusinessLogic.Mappers.Interfaces;
 using UniversityProject.BusinessLogic.Services.Interfaces;
 using UniversityProject.DataAccess.Interfaces;
 using UniversityProject.Entities.Entities;
+using UniversityProject.Entities.Enums;
 using UniversityProject.Shared.Exceptions.BusinessLogicExceptions;
 using UniversityProject.ViewModels.AdminViewModels.ChairViewModels;
+using UniversityProject.ViewModels.AdminViewModels.GroupViewModels;
 using UniversityProject.ViewModels.Faculty;
 
 namespace UniversityProject.BusinessLogic.Services
@@ -15,23 +20,34 @@ namespace UniversityProject.BusinessLogic.Services
         #region Properties
         private IFacultyRepository _facultyRepository;
         private IChairRepository _chairRepository;
+        private IGroupRepository _groupRepository;
 
         private IFacultyMapper _facultyMapper;
         private IChairMapper _chairMapper;
+        private IGroupMapper _groupMapper;
+
+        private IDateParseHelper _dateParseHelper;
         #endregion
 
         #region Constructors
         public AdminService(
             IFacultyRepository facultyRepository,
-            IChairRepository chairRepository, 
+            IChairRepository chairRepository,
+            IGroupRepository groupRepository,
             IFacultyMapper facultyMapper,
-            IChairMapper chairMapper)
+            IChairMapper chairMapper,
+            IGroupMapper groupMapper,
+            IDateParseHelper dateParseHelper)
         {
             _facultyRepository = facultyRepository;
             _chairRepository = chairRepository;
+            _groupRepository = groupRepository;
 
             _facultyMapper = facultyMapper;
             _chairMapper = chairMapper;
+            _groupMapper = groupMapper;
+
+            _dateParseHelper = dateParseHelper;
         }
         #endregion
 
@@ -169,7 +185,7 @@ namespace UniversityProject.BusinessLogic.Services
                 throw new AdminException("Entered chair already exist.");
             }
 
-            chair = await _chairRepository.FindChairByCipher(viewModel.Cipher); 
+            chair = await _chairRepository.FindChairByCipher(viewModel.Cipher);
 
             if (!(chair is null))
             {
@@ -200,14 +216,14 @@ namespace UniversityProject.BusinessLogic.Services
             var faculties = await _facultyRepository.GetAll() as List<Faculty>;
 
             EditChairDataAdminView viewModel = _chairMapper.MapToEditChairDataModel(chair, faculties);
-            
+
             return viewModel;
         }
 
         public async Task EditChair(EditChairAdminView viewModel)
         {
             Chair chair = null;
-            
+
             if (!(viewModel.PreviousName.ToUpper().Equals(viewModel.Name.ToUpper())))
             {
                 chair = await _chairRepository.FindChairByName(viewModel.Name);
@@ -257,6 +273,64 @@ namespace UniversityProject.BusinessLogic.Services
             }
 
             await _chairRepository.Delete(id);
+        }
+        #endregion
+
+        #region Groups
+        public async Task<ShowGroupsAdminView> ShowGroups()
+        {
+            List<Group> groups = await _groupRepository.GetAllGroups();
+
+            ShowGroupsAdminView result = _groupMapper.MapAllGroupsToViewModel(groups);
+
+            return result;
+        }
+
+        public async Task<CreateGroupDataAdminView> LoadDataForCreateGroupPage()
+        {
+            var result = new CreateGroupDataAdminView();
+
+            var chairs = await _chairRepository.GetAll() as List<Chair>;
+
+            foreach (Chair chair in chairs)
+            {
+                var chairViewItem = new CreateGroupDataAdminViewItem();
+
+                chairViewItem.Id = chair.Id;
+                chairViewItem.ChairName = chair.Name;
+
+                result.Chairs.Add(chairViewItem);
+            }
+
+            result.CourseNumberTypes = Enum.GetValues(typeof(CourseNumberType)).Cast<int>().Where(item => !item.Equals(0)).ToList();
+
+            return result;
+        }
+
+        public async Task CreateGroup(CreateGroupAdminView viewModel)
+        {
+            var group = new Group();
+
+            Chair chair = await _chairRepository.GetChairWithFacultyById(viewModel.ChairId);
+
+            if (chair is null)
+            {
+                throw new AdminException("Selected chair doesn't exist.");
+            }
+
+            group.CourseNumberType = (CourseNumberType)Enum.Parse(typeof(CourseNumberType), viewModel.CourseNumberTypeId.ToString());
+            group.GroupNumber = viewModel.GroupNumber;
+            group.CreationYear = _dateParseHelper.ParseStringToOnlyYearDatetime(viewModel.CreationYear).Value;
+            group.Cipher = $"{chair.Faculty.Cipher}.{chair.Cipher}.{group.CreationYear.ToString("yy")}.{group.GroupNumber}";
+            group.ChairId = viewModel.ChairId;
+
+            Group groupItem = await _groupRepository.FindGroupByCipher(group.Cipher);
+            if (!(groupItem is null))
+            {
+                throw new AdminException("Entered group has already existed.");
+            }
+
+            await _groupRepository.Create(group);
         }
         #endregion
 

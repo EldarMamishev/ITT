@@ -16,12 +16,9 @@
     <form asp-action="CreateChair" class="form">
         <input type="text" name="name" placeholder="chair name" class="form__field">
         <input type="text" name="cipher" placeholder="chair cipher" class="form__field">
-        <select name="facultyId">
-            @foreach (var faculty in Model.Faculties)
-            {
-                <option value="@faculty.Id">@faculty.FacultyName</option>
-            }
-        </select>
+
+        @Html.DropDownList(string.Empty, new SelectList(Model.Faculties, "Id", "FacultyName"),
+   htmlAttributes: new { @class = "form__field", @name = "facultyId" })
 
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
 

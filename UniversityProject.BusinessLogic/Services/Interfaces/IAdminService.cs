@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using UniversityProject.ViewModels.AdminViewModels.ChairViewModels;
+using UniversityProject.ViewModels.AdminViewModels.GroupViewModels;
 using UniversityProject.ViewModels.Faculty;
 
 namespace UniversityProject.BusinessLogic.Services.Interfaces
@@ -21,6 +22,15 @@ namespace UniversityProject.BusinessLogic.Services.Interfaces
         Task<EditChairDataAdminView> EditChair(int id);
         Task EditChair(EditChairAdminView viewModel);
         Task DeleteChair(int id);
+        #endregion
+
+        #region Groups
+        Task<ShowGroupsAdminView> ShowGroups();
+        Task<CreateGroupDataAdminView> LoadDataForCreateGroupPage();
+        Task CreateGroup(CreateGroupAdminView viewModel);
+        //Task<EditGroupDataAdminView> EditGroup(int id);
+        //Task EditGroup(EditGroupAdminView viewModel);
+        //Task DeleteGroup(int id);
         #endregion
     }
 }
