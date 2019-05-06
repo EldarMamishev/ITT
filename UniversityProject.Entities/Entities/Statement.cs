@@ -8,15 +8,16 @@ namespace UniversityProject.Entities.Entities
     {
         public decimal Mark { get; set; }
 
-        public int JournalId { get; set; }
-        [ForeignKey("JournalId")]
-        public Journal Journal { get; set; }
+        public int SubjectId { get; set; }
+        [ForeignKey("SubjectId")]
+        public Subject Subject { get; set; }
 
-        public ICollection<SubjectStatement> SubjectStatements { get; set; }
-
+        public int StudentId { get; set; }
+        [ForeignKey("StudentId")]
+        public Student Student { get; set; }
+        
         public Statement() : base()
         {
-            SubjectStatements = new List<SubjectStatement>();
         }
     }
 }

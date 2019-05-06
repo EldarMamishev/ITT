@@ -100,6 +100,14 @@ namespace UniversityProject.BusinessLogic.Fabrics
 
             item = new MenuViewModelItem()
             {
+                Title = "Subjects",
+                ControllerName = "Admin",
+                ActionName = "ShowSubjects"
+            };
+            TryAddMenuViewModelItem(items, item);
+
+            item = new MenuViewModelItem()
+            {
                 Title = "Journals",
                 ControllerName = "Admin",
                 ActionName = "ShowJournals"

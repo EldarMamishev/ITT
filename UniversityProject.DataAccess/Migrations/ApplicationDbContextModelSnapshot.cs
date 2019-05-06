@@ -298,14 +298,9 @@ namespace UniversityProject.DataAccess.Migrations
 
                     b.Property<int>("GroupId");
 
-                    b.Property<int>("SemesterId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("GroupId")
-                        .IsUnique();
-
-                    b.HasIndex("SemesterId")
                         .IsUnique();
 
                     b.ToTable("Journals");
@@ -319,34 +314,17 @@ namespace UniversityProject.DataAccess.Migrations
 
                     b.Property<DateTime>("CreationDateUTC");
 
+                    b.Property<int>("JournalId");
+
                     b.Property<int>("PartOfEducationYear");
 
                     b.Property<DateTime>("Year");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("JournalId");
+
                     b.ToTable("Semesters");
-                });
-
-            modelBuilder.Entity("UniversityProject.Entities.Entities.SemesterSubject", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreationDateUTC");
-
-                    b.Property<int>("SemesterId");
-
-                    b.Property<int>("SubjectId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SemesterId");
-
-                    b.HasIndex("SubjectId");
-
-                    b.ToTable("SemesterSubjects");
                 });
 
             modelBuilder.Entity("UniversityProject.Entities.Entities.Statement", b =>
@@ -357,13 +335,21 @@ namespace UniversityProject.DataAccess.Migrations
 
                     b.Property<DateTime>("CreationDateUTC");
 
-                    b.Property<int>("JournalId");
-
                     b.Property<decimal>("Mark");
+
+                    b.Property<int?>("SemesterId");
+
+                    b.Property<int>("StudentId");
+
+                    b.Property<int>("SubjectId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("JournalId");
+                    b.HasIndex("SemesterId");
+
+                    b.HasIndex("StudentId");
+
+                    b.HasIndex("SubjectId");
 
                     b.ToTable("Statements");
                 });
@@ -386,27 +372,6 @@ namespace UniversityProject.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Subjects");
-                });
-
-            modelBuilder.Entity("UniversityProject.Entities.Entities.SubjectStatement", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreationDateUTC");
-
-                    b.Property<int>("StatementId");
-
-                    b.Property<int>("SubjectId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StatementId");
-
-                    b.HasIndex("SubjectId");
-
-                    b.ToTable("SubjectStatements");
                 });
 
             modelBuilder.Entity("UniversityProject.Entities.Entities.TeacherSubject", b =>
@@ -529,43 +494,29 @@ namespace UniversityProject.DataAccess.Migrations
                         .WithOne("Journal")
                         .HasForeignKey("UniversityProject.Entities.Entities.Journal", "GroupId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("UniversityProject.Entities.Entities.Semester", "Semester")
-                        .WithOne("Journal")
-                        .HasForeignKey("UniversityProject.Entities.Entities.Journal", "SemesterId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("UniversityProject.Entities.Entities.SemesterSubject", b =>
+            modelBuilder.Entity("UniversityProject.Entities.Entities.Semester", b =>
                 {
-                    b.HasOne("UniversityProject.Entities.Entities.Semester", "Semester")
-                        .WithMany("SemesterSubjects")
-                        .HasForeignKey("SemesterId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("UniversityProject.Entities.Entities.Subject", "Subject")
-                        .WithMany("SemesterSubjects")
-                        .HasForeignKey("SubjectId")
+                    b.HasOne("UniversityProject.Entities.Entities.Journal", "Journal")
+                        .WithMany("Semesters")
+                        .HasForeignKey("JournalId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("UniversityProject.Entities.Entities.Statement", b =>
                 {
-                    b.HasOne("UniversityProject.Entities.Entities.Journal", "Journal")
+                    b.HasOne("UniversityProject.Entities.Entities.Semester")
                         .WithMany("Statements")
-                        .HasForeignKey("JournalId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
+                        .HasForeignKey("SemesterId");
 
-            modelBuilder.Entity("UniversityProject.Entities.Entities.SubjectStatement", b =>
-                {
-                    b.HasOne("UniversityProject.Entities.Entities.Statement", "Statement")
-                        .WithMany("SubjectStatements")
-                        .HasForeignKey("StatementId")
+                    b.HasOne("UniversityProject.Entities.Entities.Student", "Student")
+                        .WithMany("Statements")
+                        .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("UniversityProject.Entities.Entities.Subject", "Subject")
-                        .WithMany("SubjectStatements")
+                        .WithMany("Statements")
                         .HasForeignKey("SubjectId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

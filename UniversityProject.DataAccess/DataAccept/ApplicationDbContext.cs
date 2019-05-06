@@ -12,9 +12,7 @@ namespace UniversityProject.DataAccess.DataAccept
         public DbSet<Chair> Chairs { get; set; }
         public DbSet<Journal> Journals { get; set; }
         public DbSet<Semester> Semesters { get; set; }
-        public DbSet<SemesterSubject> SemesterSubjects { get; set; }
         public DbSet<Statement> Statements { get; set; }
-        public DbSet<SubjectStatement> SubjectStatements { get; set; }
         public DbSet<TeacherSubject> TeacherSubjects { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
@@ -22,6 +20,11 @@ namespace UniversityProject.DataAccess.DataAccept
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
             Database.Migrate();
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

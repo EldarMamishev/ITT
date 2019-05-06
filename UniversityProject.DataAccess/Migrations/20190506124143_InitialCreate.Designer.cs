@@ -10,8 +10,8 @@ using UniversityProject.DataAccess.DataAccept;
 namespace UniversityProject.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190430181343_changeRelationBetweenFacultyAndGroup")]
-    partial class changeRelationBetweenFacultyAndGroup
+    [Migration("20190506124143_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -270,6 +270,8 @@ namespace UniversityProject.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("ChairId");
+
                     b.Property<string>("Cipher")
                         .HasMaxLength(30);
 
@@ -279,11 +281,11 @@ namespace UniversityProject.DataAccess.Migrations
 
                     b.Property<DateTime>("CreationYear");
 
-                    b.Property<int?>("FacultyId");
+                    b.Property<int>("GroupNumber");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FacultyId");
+                    b.HasIndex("ChairId");
 
                     b.ToTable("Groups");
                 });
@@ -298,14 +300,9 @@ namespace UniversityProject.DataAccess.Migrations
 
                     b.Property<int>("GroupId");
 
-                    b.Property<int>("SemesterId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("GroupId")
-                        .IsUnique();
-
-                    b.HasIndex("SemesterId")
                         .IsUnique();
 
                     b.ToTable("Journals");
@@ -319,34 +316,17 @@ namespace UniversityProject.DataAccess.Migrations
 
                     b.Property<DateTime>("CreationDateUTC");
 
+                    b.Property<int>("JournalId");
+
                     b.Property<int>("PartOfEducationYear");
 
                     b.Property<DateTime>("Year");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("JournalId");
+
                     b.ToTable("Semesters");
-                });
-
-            modelBuilder.Entity("UniversityProject.Entities.Entities.SemesterSubject", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreationDateUTC");
-
-                    b.Property<int>("SemesterId");
-
-                    b.Property<int>("SubjectId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SemesterId");
-
-                    b.HasIndex("SubjectId");
-
-                    b.ToTable("SemesterSubjects");
                 });
 
             modelBuilder.Entity("UniversityProject.Entities.Entities.Statement", b =>
@@ -357,36 +337,23 @@ namespace UniversityProject.DataAccess.Migrations
 
                     b.Property<DateTime>("CreationDateUTC");
 
-                    b.Property<int>("JournalId");
-
                     b.Property<decimal>("Mark");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("JournalId");
-
-                    b.ToTable("Statements");
-                });
-
-            modelBuilder.Entity("UniversityProject.Entities.Entities.StudentStatement", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreationDateUTC");
-
-                    b.Property<int>("StatementId");
+                    b.Property<int?>("SemesterId");
 
                     b.Property<int>("StudentId");
 
+                    b.Property<int>("SubjectId");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("StatementId");
+                    b.HasIndex("SemesterId");
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("StudentStatements");
+                    b.HasIndex("SubjectId");
+
+                    b.ToTable("Statements");
                 });
 
             modelBuilder.Entity("UniversityProject.Entities.Entities.Subject", b =>
@@ -407,27 +374,6 @@ namespace UniversityProject.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Subjects");
-                });
-
-            modelBuilder.Entity("UniversityProject.Entities.Entities.SubjectStatement", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreationDateUTC");
-
-                    b.Property<int>("StatementId");
-
-                    b.Property<int>("SubjectId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StatementId");
-
-                    b.HasIndex("SubjectId");
-
-                    b.ToTable("SubjectStatements");
                 });
 
             modelBuilder.Entity("UniversityProject.Entities.Entities.TeacherSubject", b =>
@@ -539,9 +485,9 @@ namespace UniversityProject.DataAccess.Migrations
 
             modelBuilder.Entity("UniversityProject.Entities.Entities.Group", b =>
                 {
-                    b.HasOne("UniversityProject.Entities.Entities.Faculty", "Faculty")
+                    b.HasOne("UniversityProject.Entities.Entities.Chair", "Chair")
                         .WithMany("Groups")
-                        .HasForeignKey("FacultyId");
+                        .HasForeignKey("ChairId");
                 });
 
             modelBuilder.Entity("UniversityProject.Entities.Entities.Journal", b =>
@@ -550,56 +496,29 @@ namespace UniversityProject.DataAccess.Migrations
                         .WithOne("Journal")
                         .HasForeignKey("UniversityProject.Entities.Entities.Journal", "GroupId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("UniversityProject.Entities.Entities.Semester", "Semester")
-                        .WithOne("Journal")
-                        .HasForeignKey("UniversityProject.Entities.Entities.Journal", "SemesterId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("UniversityProject.Entities.Entities.SemesterSubject", b =>
+            modelBuilder.Entity("UniversityProject.Entities.Entities.Semester", b =>
                 {
-                    b.HasOne("UniversityProject.Entities.Entities.Semester", "Semester")
-                        .WithMany("SemesterSubjects")
-                        .HasForeignKey("SemesterId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("UniversityProject.Entities.Entities.Subject", "Subject")
-                        .WithMany("SemesterSubjects")
-                        .HasForeignKey("SubjectId")
+                    b.HasOne("UniversityProject.Entities.Entities.Journal", "Journal")
+                        .WithMany("Semesters")
+                        .HasForeignKey("JournalId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("UniversityProject.Entities.Entities.Statement", b =>
                 {
-                    b.HasOne("UniversityProject.Entities.Entities.Journal", "Journal")
+                    b.HasOne("UniversityProject.Entities.Entities.Semester")
                         .WithMany("Statements")
-                        .HasForeignKey("JournalId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("UniversityProject.Entities.Entities.StudentStatement", b =>
-                {
-                    b.HasOne("UniversityProject.Entities.Entities.Statement", "Statement")
-                        .WithMany("StudentStatements")
-                        .HasForeignKey("StatementId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("SemesterId");
 
                     b.HasOne("UniversityProject.Entities.Entities.Student", "Student")
-                        .WithMany("StudentStatements")
+                        .WithMany("Statements")
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("UniversityProject.Entities.Entities.SubjectStatement", b =>
-                {
-                    b.HasOne("UniversityProject.Entities.Entities.Statement", "Statement")
-                        .WithMany("SubjectStatements")
-                        .HasForeignKey("StatementId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("UniversityProject.Entities.Entities.Subject", "Subject")
-                        .WithMany("SubjectStatements")
+                        .WithMany("Statements")
                         .HasForeignKey("SubjectId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

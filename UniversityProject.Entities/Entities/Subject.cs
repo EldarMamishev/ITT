@@ -11,15 +11,13 @@ namespace UniversityProject.Entities.Entities
         public double CreditsCount { get; set; }
         public uint ControlWorksCount { get; set; }
 
-        public ICollection<SubjectStatement> SubjectStatements { get; set; }
-        public ICollection<SemesterSubject> SemesterSubjects { get; set; }
+        public ICollection<Statement> Statements { get; set; }
         public ICollection<TeacherSubject> TeacherSubjects { get; set; }
 
         public Subject() : base()
         {
             TeacherSubjects = new List<TeacherSubject>();
-            SemesterSubjects = new List<SemesterSubject>();
-            SubjectStatements = new List<SubjectStatement>();
+            Statements = new List<Statement>();
         }
     }
 }

@@ -277,6 +277,18 @@ namespace UniversityProject.WEB.Controllers
         }
         #endregion
 
+        #region Journals
+        #endregion
+
+        #region Subjects
+        #endregion
+
+        #region Teachers
+        #endregion
+
+        #region Students
+        #endregion
+
         #endregion
     }
 }
