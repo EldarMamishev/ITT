@@ -350,7 +350,7 @@ namespace UniversityProject.BusinessLogic.Services
                     result.Chairs.Add(chairViewItem);
                 }
             }
-            
+
             result.CourseNumberTypes = Enum.GetValues(typeof(CourseNumberType)).Cast<int>()
                 .Where(item => !item.Equals(0)).ToList();
 
@@ -403,56 +403,67 @@ namespace UniversityProject.BusinessLogic.Services
 
         public async Task<EditGroupDataAdminView> EditGroup(int id)
         {
-            Group group = await _groupRepository.GetWithChair(id);
+            var viewModel = new EditGroupDataAdminView();
+
+            Group group = await _groupRepository.GetWithChairAndFaculty(id);
 
             if (group is null)
             {
                 throw new AdminException("Selected group doesn't exist.");
             }
 
-            var chairs = await _chairRepository.GetAll() as List<Chair>;
+            var faculties = await _facultyRepository.GetAll() as List<Faculty>;
+            var chairs = await _chairRepository.GetAllChairsByFacultyId(group.Chair.FacultyId.Value) as List<Chair>;
 
-            EditGroupDataAdminView viewModel = _groupMapper.MapToEditGroupDataModel(group, chairs);
+            viewModel = _groupMapper.MapToEditGroupDataModel(group, faculties, chairs);
 
             return viewModel;
         }
 
         public async Task EditGroup(EditGroupAdminView viewModel)
         {
-            Group group = await _groupRepository.Get(viewModel.Id);
+            Group group = await _groupRepository.GetWithChair(viewModel.Id);
 
             if (group is null)
             {
                 throw new AdminException("Selected group doesn't exist.");
             }
 
-            Chair chair = await _chairRepository.GetChairWithFacultyById(viewModel.ChairId);
-
-            if (chair is null)
-            {
-                throw new AdminException("Selected chair doesn't exist.");
-            }
-
             group.CourseNumberType = (CourseNumberType)Enum.Parse(typeof(CourseNumberType), viewModel.CourseNumberTypeId.ToString());
             group.GroupNumber = viewModel.GroupNumber;
             group.CreationYear = _dateParseHelper.ParseStringToOnlyYearDatetime(viewModel.CreationYear).Value;
-            group.ChairId = viewModel.ChairId;
+
+            Chair chair = group.Chair;
+
+            if (!group.ChairId.Equals(viewModel.ChairId))
+            {
+                chair = await _chairRepository.GetChairWithFacultyById(viewModel.ChairId);
+
+                if (chair is null)
+                {
+                    throw new AdminException("Selected chair doesn't exist.");
+                }
+
+                group.ChairId = viewModel.ChairId;
+            }
 
             var newCipher = $"{chair.Faculty.Cipher}.{chair.Cipher}.{group.CreationYear.ToString("yy")}.{group.GroupNumber}";
 
-            if (!group.Cipher.Equals(newCipher))
+            if (group.Cipher.Equals(newCipher))
             {
-                Group checkGroup = await _groupRepository.FindGroupByCipher(newCipher);
-
-                if (!(checkGroup is null))
-                {
-                    throw new AdminException("Entered group has already existed.");
-                }
-
-                group.Cipher = newCipher;
-
-                await _groupRepository.Update(group);
+                return;
             }
+
+            Group checkGroup = await _groupRepository.FindGroupByCipher(newCipher);
+
+            if (!(checkGroup is null))
+            {
+                throw new AdminException("Entered group has already existed.");
+            }
+
+            group.Cipher = newCipher;
+
+            await _groupRepository.Update(group);
         }
 
         public async Task DeleteGroup(int id)

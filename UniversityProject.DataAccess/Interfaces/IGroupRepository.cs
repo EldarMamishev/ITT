@@ -8,6 +8,7 @@ namespace UniversityProject.DataAccess.Interfaces
     public interface IGroupRepository : IBaseRepository<Group>
     {
         Task<Group> GetWithChair(int id);
+        Task<Group> GetWithChairAndFaculty(int id);
         Task<Group> FindGroupByCipher(string cipher);
         Task<List<Group>> GetAllGroups();
         Task<List<Group>> FindGroupsByFacultyId(int id);

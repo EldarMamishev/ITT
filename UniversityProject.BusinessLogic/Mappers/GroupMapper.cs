@@ -30,7 +30,7 @@ namespace UniversityProject.BusinessLogic.Mappers
             return viewModel;
         }
 
-        public EditGroupDataAdminView MapToEditGroupDataModel(Group group, List<Chair> chairs)
+        public EditGroupDataAdminView MapToEditGroupDataModel(Group group, List<Faculty> faculties, List<Chair> chairs)
         {
             var viewModel = new EditGroupDataAdminView();
 
@@ -38,17 +38,27 @@ namespace UniversityProject.BusinessLogic.Mappers
             viewModel.CreationYear = group.CreationYear.ToString("yyyy");
             viewModel.GroupNumber = group.GroupNumber;
             viewModel.CourseNumberType = (int)group.CourseNumberType;
-            viewModel.PrevoiusCipher = group.Cipher;
+            viewModel.FacultyId = (int)group.Chair.FacultyId;
 
             viewModel.CourseNumberTypes = Enum.GetValues(typeof(CourseNumberType))
                 .Cast<int>()
                 .Where(item => !item.Equals(0))
                 .ToList();
 
+            foreach (Faculty faculty in faculties)
+            {
+                var facultyViewItem = new FacultyEditGroupDataAdminViewItem();
+
+                facultyViewItem.Id = faculty.Id;
+                facultyViewItem.FacultyName = faculty.Name;
+
+                viewModel.Faculties.Add(facultyViewItem);
+            }
+
             viewModel.ChairId = group.Chair.Id;
             foreach (Chair chair in chairs)
             {
-                var viewModelItem = new EditGroupDataAdminViewItem();
+                var viewModelItem = new ChairEditGroupDataAdminViewItem();
 
                 viewModelItem.Id = chair.Id;
                 viewModelItem.ChairName = chair.Name;

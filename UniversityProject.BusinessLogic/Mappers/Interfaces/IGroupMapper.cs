@@ -7,6 +7,6 @@ namespace UniversityProject.BusinessLogic.Mappers.Interfaces
     public interface IGroupMapper
     {
         ShowGroupsAdminView MapAllGroupsToViewModel(List<Group> groups);
-        EditGroupDataAdminView MapToEditGroupDataModel(Group group, List<Chair> chairs);
+        EditGroupDataAdminView MapToEditGroupDataModel(Group group, List<Faculty> faculties, List<Chair> chairs);
     }
 }

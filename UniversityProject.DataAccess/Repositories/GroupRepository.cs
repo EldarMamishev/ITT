@@ -14,9 +14,20 @@ namespace UniversityProject.DataAccess.Repositories
         public GroupRepository(ApplicationDbContext context) : base(context)
         {
         }
+
         public async Task<Group> GetWithChair(int id)
         {
             Group group = await _context.Groups
+                .FirstOrDefaultAsync(item => item.Id.Equals(id));
+
+            return group;
+        }
+
+        public async Task<Group> GetWithChairAndFaculty(int id)
+        {
+            Group group = await _context.Groups
+                .Include(item => item.Chair)
+                .ThenInclude(chair => chair.Faculty)
                 .FirstOrDefaultAsync(item => item.Id.Equals(id));
 
             return group;
