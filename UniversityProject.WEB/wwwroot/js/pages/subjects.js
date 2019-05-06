@@ -1,10 +1,10 @@
-﻿var wnd, detailsTemplate, deleteTemplate;
+﻿var wnd, detailsTemplate, deleteTemplate, createTemplate;
 
 $(document).ready(function () {
-    let grid = $("#chairsGrid").kendoGrid({
+    let grid = $("#subjectsGrid").kendoGrid({
         dataSource: {
             pageSize: 10,
-            data: chairs
+            data: subjects
         },
         sortable: {
             mode: "single",
@@ -12,20 +12,21 @@ $(document).ready(function () {
         },
         pageable: true,
         height: 600,
+        filterable: {
+            mode: "row"
+        },
         columns: [
             {
                 field: "id", hidden: true, title: "Id", width: "50px", attributes: {
                     "class": "itemId"
                 }
             },
-            { field: "name", title: "Name", width: "150px" },
-            { field: "cipher", title: "Cipher", width: "80px" },
-            { field: "facultyName", title: "Faculty Name", width: "80px" },
+            { field: "name", title: "Name", width: "200px" },
             {
                 command: [
                     { text: "View Details", click: showDetails },
-                    { text: "Edit", click: openEditChairItem },
-                    { text: "Delete", click: onDeleteChairItem }
+                    { text: "Edit", click: openEditSubjectItem },
+                    { text: "Delete", click: onDeleteSubjectItem }
                 ],
                 title: "&nbsp;",
                 width: "180px"
@@ -33,21 +34,21 @@ $(document).ready(function () {
         ],
         noRecords: true,
         messages: {
-            noRecords: "There are no chairs on current page"
+            noRecords: "There are no subjects on current page"
         }
     }).data("kendoGrid");
 
-    wnd = $("#chairDetails")
-        .kendoWindow({
-            title: "Chair Details",
-            modal: true,
-            visible: false,
-            resizable: false,
-            width: 300
-        }).data("kendoWindow");
+    wnd = $("#subjectDetails").kendoWindow({
+        title: "Subject Details",
+        modal: true,
+        visible: false,
+        resizable: false,
+        width: 300
+    }).data("kendoWindow");
 
     detailsTemplate = kendo.template($("#detailWindowTemplate").html());
     deleteTemplate = kendo.template($("#deleteWindowTemplate").html());
+    createTemplate = kendo.template($("#createWindowTemplate").html());
 });
 
 function showDetails(e) {
@@ -58,14 +59,14 @@ function showDetails(e) {
     wnd.center().open();
 }
 
-function openEditChairItem(e) {
+function openEditSubjectItem(e) {
     let dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-    window.location.href = "EditChair?id=" + dataItem.id;
+    window.location.href = "EditSubject?id=" + dataItem.id;
 }
 
 var itemToDelete;
 var rowToDelete;
-function onDeleteChairItem(e) {
+function onDeleteSubjectItem(e) {
     itemToDelete = this.dataItem($(e.currentTarget).closest("tr"));
     rowToDelete = $(e.currentTarget).closest("tr");
 
@@ -73,17 +74,45 @@ function onDeleteChairItem(e) {
     wnd.center().open();
 }
 
+function onCreateSubjectItem() {
+    wnd.content(createTemplate);
+    wnd.center().open();
+}
+
+function createSubject(e) {
+    var name = $("#createSubjectInput").val();
+    $.ajax({
+        type: "GET",
+        url: "/Admin/CreateSubject",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: {
+            "subjectName": name
+        },
+        success: function (data) {
+            var grid = $("#subjectsGrid").data("kendoGrid");
+            grid.dataSource.add({ id: data.id, name: data.name } );
+
+            closeModal(e);
+        },
+        error: function (data) {
+            console.log(data.responseJSON.message);
+            //$("#createTabError");
+        }
+    });
+}
+
 function confirmDelete(e) {
     $.ajax({
         type: "GET",
-        url: "/Admin/DeleteChair",
+        url: "/Admin/DeleteSubject",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: {
             "id": itemToDelete.id
         },
         success: function (data) {
-            $("#chairsGrid").data("kendoGrid").removeRow(rowToDelete);
+            $("#subjectsGrid").data("kendoGrid").removeRow(rowToDelete);
             closeModal(e);
         },
         error: function (data) {

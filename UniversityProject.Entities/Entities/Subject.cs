@@ -8,8 +8,6 @@ namespace UniversityProject.Entities.Entities
     {
         [MaxLength(30)]
         public string Name { get; set; }
-        public double CreditsCount { get; set; }
-        public uint ControlWorksCount { get; set; }
 
         public ICollection<Statement> Statements { get; set; }
         public ICollection<TeacherSubject> TeacherSubjects { get; set; }

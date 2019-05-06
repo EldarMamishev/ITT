@@ -13,6 +13,7 @@ using UniversityProject.Entities.Enums;
 using UniversityProject.Shared.Exceptions.BusinessLogicExceptions;
 using UniversityProject.ViewModels.AdminViewModels.ChairViewModels;
 using UniversityProject.ViewModels.AdminViewModels.GroupViewModels;
+using UniversityProject.ViewModels.AdminViewModels.SubjectsViewModels;
 using UniversityProject.ViewModels.Faculty;
 
 namespace UniversityProject.BusinessLogic.Services
@@ -23,10 +24,12 @@ namespace UniversityProject.BusinessLogic.Services
         private IFacultyRepository _facultyRepository;
         private IChairRepository _chairRepository;
         private IGroupRepository _groupRepository;
+        private ISubjectRepository _subjectRepository;
 
         private IFacultyMapper _facultyMapper;
         private IChairMapper _chairMapper;
         private IGroupMapper _groupMapper;
+        private ISubjectMapper _subjectMapper;
 
         private IDateParseHelper _dateParseHelper;
         #endregion
@@ -36,18 +39,22 @@ namespace UniversityProject.BusinessLogic.Services
             IFacultyRepository facultyRepository,
             IChairRepository chairRepository,
             IGroupRepository groupRepository,
+            ISubjectRepository subjectRepository,
             IFacultyMapper facultyMapper,
             IChairMapper chairMapper,
             IGroupMapper groupMapper,
+            ISubjectMapper subjectMapper,
             IDateParseHelper dateParseHelper)
         {
             _facultyRepository = facultyRepository;
             _chairRepository = chairRepository;
             _groupRepository = groupRepository;
+            _subjectRepository = subjectRepository;
 
             _facultyMapper = facultyMapper;
             _chairMapper = chairMapper;
             _groupMapper = groupMapper;
+            _subjectMapper = subjectMapper;
 
             _dateParseHelper = dateParseHelper;
         }
@@ -476,6 +483,39 @@ namespace UniversityProject.BusinessLogic.Services
             }
 
             await _groupRepository.Delete(id);
+        }
+        #endregion
+
+        #region Subjects
+        public async Task<ShowSubjectsAdminView> ShowSubjects()
+        {
+            var subjects = await _subjectRepository.GetAll() as List<Subject>;
+
+            ShowSubjectsAdminView result = _subjectMapper.MapAllSubjectsToViewModel(subjects);
+
+            return result;
+        }
+
+        public async Task<ResponseCreateSubject> CreateSubject(string subjectName)
+        {
+            Subject subject = await _subjectRepository.FindByName(subjectName);
+
+            if (!(subject is null))
+            {
+                throw new AdminException("Such subject has already existed.");
+            }
+
+            subject = new Subject();
+            subject.Name = subjectName;
+
+            await _subjectRepository.Create(subject);
+
+            var viewModel = new ResponseCreateSubject();
+
+            viewModel.Id = subject.Id;
+            viewModel.Name = subject.Name;
+
+            return viewModel;
         }
         #endregion
 

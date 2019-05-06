@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using UniversityProject.ViewModels.AdminViewModels.ChairViewModels;
 using UniversityProject.ViewModels.AdminViewModels.GroupViewModels;
+using UniversityProject.ViewModels.AdminViewModels.SubjectsViewModels;
 using UniversityProject.ViewModels.Faculty;
 
 namespace UniversityProject.BusinessLogic.Services.Interfaces
@@ -33,6 +34,11 @@ namespace UniversityProject.BusinessLogic.Services.Interfaces
         Task<EditGroupDataAdminView> EditGroup(int id);
         Task EditGroup(EditGroupAdminView viewModel);
         Task DeleteGroup(int id);
+        #endregion
+
+        #region Subjects
+        Task<ShowSubjectsAdminView> ShowSubjects();
+        Task<ResponseCreateSubject> CreateSubject(string subjectName);
         #endregion
     }
 }

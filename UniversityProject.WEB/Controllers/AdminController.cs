@@ -8,6 +8,7 @@ using UniversityProject.Shared.Exceptions.BaseExceptions;
 using UniversityProject.Shared.Exceptions.BusinessLogicExceptions;
 using UniversityProject.ViewModels.AdminViewModels.ChairViewModels;
 using UniversityProject.ViewModels.AdminViewModels.GroupViewModels;
+using UniversityProject.ViewModels.AdminViewModels.SubjectsViewModels;
 using UniversityProject.ViewModels.Faculty;
 using UniversityProject.WEB.Controllers.Base;
 
@@ -277,10 +278,32 @@ namespace UniversityProject.WEB.Controllers
         }
         #endregion
 
-        #region Journals
+        #region Subjects
+        [HttpGet]
+        public async Task<IActionResult> ShowSubjects()
+        {
+            ShowSubjectsAdminView result = await _adminService.ShowSubjects();
+
+            return View(viewName: "Subjects/Subjects", result);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> CreateSubject(string subjectName)
+        {
+            try
+            {
+                ResponseCreateSubject result = await _adminService.CreateSubject(subjectName);
+
+                return new JsonResult(result);
+            }
+            catch (AdminException ex)
+            {
+                return new JsonResult(ex.Message);
+            }
+        }
         #endregion
 
-        #region Subjects
+        #region Journals
         #endregion
 
         #region Teachers

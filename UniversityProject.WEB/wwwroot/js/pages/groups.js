@@ -28,8 +28,8 @@ $(document).ready(function () {
             {
                 command: [
                     { text: "View Details", click: showDetails },
-                    { text: "Edit", click: openEditFacultyItem },
-                    { text: "Delete", click: onDeleteFacultyItem }
+                    { text: "Edit", click: openEditGroupItem },
+                    { text: "Delete", click: onDeleteGroupItem }
                 ],
                 title: "&nbsp;",
                 width: "180px"
@@ -61,14 +61,14 @@ function showDetails(e) {
     wnd.center().open();
 }
 
-function openEditFacultyItem(e) {
+function openEditGroupItem(e) {
     let dataItem = this.dataItem($(e.currentTarget).closest("tr"));
     window.location.href = "EditGroup?id=" + dataItem.id;
 }
 
 var itemToDelete;
 var rowToDelete;
-function onDeleteFacultyItem(e) {
+function onDeleteGroupItem(e) {
     itemToDelete = this.dataItem($(e.currentTarget).closest("tr"));
     rowToDelete = $(e.currentTarget).closest("tr");
 
