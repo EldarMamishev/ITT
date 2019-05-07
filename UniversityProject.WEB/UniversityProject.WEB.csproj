@@ -27,8 +27,4 @@
     <None Include="wwwroot\emailTemplates\ForgetPasswordEmailTemplate.html" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Admin\Teachers\" />
-  </ItemGroup>
-
 </Project>

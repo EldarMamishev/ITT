@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using UniversityProject.ViewModels.AdminViewModels.ChairViewModels;
 using UniversityProject.ViewModels.AdminViewModels.GroupViewModels;
 using UniversityProject.ViewModels.AdminViewModels.SubjectsViewModels;
+using UniversityProject.ViewModels.AdminViewModels.TeacherViewModels;
 using UniversityProject.ViewModels.Faculty;
 
 namespace UniversityProject.BusinessLogic.Services.Interfaces
@@ -41,6 +42,10 @@ namespace UniversityProject.BusinessLogic.Services.Interfaces
         Task<ResponseSubjectView> CreateSubject(string subjectName);
         Task<ResponseSubjectView> EditSubject(RequestSubjectView requestViewModel);
         Task DeleteSubject(int id);
+        #endregion
+
+        #region Teachers
+        Task<ShowTeachersAdminView> ShowTeachers();
         #endregion
     }
 }

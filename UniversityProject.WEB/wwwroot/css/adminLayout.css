@@ -7,13 +7,16 @@
     font-size: 40px;
     margin-bottom: 15px; }
   .form__field {
-    width: 100%;
+    width: 99%;
     height: 35px;
     line-height: 35px;
     padding-left: 15px;
     margin-bottom: 15px;
-    background: #f4f8f7;
-    border: none; }
+    background: #c7e3f5;
+    border: none;
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-right: 5px; }
     .form__field:last-child {
       margin-bottom: 0; }
     .form__field::-webkit-input-placeholder {
@@ -524,13 +527,16 @@ td {
     font-size: 40px;
     margin-bottom: 15px; }
   .form__field {
-    width: 100%;
+    width: 99%;
     height: 35px;
     line-height: 35px;
     padding-left: 15px;
     margin-bottom: 15px;
-    background: #f4f8f7;
-    border: none; }
+    background: #c7e3f5;
+    border: none;
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-right: 5px; }
     .form__field:last-child {
       margin-bottom: 0; }
     .form__field::-webkit-input-placeholder {
@@ -547,6 +553,13 @@ td {
       text-transform: capitalize; }
     .form__field:focus, .form__field:active {
       outline: 0; }
+  .form__field__label {
+    display: block;
+    margin: 1em 0 .5em;
+    font-family: 'Open Sans', arial, sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    margin-left: 5px; }
   .form__text {
     margin-bottom: 15px;
     font-size: 14px; }

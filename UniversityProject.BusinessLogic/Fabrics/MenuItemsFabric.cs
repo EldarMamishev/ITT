@@ -117,16 +117,16 @@ namespace UniversityProject.BusinessLogic.Fabrics
             item = new MenuViewModelItem()
             {
                 Title = "Teachers",
-                ControllerName = "Teacher",
-                ActionName = "Index"
+                ControllerName = "Admin",
+                ActionName = "ShowTeachers"
             };
             TryAddMenuViewModelItem(items, item);
 
             item = new MenuViewModelItem()
             {
                 Title = "Students",
-                ControllerName = "Student",
-                ActionName = "Index"
+                ControllerName = "Admin",
+                ActionName = "ShowStudents"
             };
             TryAddMenuViewModelItem(items, item);
         }

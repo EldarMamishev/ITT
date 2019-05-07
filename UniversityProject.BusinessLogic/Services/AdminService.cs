@@ -14,6 +14,7 @@ using UniversityProject.Shared.Exceptions.BusinessLogicExceptions;
 using UniversityProject.ViewModels.AdminViewModels.ChairViewModels;
 using UniversityProject.ViewModels.AdminViewModels.GroupViewModels;
 using UniversityProject.ViewModels.AdminViewModels.SubjectsViewModels;
+using UniversityProject.ViewModels.AdminViewModels.TeacherViewModels;
 using UniversityProject.ViewModels.Faculty;
 
 namespace UniversityProject.BusinessLogic.Services
@@ -559,6 +560,18 @@ namespace UniversityProject.BusinessLogic.Services
             }
 
             await _subjectRepository.Delete(id);
+        }
+        #endregion
+
+        #region Teachers
+        public async Task<ShowTeachersAdminView> ShowTeachers()
+        {
+            //var subjects = await _subjectRepository.GetAll() as List<Subject>;
+
+            ShowTeachersAdminView result = new ShowTeachersAdminView();
+            //ShowTeachersAdminView result = _subjectMapper.MapAllSubjectsToViewModel(subjects);
+
+            return result;
         }
         #endregion
 

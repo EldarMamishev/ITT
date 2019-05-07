@@ -72,6 +72,11 @@ namespace UniversityProject.BusinessLogic.Services
             await _userManager.AddToRoleAsync(userRegistered, ApplicationConstants.USER_ROLE);
         }
 
+        public async Task RegisterNewTeacherUser(RegisterNewTeacherUserAccountView viewModel)
+        {
+            
+        }
+
         public async Task<IdentityResult> FinishRegistrationAndConfirmAccount(FinishRegistrationAndConfirmAccountAccountView viewModel)
         {
             var result = new IdentityResult();

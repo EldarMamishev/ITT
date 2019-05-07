@@ -9,6 +9,7 @@ using UniversityProject.Shared.Exceptions.BusinessLogicExceptions;
 using UniversityProject.ViewModels.AdminViewModels.ChairViewModels;
 using UniversityProject.ViewModels.AdminViewModels.GroupViewModels;
 using UniversityProject.ViewModels.AdminViewModels.SubjectsViewModels;
+using UniversityProject.ViewModels.AdminViewModels.TeacherViewModels;
 using UniversityProject.ViewModels.Faculty;
 using UniversityProject.WEB.Attributes.ErrorHandleAttribute;
 using UniversityProject.WEB.Controllers.Base;
@@ -322,10 +323,22 @@ namespace UniversityProject.WEB.Controllers
         }
         #endregion
 
-        #region Journals
+        #region Teachers
+        [HttpGet]
+        public async Task<IActionResult> ShowTeachers()
+        {
+            ShowTeachersAdminView result = await _adminService.ShowTeachers();
+
+            return View(viewName: "Teachers/Teachers", result);
+        }
+
+        public async Task<IActionResult> RegisterTeacher()
+        {
+            return View(viewName: "Teachers/RegisterNewTeacher");
+        }
         #endregion
 
-        #region Teachers
+        #region Journals
         #endregion
 
         #region Students
