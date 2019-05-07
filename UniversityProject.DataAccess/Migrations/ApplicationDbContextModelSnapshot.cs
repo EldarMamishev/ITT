@@ -360,11 +360,7 @@ namespace UniversityProject.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("ControlWorksCount");
-
                     b.Property<DateTime>("CreationDateUTC");
-
-                    b.Property<double>("CreditsCount");
 
                     b.Property<string>("Name")
                         .HasMaxLength(30);

@@ -10,8 +10,8 @@ using UniversityProject.DataAccess.DataAccept;
 namespace UniversityProject.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190506124143_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20190507060338_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -362,11 +362,7 @@ namespace UniversityProject.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("ControlWorksCount");
-
                     b.Property<DateTime>("CreationDateUTC");
-
-                    b.Property<double>("CreditsCount");
 
                     b.Property<string>("Name")
                         .HasMaxLength(30);

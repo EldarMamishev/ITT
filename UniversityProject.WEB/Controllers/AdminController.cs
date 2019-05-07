@@ -10,6 +10,7 @@ using UniversityProject.ViewModels.AdminViewModels.ChairViewModels;
 using UniversityProject.ViewModels.AdminViewModels.GroupViewModels;
 using UniversityProject.ViewModels.AdminViewModels.SubjectsViewModels;
 using UniversityProject.ViewModels.Faculty;
+using UniversityProject.WEB.Attributes.ErrorHandleAttribute;
 using UniversityProject.WEB.Controllers.Base;
 
 namespace UniversityProject.WEB.Controllers
@@ -287,19 +288,13 @@ namespace UniversityProject.WEB.Controllers
             return View(viewName: "Subjects/Subjects", result);
         }
 
+        [ValidateErrorHandlerFilter]
         [HttpGet]
         public async Task<JsonResult> CreateSubject(string subjectName)
         {
-            try
-            {
-                ResponseCreateSubject result = await _adminService.CreateSubject(subjectName);
+            ResponseCreateSubject result = await _adminService.CreateSubject(subjectName);
 
-                return new JsonResult(result);
-            }
-            catch (AdminException ex)
-            {
-                return new JsonResult(ex.Message);
-            }
+            return new JsonResult(result);
         }
         #endregion
 

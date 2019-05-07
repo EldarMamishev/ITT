@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace UniversityProject.DataAccess.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,9 +49,7 @@ namespace UniversityProject.DataAccess.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreationDateUTC = table.Column<DateTime>(nullable: false),
-                    Name = table.Column<string>(maxLength: 30, nullable: true),
-                    CreditsCount = table.Column<double>(nullable: false),
-                    ControlWorksCount = table.Column<long>(nullable: false)
+                    Name = table.Column<string>(maxLength: 30, nullable: true)
                 },
                 constraints: table =>
                 {

@@ -75,6 +75,7 @@ function onDeleteSubjectItem(e) {
 }
 
 function onCreateSubjectItem() {
+    $("#createTabError").text("");
     wnd.content(createTemplate);
     wnd.center().open();
 }
@@ -90,13 +91,14 @@ function createSubject(e) {
             "subjectName": name
         },
         success: function (data) {
+            $("#createTabError").text("");
             var grid = $("#subjectsGrid").data("kendoGrid");
             grid.dataSource.add({ id: data.id, name: data.name } );
 
             closeModal(e);
         },
         error: function (data) {
-            console.log(data.responseJSON.message);
+            $("#createTabError").text(data.responseText);
             //$("#createTabError");
         }
     });
