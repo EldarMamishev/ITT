@@ -292,9 +292,33 @@ namespace UniversityProject.WEB.Controllers
         [HttpGet]
         public async Task<JsonResult> CreateSubject(string subjectName)
         {
-            ResponseCreateSubject result = await _adminService.CreateSubject(subjectName);
+            ResponseSubjectView result = await _adminService.CreateSubject(subjectName);
 
             return new JsonResult(result);
+        }
+
+        [ValidateErrorHandlerFilter]
+        [HttpPost]
+        public async Task<JsonResult> EditSubject([FromBody]RequestSubjectView requestViewModel)
+        {
+            ResponseSubjectView result = await _adminService.EditSubject(requestViewModel);
+
+            return new JsonResult(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteSubject(int id)
+        {
+            try
+            {
+                await _adminService.DeleteSubject(id);
+
+                return new JsonResult(new OkResult());
+            }
+            catch (AdminException)
+            {
+                return RedirectToAction("ShowSubjects");
+            }
         }
         #endregion
 

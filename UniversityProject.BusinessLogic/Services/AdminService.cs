@@ -496,7 +496,7 @@ namespace UniversityProject.BusinessLogic.Services
             return result;
         }
 
-        public async Task<ResponseCreateSubject> CreateSubject(string subjectName)
+        public async Task<ResponseSubjectView> CreateSubject(string subjectName)
         {
             Subject subject = await _subjectRepository.FindByName(subjectName);
 
@@ -510,12 +510,55 @@ namespace UniversityProject.BusinessLogic.Services
 
             await _subjectRepository.Create(subject);
 
-            var viewModel = new ResponseCreateSubject();
+            var viewModel = new ResponseSubjectView();
 
             viewModel.Id = subject.Id;
             viewModel.Name = subject.Name;
 
             return viewModel;
+        }
+
+        public async Task<ResponseSubjectView> EditSubject(RequestSubjectView requestViewModel)
+        {
+            Subject subject = await _subjectRepository.Get(requestViewModel.Id);
+
+            if (subject is null)
+            {
+                throw new AdminException("Selected subject doesn't exist.");
+            }
+
+            if (!subject.Name.ToUpper().Equals(requestViewModel.SubjectName.ToUpper()))
+            {
+                Subject checkExistingsubject = await _subjectRepository.FindByName(requestViewModel.SubjectName);
+
+                if (!(checkExistingsubject is null))
+                {
+                    throw new AdminException("Such subject has already existed.");
+                }
+
+                subject.Name = requestViewModel.SubjectName;
+
+                await _subjectRepository.Update(subject);
+            }
+
+            var viewModel = new ResponseSubjectView();
+
+            viewModel.Id = subject.Id;
+            viewModel.Name = subject.Name;
+
+            return viewModel;
+        }
+
+        public async Task DeleteSubject(int id)
+        {
+            Subject subject = await _subjectRepository.Get(id);
+
+            if (subject is null)
+            {
+                throw new AdminException("Selected subject doesn't exist.");
+            }
+
+            await _subjectRepository.Delete(id);
         }
         #endregion
 

@@ -1,4 +1,4 @@
-﻿var wnd, detailsTemplate, deleteTemplate, createTemplate;
+﻿var wnd, detailsTemplate, deleteTemplate, createTemplate, editTemplate;
 
 $(document).ready(function () {
     let grid = $("#subjectsGrid").kendoGrid({
@@ -21,11 +21,15 @@ $(document).ready(function () {
                     "class": "itemId"
                 }
             },
-            { field: "name", title: "Name", width: "200px" },
+            {
+                field: "name", title: "Name", width: "200px", attributes: {
+                    "class": "itemName"
+                }
+            },
             {
                 command: [
                     { text: "View Details", click: showDetails },
-                    { text: "Edit", click: openEditSubjectItem },
+                    { text: "Edit", click: onEditSubjectItem },
                     { text: "Delete", click: onDeleteSubjectItem }
                 ],
                 title: "&nbsp;",
@@ -49,6 +53,7 @@ $(document).ready(function () {
     detailsTemplate = kendo.template($("#detailWindowTemplate").html());
     deleteTemplate = kendo.template($("#deleteWindowTemplate").html());
     createTemplate = kendo.template($("#createWindowTemplate").html());
+    editTemplate = kendo.template($("#editWindowTemplate").html());
 });
 
 function showDetails(e) {
@@ -82,6 +87,7 @@ function onCreateSubjectItem() {
 
 function createSubject(e) {
     var name = $("#createSubjectInput").val();
+
     $.ajax({
         type: "GET",
         url: "/Admin/CreateSubject",
@@ -92,14 +98,50 @@ function createSubject(e) {
         },
         success: function (data) {
             $("#createTabError").text("");
-            var grid = $("#subjectsGrid").data("kendoGrid");
-            grid.dataSource.add({ id: data.id, name: data.name } );
+            let grid = $("#subjectsGrid").data("kendoGrid");
+            grid.dataSource.add({ id: data.id, name: data.name });
 
             closeModal(e);
         },
         error: function (data) {
             $("#createTabError").text(data.responseText);
-            //$("#createTabError");
+        }
+    });
+}
+
+var editItem;
+function onEditSubjectItem(e) {
+    $("#editTabError").text("");
+    editItem = this.dataItem($(e.currentTarget).closest("tr"));
+    wnd.content(editTemplate(editItem));
+    wnd.center().open();
+}
+
+function editSubject(e) {
+    let id = $("#editSubjectIdInput").val();
+    let subjectName = $("#editSubjectNameInput").val();
+
+    $.ajax({
+        type: "POST",
+        url: "/Admin/EditSubject",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify({
+            id: id,
+            subjectName: subjectName
+        }),
+        success: function (data) {
+            $("#editTabError").text("");
+            let grid = $("#subjectsGrid").getKendoGrid();
+            let dataSource = grid.dataSource;
+            let dataItem = dataSource.get(editItem.id);
+            dataItem.name = data.name;
+            dataItem.set("Name", data.name);
+
+            closeModal(e);
+        },
+        error: function (data) {
+            $("#editTabError").text(data.responseText);
         }
     });
 }

@@ -38,7 +38,9 @@ namespace UniversityProject.BusinessLogic.Services.Interfaces
 
         #region Subjects
         Task<ShowSubjectsAdminView> ShowSubjects();
-        Task<ResponseCreateSubject> CreateSubject(string subjectName);
+        Task<ResponseSubjectView> CreateSubject(string subjectName);
+        Task<ResponseSubjectView> EditSubject(RequestSubjectView requestViewModel);
+        Task DeleteSubject(int id);
         #endregion
     }
 }
