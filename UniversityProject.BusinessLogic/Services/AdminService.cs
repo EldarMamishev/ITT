@@ -110,11 +110,16 @@ namespace UniversityProject.BusinessLogic.Services
 
         public async Task EditFaculty(EditFacultyAdminView viewModel)
         {
-            Faculty faculty = null;
+            Faculty faculty = await _facultyRepository.Get(viewModel.Id);
 
+            if (faculty is null)
+            {
+                throw new AdminException("Entered faculty doesn't exist.");
+            }
+            
             var changeCiphers = false;
 
-            if (!(viewModel.LastName.ToUpper().Equals(viewModel.Name.ToUpper())))
+            if (!(faculty.Name.ToUpper().Equals(viewModel.Name.ToUpper())))
             {
                 faculty = await _facultyRepository.FindFacultyByName(viewModel.Name);
 
@@ -124,7 +129,7 @@ namespace UniversityProject.BusinessLogic.Services
                 }
             }
 
-            if (!(viewModel.LastCipher.ToUpper().Equals(viewModel.Cipher.ToUpper())))
+            if (!(faculty.Cipher.ToUpper().Equals(viewModel.Cipher.ToUpper())))
             {
                 faculty = await _facultyRepository.FindFacultyByCipher(viewModel.Cipher);
 
@@ -135,14 +140,7 @@ namespace UniversityProject.BusinessLogic.Services
 
                 changeCiphers = true;
             }
-
-            faculty = await _facultyRepository.Get(viewModel.Id);
-
-            if (faculty is null)
-            {
-                throw new AdminException("Entered faculty doesn't exist.");
-            }
-
+            
             _facultyMapper.MapFacultyEditViewModelToFacultyModel(faculty, viewModel);
 
             await _facultyRepository.Update(faculty);

@@ -47,9 +47,7 @@ namespace UniversityProject.BusinessLogic.Mappers
 
             viewModel.Id = model.Id;
             viewModel.Name = model.Name;
-            viewModel.LastName = model.Name;
             viewModel.Cipher = model.Cipher;
-            viewModel.LastCipher = model.Cipher;
             viewModel.Address = model.Address;
             viewModel.PhoneNumber = model.PhoneNumber;
             viewModel.StudentsCount = model.StudentsCount;
