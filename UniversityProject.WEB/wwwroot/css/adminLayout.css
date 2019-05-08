@@ -527,7 +527,8 @@ td {
     margin: 0; }
   .panel {
     width: 47%;
-    clear: none; }
+    clear: none;
+    border-radius: 5px; }
     .panel.important {
       width: 96%; }
     .panel.secondary {

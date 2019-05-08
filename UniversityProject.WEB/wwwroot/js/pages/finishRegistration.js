@@ -1,4 +1,14 @@
-﻿$(function () {    
+﻿$(document).ready(function () {
+    $("#yearpicker").kendoDatePicker();
+});
+
+$(function () {    
+    //$("#yearpicker").kendoDatePicker();
+    //{
+    //    start: "decade",
+    //    depth: "decade",
+    //    //format: "yyyy"
+    //});
 
     if ($(window).width() <= 768) {
         $(".info, .overlay").height($(".content").innerHeight());
@@ -17,3 +27,4 @@
     });
 
 });
+

@@ -6,7 +6,11 @@
     ViewData["Title"] = "Finish Registration";
 }
 
+<link href="~/lib/kendo/kendo.common-material.css" rel="stylesheet" />
+<link href="~/lib/kendo/kendo.material.css" rel="stylesheet" />
+<link href="~/lib/kendo/kendo.material.mobile.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/css/finishregistration.css" />
+<link rel="stylesheet" href="~/css/adminLayout.css" />
 <body>
     <div class="row">
         <div class="col-md-4">
@@ -37,65 +41,63 @@
                         <h3 class="section-title">Personal information</h3>
                         <div class="section-form">
                             <div class="form-group">
-                                <label for="">FirstName <span>*</span></label>
-                                <input type="text" name="firstName" class="form-control">
+                                <label for="" class="form__field__label">FirstName <span>*</span></label>
+                                <input type="text" name="firstName" class="form__field">
                             </div>
                             <div class="form-group">
-                                <label for="">LastName <span>*</span></label>
-                                <input type="text" name="lastName" class="form-control">
+                                <label for="" class="form__field__label">LastName <span>*</span></label>
+                                <input type="text" name="lastName" class="form__field">
                             </div>
                             <div class="form-group">
-                                <label for="">MiddleName</label>
-                                <input type="text" name="middleName" class="form-control">
+                                <label for="" class="form__field__label">MiddleName</label>
+                                <input type="text" name="middleName" class="form__field">
                             </div>
                             <div class="form-group">
-                                <label for="">Personal Phone Number <span>*</span></label>
-                                <input type="text" name="phoneNumber" class="form-control">
+                                <label for="" class="form__field__label">Personal Phone Number <span>*</span></label>
+                                <input type="text" name="phoneNumber" class="form__field">
                             </div>
                             <div class="form-group">
-                                <label for="">Parent's Phone Number <span>*</span></label>
-                                <input type="text" name="parentsPhoneNumber" class="form-control">
+                                <label for="" class="form__field__label">Parent's Phone Number <span>*</span></label>
+                                <input type="text" name="parentsPhoneNumber" class="form__field">
                             </div>
                             <div class="form-group">
-                                <label for="">Birth Date <span>*</span></label>
-                                <input type="datetime" name="birthDate" class="form-control">
+                                <label for="" class="form__field__label">Birth Date <span>*</span></label>
+                                <input id="yearpicker" name="birthDate"/>
                             </div>
                         </div>
 
                         <h3 class="section-title">Living information</h3>
                         <div class="section-form">
                             <div class="form-group">
-                                <label for="">Country <span>*</span></label>
-                                <input type="text" class="form-control" name="country">
+                                <label for="" class="form__field__label">Country <span>*</span></label>
+                                <input type="text" class="form__field" name="country">
                             </div>
                             <div class="form-group">
-                                <label for="">City <span>*</span></label>
-                                <input type="text" class="form-control" name="city">
+                                <label for="" class="form__field__label">City <span>*</span></label>
+                                <input type="text" class="form__field" name="city">
                             </div>
                             <div class="form-group">
-                                <label for="">Address <span>*</span></label>
-                                <input type="text" class="form-control" name="addressLine">
+                                <label for="" class="form__field__label">Address <span>*</span></label>
+                                <input type="text" class="form__field" name="addressLine">
                             </div>
                         </div>
 
                         <h3 class="section-title">Education information</h3>
                         <div class="section-form">
                             <div class="form-group">
-                                <label for="">Faculty <span>*</span></label>
-                                <input type="text" class="form-control" name="" placeholder="">
+                                <label for="" class="form__field__label">Faculty</label>
+                                @Html.DropDownList(string.Empty, new SelectList(Model.Faculties, "Id", "FacultyName"),
+                            htmlAttributes: new { @class = "form__field", @name = "facultyId", @id = "facultyBox" })
                             </div>
                             <div class="form-group">
-                                <label for="">Department <span>*</span></label>
-                                <input type="text" class="form-control" name="" placeholder="">
+                                <label for="" class="form__field__label">Chair</label>
+                                @Html.DropDownList(string.Empty, new SelectList(Model.Chairs, "Id", "ChairName"),
+                             htmlAttributes: new { @class = "form__field", @name = "chairId", @id = "chairBox" })
                             </div>
                             <div class="form-group">
-                                <label for="">What is the category of your project ? <span>*</span></label>
-                                <small id="" class="form-text text-muted">You can select more than one option</small>
-                                <select class="form-control" name="" id="">
-                                    <option></option>
-                                    <option></option>
-                                    <option></option>
-                                </select>
+                                <label for="" class="form__field__label">Group</label>
+                                @Html.DropDownList(string.Empty, new SelectList(Model.Chairs, "Id", "ChairName"),
+                             htmlAttributes: new { @class = "form__field", @name = "chairId", @id = "chairBox" })
                             </div>
                         </div>
 
@@ -108,5 +110,5 @@
 </body>
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
 <script src="~/js/pages/finishRegistration.js"></script>

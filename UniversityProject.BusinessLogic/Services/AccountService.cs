@@ -1,12 +1,15 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using UniversityProject.BusinessLogic.Extentions;
 using UniversityProject.BusinessLogic.Mappers.Interfaces;
 using UniversityProject.BusinessLogic.Providers.Interfaces;
 using UniversityProject.BusinessLogic.Services.Interfaces;
+using UniversityProject.DataAccess.Interfaces;
 using UniversityProject.Entities.Entities;
 using UniversityProject.Shared.Constants;
 using UniversityProject.Shared.Exceptions.BusinessLogicExceptions;
@@ -17,6 +20,9 @@ namespace UniversityProject.BusinessLogic.Services
     public class AccountService : IAccountService
     {
         #region Properties
+        private IFacultyRepository _facultyRepository;
+        private IChairRepository _chairRepository;
+
         private IAccountMapper _accountMapper;
 
         private IEmailProvider _emailProvider;
@@ -26,9 +32,17 @@ namespace UniversityProject.BusinessLogic.Services
         #endregion
 
         #region Constructors
-        public AccountService(IAccountMapper accountMapper, IEmailProvider emailProvider, 
-            UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountService(
+            IFacultyRepository facultyRepository,
+            IChairRepository chairRepository, 
+            IAccountMapper accountMapper, 
+            IEmailProvider emailProvider, 
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager)
         {
+            _facultyRepository = facultyRepository;
+            _chairRepository = chairRepository;
+
             _accountMapper = accountMapper;
 
             _emailProvider = emailProvider;
@@ -75,6 +89,38 @@ namespace UniversityProject.BusinessLogic.Services
         public async Task RegisterNewTeacherUser(RegisterNewTeacherUserAccountView viewModel)
         {
             
+        }
+
+        public async Task LoadFinishRegistrationData(FinishRegistrationAccountView viewModel)
+        {
+            var faculties = await _facultyRepository.GetAll() as List<Faculty>;
+
+            foreach (Faculty faculty in faculties)
+            {
+                var facultyViewItem = new FacultyFinishRegistrationAccountViewItem();
+
+                facultyViewItem.Id = faculty.Id;
+                facultyViewItem.FacultyName = faculty.Name;
+
+                viewModel.Faculties.Add(facultyViewItem);
+            }
+
+            if (!(faculties is null))
+            {
+                int facultyId = faculties.FirstOrDefault().Id;
+
+                var chairs = await _chairRepository.GetAllChairsByFacultyId(facultyId) as List<Chair>;
+
+                foreach (Chair chair in chairs)
+                {
+                    var chairViewItem = new ChairFinishRegistrationAccountViewItem();
+
+                    chairViewItem.Id = chair.Id;
+                    chairViewItem.ChairName = chair.Name;
+
+                    viewModel.Chairs.Add(chairViewItem);
+                }
+            }
         }
 
         public async Task<IdentityResult> FinishRegistrationAndConfirmAccount(FinishRegistrationAndConfirmAccountAccountView viewModel)
