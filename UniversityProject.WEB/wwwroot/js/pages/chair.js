@@ -12,6 +12,9 @@ $(document).ready(function () {
         },
         pageable: true,
         height: 600,
+        filterable: {
+            mode: "row"
+        },
         columns: [
             {
                 field: "id", hidden: true, title: "Id", width: "50px", attributes: {

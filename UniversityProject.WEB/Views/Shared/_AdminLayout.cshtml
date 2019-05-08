@@ -17,8 +17,8 @@
     <header role="banner">
         <h1>Admin Panel</h1>
         <ul class="utilities">
-            <li class="users"><a href="#">My Account</a></li>
-            <li class="logout warn"><a asp-controller="Account" asp-action="LogOut">Log out</a></li>
+            <li class="users"><a class="admin-nav-items" href="#">My Account</a></li>
+            <li class="logout warn"><a class="admin-nav-items" asp-controller="Account" asp-action="LogOut">Log out</a></li>
         </ul>
     </header>
     <nav role="navigation">
@@ -29,7 +29,7 @@
                 foreach (MenuViewModelItem item in menu.Items)
                 {
                     <li>
-                        <a asp-controller="@item.ControllerName" asp-action="@item.ActionName">@item.Title</a>
+                        <a class="admin-nav-items" asp-controller="@item.ControllerName" asp-action="@item.ActionName">@item.Title</a>
                     </li>
                 }
             }

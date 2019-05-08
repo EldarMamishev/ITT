@@ -30,22 +30,26 @@
 
 <script type="text/x-kendo-template" id="createWindowTemplate">
     <div id="details-container">
-        <h4>Name:</h4>
-        <input type="text" name="name" id="createSubjectInput" /><br />
-        <h6 style="color:red;" id="createTabError"></h6><br />
-        <button type="button" class="btn confirm-button" onclick="createSubject(this)">Create</button>
-        <button type="button" class="btn cancel-button" onclick="closeModal(this)">Cancel</button>
+        <h4>Name</h4>
+        <input type="text" name="name" id="createSubjectInput" class="modal__field" /><br />
+        <h6 class="text-danger" id="createTabError"></h6><br />
+        <div class="table-modal-btn">
+            <button type="button" class="btn confirm-button" onclick="createSubject(this)">Create</button>
+            <button type="button" class="btn cancel-button" onclick="closeModal(this)">Cancel</button>
+        </div>
     </div>
 </script>
 
 <script type="text/x-kendo-template" id="editWindowTemplate">
     <div id="details-container">
-        <input type="hidden" id="editSubjectIdInput" value="#= id #"/>
-        <h4>Name:</h4>
-        <input type="text" id="editSubjectNameInput" value="#= name #" /><br />
-        <h6 style="color:red;" id="editTabError"></h6><br />
-        <button type="button" class="btn confirm-button" onclick="editSubject(this)">Edit</button>
-        <button type="button" class="btn cancel-button" onclick="closeModal(this)">Cancel</button>
+        <input type="hidden" id="editSubjectIdInput" value="#= id #" />
+        <h4>Name</h4>
+        <input type="text" id="editSubjectNameInput" value="#= name #" class="modal__field"/><br />
+        <h6 class="text-danger" id="editTabError"></h6><br />
+        <div class="table-modal-btn">
+            <button type="button" class="btn confirm-button" onclick="editSubject(this)">Edit</button>
+            <button type="button" class="btn cancel-button" onclick="closeModal(this)">Cancel</button>
+        </div>
     </div>
 </script>
 

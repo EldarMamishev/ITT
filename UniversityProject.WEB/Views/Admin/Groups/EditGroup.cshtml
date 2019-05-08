@@ -17,27 +17,36 @@
 <section class="panel important">
     <form asp-action="EditGroup" class="form">
         <input type="hidden" value="@Model.Id" name="id" />
-
-        @Html.DropDownListFor(item => Model.FacultyId, new SelectList(Model.Faculties, "Id", "FacultyName"),
+        <div class="form-group">
+            <label for="" class="form__field__label">Faculty</label>
+            @Html.DropDownListFor(item => Model.FacultyId, new SelectList(Model.Faculties, "Id", "FacultyName"),
         htmlAttributes: new { @class = "form__field", @name = "facultyId", @id = "facultyBox" })
-
-        @Html.DropDownListFor(item => Model.ChairId, new SelectList(Model.Chairs, "Id", "ChairName"),
-        htmlAttributes: new { @class = "form__field", @name = "chairId", @id = "chairBox"  })
-
-        <input type="text" name="groupNumber" placeholder="group number" class="form__field" value="@Model.GroupNumber">
-
-        @{
-            var courses = Model.CourseNumberTypes.Select(item => new SelectListItem
-            {
-                Text = item.ToString(),
-                Value = item.ToString()
-            });
-        }
-
-        @Html.DropDownListFor(item => Model.CourseNumberType, new SelectList(courses, "Text", "Value"),
+        </div>
+        <div class="form-group">
+            <label for="" class="form__field__label">Chair</label>
+            @Html.DropDownListFor(item => Model.ChairId, new SelectList(Model.Chairs, "Id", "ChairName"),
+        htmlAttributes: new { @class = "form__field", @name = "chairId", @id = "chairBox" })
+        </div>
+        <div class="form-group">
+            <label for="" class="form__field__label">Group Number</label>
+            <input type="text" name="groupNumber" class="form__field" value="@Model.GroupNumber">
+        </div>
+        <div class="form-group">
+            @{
+                var courses = Model.CourseNumberTypes.Select(item => new SelectListItem
+                {
+                    Text = item.ToString(),
+                    Value = item.ToString()
+                });
+            }
+            <label for="" class="form__field__label">Course Year</label>
+            @Html.DropDownListFor(item => Model.CourseNumberType, new SelectList(courses, "Text", "Value"),
         htmlAttributes: new { @class = "form__field", @name = "courseNumberTypeId" })
-
-        <input id="yearpicker" name="creationYear" value="@Model.CreationYear" />
+        </div>
+        <div class="form-group">
+            <label for="" class="form__field__label">Created Year</label>
+            <input id="yearpicker" name="creationYear"  value="@Model.CreationYear"/>
+        </div>
 
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
 
