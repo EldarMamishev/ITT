@@ -11,12 +11,13 @@
 
 <section class="panel important">
     <div class="panel-navbar">
-        <h2>Create Group</h2>
+        <h2 class="panel-navbar-title">Create Group</h2>
     </div>
 </section>
 
-<section class="panel important">
-    <form asp-action="CreateGroup" class="form">
+<form asp-action="CreateGroup" class="form">
+    <section class="panel important">
+        <h3 class="section-title">Group information</h3>
         <div class="form-group">
             <label for="" class="form__field__label">Faculty</label>
             @Html.DropDownList(string.Empty, new SelectList(Model.Faculties, "Id", "FacultyName"),
@@ -52,8 +53,8 @@
 
         <a asp-action="ShowGroups" class="btn btn--main-outline">Go Back</a>
         <button type="submit" class="btn btn--main">Create Group</button>
-    </form>
-</section>
+    </section>
+</form>
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/kendo/kendo.all.min.js"></script>

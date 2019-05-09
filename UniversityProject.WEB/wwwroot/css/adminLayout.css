@@ -596,3 +596,12 @@ td {
 
 .admin-nav-items {
   font-size: 16px; }
+
+h2.panel-navbar-title {
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-bottom: 5px; }
+
+h3.section-title {
+  margin-left: 5px;
+  margin-top: 10px; }

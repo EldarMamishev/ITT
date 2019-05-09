@@ -332,11 +332,31 @@ namespace UniversityProject.WEB.Controllers
             return View(viewName: "Teachers/Teachers", result);
         }
 
+        [HttpGet]
         public async Task<IActionResult> RegisterTeacher()
         {
             RegisterNewTeacherUserDataAccountView result = await _adminService.LoadDataForRegisterTeacherPage();
             
             return View(viewName: "Teachers/RegisterNewTeacher", result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RegisterTeacher(RegisterNewTeacherUserAccountView viewModel)
+        {
+            try
+            {
+                await _adminService.RegisterTeacher(viewModel);
+
+                return RedirectToAction("ShowTeachers");
+            }
+            catch (BaseException ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                
+                RegisterNewTeacherUserDataAccountView result = await _adminService.LoadDataForRegisterTeacherPage();
+
+                return View(viewName: "Teachers/RegisterNewTeacher", result);
+            }
         }
         #endregion
 

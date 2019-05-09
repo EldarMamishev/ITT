@@ -23,6 +23,15 @@ namespace UniversityProject.DataAccess.Repositories
 
             return chair;
         }
+        public async Task<Chair> GetChairByIdAndFacultyById(int facultyId, int chairId)
+        {
+            Chair chair = await _context.Chairs
+                   .FirstOrDefaultAsync(item => item.Id.Equals(chairId) 
+                   && item.FacultyId.Equals(facultyId));
+
+            return chair;
+        }
+
         public async Task<List<Chair>> GetAllChairsByFacultyId(int facultyId)
         {
             List<Chair> chairs = await _context.Chairs

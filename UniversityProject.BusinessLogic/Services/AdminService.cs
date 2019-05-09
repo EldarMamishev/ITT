@@ -1,15 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UniversityProject.BusinessLogic.Enums;
+using UniversityProject.BusinessLogic.Extentions;
 using UniversityProject.BusinessLogic.Helpers.Interfaces;
 using UniversityProject.BusinessLogic.Mappers.Interfaces;
+using UniversityProject.BusinessLogic.Providers.Interfaces;
 using UniversityProject.BusinessLogic.Services.Interfaces;
 using UniversityProject.DataAccess.Interfaces;
 using UniversityProject.Entities.Entities;
 using UniversityProject.Entities.Enums;
+using UniversityProject.Shared.Constants;
 using UniversityProject.Shared.Exceptions.BusinessLogicExceptions;
 using UniversityProject.ViewModels.AdminViewModels.ChairViewModels;
 using UniversityProject.ViewModels.AdminViewModels.GroupViewModels;
@@ -32,8 +36,14 @@ namespace UniversityProject.BusinessLogic.Services
         private IGroupMapper _groupMapper;
         private ISubjectMapper _subjectMapper;
         private ITeacherMapper _teacherMapper;
-
+        private IAccountMapper _accountMapper;
+        
         private IDateParseHelper _dateParseHelper;
+
+        private IEmailProvider _emailProvider;
+
+        private UserManager<ApplicationUser> _userManager;
+        private SignInManager<ApplicationUser> _signInManager;
         #endregion
 
         #region Constructors
@@ -47,7 +57,11 @@ namespace UniversityProject.BusinessLogic.Services
             IGroupMapper groupMapper,
             ISubjectMapper subjectMapper,
             ITeacherMapper teacherMapper,
-            IDateParseHelper dateParseHelper)
+            IAccountMapper accountMapper,
+            IDateParseHelper dateParseHelper,
+            IEmailProvider emailProvider,
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager)
         {
             _facultyRepository = facultyRepository;
             _chairRepository = chairRepository;
@@ -59,8 +73,14 @@ namespace UniversityProject.BusinessLogic.Services
             _groupMapper = groupMapper;
             _subjectMapper = subjectMapper;
             _teacherMapper = teacherMapper;
+            _accountMapper = accountMapper;
 
             _dateParseHelper = dateParseHelper;
+
+            _emailProvider = emailProvider;
+
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
         #endregion
 
@@ -603,6 +623,57 @@ namespace UniversityProject.BusinessLogic.Services
             }
 
             return result;
+        }
+
+        public async Task RegisterTeacher(RegisterNewTeacherUserAccountView viewModel)
+        {
+            var teacher = new Teacher();
+
+            teacher.Email = viewModel.Email;
+            teacher.UserName = viewModel.Username;
+
+            if (!viewModel.Password.Equals(viewModel.ConfirmPassword))
+            {
+                throw new AdminException("Passwords are different");
+            }
+
+            if (!(await _userManager.FindByEmailAsync(viewModel.Email) is null) || !(await _userManager.FindByNameAsync(viewModel.Username) is null))
+            {
+                throw new AdminException("Account with such Email or UserID already exists");
+            }
+
+            Chair chair = await _chairRepository.GetChairByIdAndFacultyById(viewModel.FacultyId, viewModel.ChairId);
+
+            if (chair is null)
+            {
+                throw new AdminException("Selected chair doesn't exist.");
+            }
+
+            Subject subject = await _subjectRepository.Get(viewModel.SubjectId);
+
+            if (subject is null)
+            {
+                throw new AdminException("Selected subject doesn't exist.");
+            }
+
+            teacher.BirthDate = _dateParseHelper.ParseStringToDatetime(viewModel.BirthDate);
+
+            _accountMapper.MapTeacherViewModelToModel(viewModel, teacher);
+
+            IdentityResult result = await _userManager.CreateAsync(teacher, viewModel.Password);
+
+            if (!result.Succeeded)
+            {
+                string responseError = result.GetFirstError();
+
+                throw new AdminException(responseError);
+            }
+
+            ApplicationUser registeredTeacher = await _userManager.FindByNameAsync(viewModel.Username);
+
+            //await EmailConfirmation(userRegistered, viewModel.CurrentUrl);
+
+            await _userManager.AddToRoleAsync(registeredTeacher, ApplicationConstants.TEACHER_ROLE);
         }
         #endregion
 

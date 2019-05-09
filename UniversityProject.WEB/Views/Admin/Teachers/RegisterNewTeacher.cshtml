@@ -11,32 +11,12 @@
 
 <section class="panel important">
     <div class="panel-navbar">
-        <h2>Register Teacher</h2>
+        <h2 class="panel-navbar-title">Register Teacher</h2>
     </div>
 </section>
 
 <form asp-action="RegisterTeacher" class="form">
     <section class="panel important">
-        @*@Html.DropDownList(string.Empty, new SelectList(Model.Faculties, "Id", "FacultyName"),
-            htmlAttributes: new { @class = "form__field", @name = "facultyId", @id = "facultyBox" })
-
-            @Html.DropDownList(string.Empty, new SelectList(Model.Chairs, "Id", "ChairName"),
-            htmlAttributes: new { @class = "form__field", @name = "chairId", @id = "chairBox" })
-
-            <input type="text" name="groupNumber" placeholder="group number" class="form__field">
-
-            @{
-                var courses = Model.CourseNumberTypes.Select(item => new SelectListItem
-                {
-                    Text = item.ToString(),
-                    Value = item.ToString()
-                });
-            }
-
-            @Html.DropDownList(string.Empty, new SelectList(courses, "Text", "Value"),
-            htmlAttributes: new { @class = "form__field", @name = "courseNumberTypeId" })
-
-            <input id="yearpicker" name="creationYear" />*@
         <h3 class="section-title">Personal information</h3>
         <div class="section-form">
             <div class="form-group">
@@ -106,17 +86,17 @@
         <h3 class="section-title">Education information</h3>
         <div class="section-form">
             <div class="form-group">
-                <label for="" class="form__field__label">Faculty <span>*</span></label>
+                <label for="" class="form__field__label">Faculty</label>
                 @Html.DropDownList(string.Empty, new SelectList(Model.Faculties, "Id", "Name"),
             htmlAttributes: new { @class = "form__field", @name = "facultyId", @id = "facultyBox" })
             </div>
             <div class="form-group">
-                <label for="" class="form__field__label">Chair <span>*</span></label>
+                <label for="" class="form__field__label">Chair</label>
                 @Html.DropDownList(string.Empty, new SelectList(Model.Chairs, "Id", "Name"),
             htmlAttributes: new { @class = "form__field", @name = "chairId", @id = "chairBox" })
             </div>
             <div class="form-group">
-                <label for="" class="form__field__label">Subject <span>*</span></label>
+                <label for="" class="form__field__label">Subject</label>
                 @Html.DropDownList(string.Empty, new SelectList(Model.Subjects, "Id", "Name"),
             htmlAttributes: new { @class = "form__field", @name = "subjectId" })
             </div>
