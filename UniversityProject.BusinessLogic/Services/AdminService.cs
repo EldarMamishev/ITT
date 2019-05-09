@@ -30,6 +30,7 @@ namespace UniversityProject.BusinessLogic.Services
         private IChairRepository _chairRepository;
         private IGroupRepository _groupRepository;
         private ISubjectRepository _subjectRepository;
+        private ITeacherSubjectRepository _teacherSubjectRepository;
 
         private IFacultyMapper _facultyMapper;
         private IChairMapper _chairMapper;
@@ -52,6 +53,7 @@ namespace UniversityProject.BusinessLogic.Services
             IChairRepository chairRepository,
             IGroupRepository groupRepository,
             ISubjectRepository subjectRepository,
+            ITeacherSubjectRepository teacherSubjectRepository,
             IFacultyMapper facultyMapper,
             IChairMapper chairMapper,
             IGroupMapper groupMapper,
@@ -67,6 +69,7 @@ namespace UniversityProject.BusinessLogic.Services
             _chairRepository = chairRepository;
             _groupRepository = groupRepository;
             _subjectRepository = subjectRepository;
+            _teacherSubjectRepository = teacherSubjectRepository;
 
             _facultyMapper = facultyMapper;
             _chairMapper = chairMapper;
@@ -659,7 +662,9 @@ namespace UniversityProject.BusinessLogic.Services
             teacher.BirthDate = _dateParseHelper.ParseStringToDatetime(viewModel.BirthDate);
 
             _accountMapper.MapTeacherViewModelToModel(viewModel, teacher);
-
+            /// TODOOOOOOOOOOO
+            teacher.EmailConfirmed = true;
+            ///
             IdentityResult result = await _userManager.CreateAsync(teacher, viewModel.Password);
 
             if (!result.Succeeded)
@@ -674,6 +679,13 @@ namespace UniversityProject.BusinessLogic.Services
             //await EmailConfirmation(userRegistered, viewModel.CurrentUrl);
 
             await _userManager.AddToRoleAsync(registeredTeacher, ApplicationConstants.TEACHER_ROLE);
+
+            var teacherSubject = new TeacherSubject();
+
+            teacherSubject.SubjectId = subject.Id;
+            teacherSubject.TeacherId = teacher.Id;
+
+            await _teacherSubjectRepository.Create(teacherSubject);
         }
         #endregion
 
