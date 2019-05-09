@@ -46,6 +46,7 @@ namespace UniversityProject.BusinessLogic.Services.Interfaces
 
         #region Teachers
         Task<ShowTeachersAdminView> ShowTeachers();
+        Task<RegisterNewTeacherUserDataAccountView> LoadDataForRegisterTeacherPage();
         #endregion
     }
 }

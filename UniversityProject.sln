@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniversityProject.Shared", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniversityProject.DataAccess", "UniversityProject.DataAccess\UniversityProject.DataAccess.csproj", "{B9960F3E-738B-4D75-86A0-E23D45A79EC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversityProject.ViewModels", "UniversityProject.ViewModels\UniversityProject.ViewModels.csproj", "{2CE5555E-13E7-455F-B998-B3CDAD6C14B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniversityProject.ViewModels", "UniversityProject.ViewModels\UniversityProject.ViewModels.csproj", "{2CE5555E-13E7-455F-B998-B3CDAD6C14B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

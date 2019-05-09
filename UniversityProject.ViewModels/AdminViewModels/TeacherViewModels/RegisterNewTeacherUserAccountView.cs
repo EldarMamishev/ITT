@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UniversityProject.ViewModels.AccountViewModels
+namespace UniversityProject.ViewModels.AdminViewModels.TeacherViewModels
 {
     public class RegisterNewTeacherUserAccountView
     {

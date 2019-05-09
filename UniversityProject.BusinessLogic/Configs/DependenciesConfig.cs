@@ -37,6 +37,7 @@ namespace UniversityProject.BusinessLogic.Configs
             services.AddTransient<IChairMapper, ChairMapper>();
             services.AddTransient<IGroupMapper, GroupMapper>();
             services.AddTransient<ISubjectMapper, SubjectMapper>();
+            services.AddTransient<ITeacherMapper, TeacherMapper>();
             #endregion
 
             #region Helpers

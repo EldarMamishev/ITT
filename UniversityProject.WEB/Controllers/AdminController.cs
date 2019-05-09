@@ -334,7 +334,9 @@ namespace UniversityProject.WEB.Controllers
 
         public async Task<IActionResult> RegisterTeacher()
         {
-            return View(viewName: "Teachers/RegisterNewTeacher");
+            RegisterNewTeacherUserDataAccountView result = await _adminService.LoadDataForRegisterTeacherPage();
+            
+            return View(viewName: "Teachers/RegisterNewTeacher", result);
         }
         #endregion
 

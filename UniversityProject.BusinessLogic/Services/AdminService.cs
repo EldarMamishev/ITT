@@ -31,6 +31,7 @@ namespace UniversityProject.BusinessLogic.Services
         private IChairMapper _chairMapper;
         private IGroupMapper _groupMapper;
         private ISubjectMapper _subjectMapper;
+        private ITeacherMapper _teacherMapper;
 
         private IDateParseHelper _dateParseHelper;
         #endregion
@@ -45,6 +46,7 @@ namespace UniversityProject.BusinessLogic.Services
             IChairMapper chairMapper,
             IGroupMapper groupMapper,
             ISubjectMapper subjectMapper,
+            ITeacherMapper teacherMapper,
             IDateParseHelper dateParseHelper)
         {
             _facultyRepository = facultyRepository;
@@ -56,6 +58,7 @@ namespace UniversityProject.BusinessLogic.Services
             _chairMapper = chairMapper;
             _groupMapper = groupMapper;
             _subjectMapper = subjectMapper;
+            _teacherMapper = teacherMapper;
 
             _dateParseHelper = dateParseHelper;
         }
@@ -116,7 +119,7 @@ namespace UniversityProject.BusinessLogic.Services
             {
                 throw new AdminException("Entered faculty doesn't exist.");
             }
-            
+
             var changeCiphers = false;
 
             if (!(faculty.Name.ToUpper().Equals(viewModel.Name.ToUpper())))
@@ -140,7 +143,7 @@ namespace UniversityProject.BusinessLogic.Services
 
                 changeCiphers = true;
             }
-            
+
             _facultyMapper.MapFacultyEditViewModelToFacultyModel(faculty, viewModel);
 
             await _facultyRepository.Update(faculty);
@@ -568,6 +571,36 @@ namespace UniversityProject.BusinessLogic.Services
 
             ShowTeachersAdminView result = new ShowTeachersAdminView();
             //ShowTeachersAdminView result = _subjectMapper.MapAllSubjectsToViewModel(subjects);
+
+            return result;
+        }
+
+        public async Task<RegisterNewTeacherUserDataAccountView> LoadDataForRegisterTeacherPage()
+        {
+            var result = new RegisterNewTeacherUserDataAccountView();
+
+            var faculties = await _facultyRepository.GetAll() as List<Faculty>;
+
+            if (!(faculties is null))
+            {
+                _teacherMapper.MapAllFacultiesToViewModel(faculties, result);
+
+                int facultyId = faculties.FirstOrDefault().Id;
+
+                var chairs = await _chairRepository.GetAllChairsByFacultyId(facultyId) as List<Chair>;
+
+                if (!(chairs is null))
+                {
+                    _teacherMapper.MapAllChairsToViewModel(chairs, result);
+                }
+            }
+
+            var subjects = await _subjectRepository.GetAll() as List<Subject>;
+
+            if (!(faculties is null))
+            {
+                _teacherMapper.MapAllSubjectsToViewModel(subjects, result);
+            }
 
             return result;
         }
