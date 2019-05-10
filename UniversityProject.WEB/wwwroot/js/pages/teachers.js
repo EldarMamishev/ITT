@@ -17,8 +17,8 @@ $(document).ready(function () {
         },
         columns: [
             {
-                field: "id", hidden: true, title: "Id", width: "50px", attributes: {
-                    "class": "itemId"
+                field: "userName", hidden: true, title: "UserName", width: "50px", attributes: {
+                    "class": "itemUserName"
                 }
             },
             { field: "fullName", title: "FullName", width: "80px" },
@@ -62,7 +62,7 @@ function showDetails(e) {
 
 function openEditTeacherItem(e) {
     let dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-    window.location.href = "EditTeacher?id=" + dataItem.id;
+    window.location.href = "EditTeacherAccount?userName=" + dataItem.userName;
 }
 
 var itemToDelete;
@@ -82,7 +82,7 @@ function confirmDelete(e) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: {
-            "id": itemToDelete.id
+            "userName": itemToDelete.itemUserName
         },
         success: function (data) {
             $("#teachersGrid").data("kendoGrid").removeRow(rowToDelete);

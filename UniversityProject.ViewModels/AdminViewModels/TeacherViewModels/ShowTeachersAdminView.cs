@@ -14,7 +14,7 @@ namespace UniversityProject.ViewModels.AdminViewModels.TeacherViewModels
 
     public class TeacherShowTeachersAdminViewItem
     {
-        public int Id { get; set; }
+        public string UserName { get; set; }
         public string FullName { get; set; }
         public string ChairName { get; set; }
         public string SubjectName { get; set; }

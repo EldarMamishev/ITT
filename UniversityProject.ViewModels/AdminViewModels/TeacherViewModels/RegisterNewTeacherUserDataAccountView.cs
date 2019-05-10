@@ -7,7 +7,6 @@ namespace UniversityProject.ViewModels.AdminViewModels.TeacherViewModels
         public List<FacultyRegisterNewTeacherUserDataAccountViewItem> Faculties { get; set; }
         public List<ChairRegisterNewTeacherUserDataAccountViewItem> Chairs { get; set; }
         public List<SubjectRegisterNewTeacherUserDataAccountViewItem> Subjects { get; set; }
-        public int MyProperty { get; set; }
 
         public RegisterNewTeacherUserDataAccountView()
         {

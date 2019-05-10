@@ -358,6 +358,23 @@ namespace UniversityProject.WEB.Controllers
                 return View(viewName: "Teachers/RegisterNewTeacher", result);
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> EditTeacherAccount(string userName)
+        {
+            EditTeacherDataAccountView result = await _adminService.LoadDataForEditTeacherAccount(userName);
+
+            return View(viewName: "Teachers/EditTeacherAccount", result);
+        }
+
+        [ValidateErrorHandlerFilter]
+        [HttpPost]
+        public async Task<JsonResult> AddSubjectToTeacher([FromBody]RequestAddSubjectToTeacherView requestViewModel)
+        {
+            ResponseAddSubjectToTeacherView result = await _adminService.AddSubjectToTeacher(requestViewModel);
+            
+            return new JsonResult(result);
+        }
         #endregion
 
         #region Journals

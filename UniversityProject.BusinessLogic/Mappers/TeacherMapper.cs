@@ -15,7 +15,7 @@ namespace UniversityProject.BusinessLogic.Mappers
             foreach (Teacher teacher in model)
             {
                 var viewModelItem = new TeacherShowTeachersAdminViewItem();
-                viewModelItem.Id = teacher.Id;
+                viewModelItem.UserName = teacher.UserName;
                 viewModelItem.FullName = $"{teacher.LastName} {teacher.FirstName} {teacher.MiddleName}";
                 viewModelItem.ChairName = teacher.Chair.Name;
 
@@ -78,6 +78,67 @@ namespace UniversityProject.BusinessLogic.Mappers
 
                 viewModel.Subjects.Add(subjectViewItem);
             }
+        }
+
+        public EditTeacherDataAccountView MapEditTeacherModelsToEditViewModels(Teacher teacher, List<Faculty> faculties, List<Chair> chairs, List<Subject> subjects)
+        {
+            var viewModel = new EditTeacherDataAccountView();
+
+            viewModel.Id = teacher.Id;
+            viewModel.FirstName = teacher.FirstName;
+            viewModel.LastName = teacher.LastName;
+            viewModel.MiddleName = teacher.MiddleName;
+            viewModel.PhoneNumber = teacher.PhoneNumber;
+            viewModel.BirthDate = teacher.BirthDate.ToString("yyyy");
+            viewModel.Username = teacher.UserName;
+            viewModel.Email = teacher.Email;
+            viewModel.Country = teacher.Country;
+            viewModel.City = teacher.City;
+            viewModel.AddressLine = teacher.AddressLine;
+            viewModel.FacultyId = teacher.Chair.FacultyId.Value;
+            viewModel.ChairId = teacher.ChairId;
+
+            foreach (var item in teacher.TeacherSubjects)
+            {
+                var subjectViewModelTeacherItem = new SubjectEditTeacherDataAccountViewItem();
+
+                subjectViewModelTeacherItem.Id = item.Subject.Id;
+                subjectViewModelTeacherItem.Name = item.Subject.Name;
+
+                viewModel.SelectedSubjects.Add(subjectViewModelTeacherItem);
+            }
+
+            foreach (Faculty faculty in faculties)
+            {
+                var facultyViewItem = new FacultyEditTeacherDataAccountViewItem();
+
+                facultyViewItem.Id = faculty.Id;
+                facultyViewItem.Name = faculty.Name;
+
+                viewModel.Faculties.Add(facultyViewItem);
+            }
+
+            foreach (Chair chair in chairs)
+            {
+                var chairViewItem = new ChairEditTeacherDataAccountViewItem();
+
+                chairViewItem.Id = chair.Id;
+                chairViewItem.Name = chair.Name;
+
+                viewModel.Chairs.Add(chairViewItem);
+            }
+
+            foreach (Subject subject in subjects)
+            {
+                var subjectViewItem = new SubjectEditTeacherDataAccountViewItem();
+
+                subjectViewItem.Id = subject.Id;
+                subjectViewItem.Name = subject.Name;
+
+                viewModel.Subjects.Add(subjectViewItem);
+            }
+
+            return viewModel;
         }
     }
 }

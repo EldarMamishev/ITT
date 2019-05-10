@@ -8,5 +8,6 @@ namespace UniversityProject.DataAccess.Interfaces
     public interface ITeacherRepository : IBaseRepository<Teacher>
     {
         Task<List<Teacher>> GetAllTeachersWithSubjectAndChair();
+        Task<Teacher> GetTeachersWithSubjectAndChair(string username);
     }
 }

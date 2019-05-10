@@ -3,13 +3,6 @@
 });
 
 $(function () {    
-    //$("#yearpicker").kendoDatePicker();
-    //{
-    //    start: "decade",
-    //    depth: "decade",
-    //    //format: "yyyy"
-    //});
-
     if ($(window).width() <= 768) {
         $(".info, .overlay").height($(".content").innerHeight());
         $(".form").height($(".cont-form").innerHeight());

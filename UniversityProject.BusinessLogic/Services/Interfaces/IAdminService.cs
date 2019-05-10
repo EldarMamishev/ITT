@@ -48,6 +48,7 @@ namespace UniversityProject.BusinessLogic.Services.Interfaces
         Task<ShowTeachersAdminView> ShowTeachers();
         Task<RegisterNewTeacherUserDataAccountView> LoadDataForRegisterTeacherPage();
         Task RegisterTeacher(RegisterNewTeacherUserAccountView viewModel);
+        Task<EditTeacherDataAccountView> LoadDataForEditTeacherAccount(string userName);
         #endregion
     }
 }

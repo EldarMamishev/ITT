@@ -688,6 +688,24 @@ namespace UniversityProject.BusinessLogic.Services
 
             await _teacherSubjectRepository.Create(teacherSubject);
         }
+
+        public async Task<EditTeacherDataAccountView> LoadDataForEditTeacherAccount(string userName)
+        {
+            Teacher teacher = await _teacherRepository.GetTeachersWithSubjectAndChair(userName);
+
+            if (teacher is null)
+            {
+                throw new AdminException("User not found");
+            }
+
+            var faculties = await _facultyRepository.GetAll() as List<Faculty>;
+            var chairs = await _chairRepository.GetAllChairsByFacultyId(teacher.Chair.FacultyId.Value) as List<Chair>;
+            var subjects = await _subjectRepository.GetAll() as List<Subject>;
+
+            EditTeacherDataAccountView viewModel = _teacherMapper.MapEditTeacherModelsToEditViewModels(teacher, faculties, chairs, subjects);
+
+            return viewModel;
+        }
         #endregion
 
         #endregion
