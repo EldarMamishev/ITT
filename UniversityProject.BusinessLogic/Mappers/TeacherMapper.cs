@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UniversityProject.BusinessLogic.Mappers.Interfaces;
 using UniversityProject.Entities.Entities;
 using UniversityProject.ViewModels.AdminViewModels.TeacherViewModels;
@@ -7,6 +8,39 @@ namespace UniversityProject.BusinessLogic.Mappers
 {
     public class TeacherMapper : ITeacherMapper
     {
+        public ShowTeachersAdminView MapTeacherModelsToViewModels(List<Teacher> model)
+        {
+            var viewModel = new ShowTeachersAdminView();
+
+            foreach (Teacher teacher in model)
+            {
+                var viewModelItem = new TeacherShowTeachersAdminViewItem();
+                viewModelItem.Id = teacher.Id;
+                viewModelItem.FullName = $"{teacher.LastName} {teacher.FirstName} {teacher.MiddleName}";
+                viewModelItem.ChairName = teacher.Chair.Name;
+
+                var subjectNames = string.Empty;
+                var teacherSubjects = teacher.TeacherSubjects.ToList();
+                var countItems = teacherSubjects.Count;
+
+                for (int i = 0; i < countItems; i++)
+                {
+                    subjectNames += $"{teacherSubjects[i].Subject.Name}";
+
+                    if (i + 1 < countItems)
+                    {
+                        subjectNames += ", ";
+                    }
+                }
+
+                viewModelItem.SubjectName = subjectNames;
+
+                viewModel.Teachers.Add(viewModelItem);
+            }
+
+            return viewModel;
+        }
+
         public void MapAllFacultiesToViewModel(List<Faculty> faculties, RegisterNewTeacherUserDataAccountView viewModel)
         {
             foreach (Faculty faculty in faculties)

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,7 @@ namespace UniversityProject.BusinessLogic.Services
         private IGroupRepository _groupRepository;
         private ISubjectRepository _subjectRepository;
         private ITeacherSubjectRepository _teacherSubjectRepository;
+        private ITeacherRepository _teacherRepository;
 
         private IFacultyMapper _facultyMapper;
         private IChairMapper _chairMapper;
@@ -38,7 +40,7 @@ namespace UniversityProject.BusinessLogic.Services
         private ISubjectMapper _subjectMapper;
         private ITeacherMapper _teacherMapper;
         private IAccountMapper _accountMapper;
-        
+
         private IDateParseHelper _dateParseHelper;
 
         private IEmailProvider _emailProvider;
@@ -54,6 +56,7 @@ namespace UniversityProject.BusinessLogic.Services
             IGroupRepository groupRepository,
             ISubjectRepository subjectRepository,
             ITeacherSubjectRepository teacherSubjectRepository,
+            ITeacherRepository teacherRepository,
             IFacultyMapper facultyMapper,
             IChairMapper chairMapper,
             IGroupMapper groupMapper,
@@ -70,6 +73,7 @@ namespace UniversityProject.BusinessLogic.Services
             _groupRepository = groupRepository;
             _subjectRepository = subjectRepository;
             _teacherSubjectRepository = teacherSubjectRepository;
+            _teacherRepository = teacherRepository;
 
             _facultyMapper = facultyMapper;
             _chairMapper = chairMapper;
@@ -590,10 +594,9 @@ namespace UniversityProject.BusinessLogic.Services
         #region Teachers
         public async Task<ShowTeachersAdminView> ShowTeachers()
         {
-            //var subjects = await _subjectRepository.GetAll() as List<Subject>;
+            List<Teacher> teachers = await _teacherRepository.GetAllTeachersWithSubjectAndChair();
 
-            ShowTeachersAdminView result = new ShowTeachersAdminView();
-            //ShowTeachersAdminView result = _subjectMapper.MapAllSubjectsToViewModel(subjects);
+            ShowTeachersAdminView result = _teacherMapper.MapTeacherModelsToViewModels(teachers);
 
             return result;
         }
@@ -675,8 +678,6 @@ namespace UniversityProject.BusinessLogic.Services
             }
 
             ApplicationUser registeredTeacher = await _userManager.FindByNameAsync(viewModel.Username);
-
-            //await EmailConfirmation(userRegistered, viewModel.CurrentUrl);
 
             await _userManager.AddToRoleAsync(registeredTeacher, ApplicationConstants.TEACHER_ROLE);
 

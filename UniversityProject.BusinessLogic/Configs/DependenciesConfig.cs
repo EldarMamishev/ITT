@@ -50,6 +50,7 @@ namespace UniversityProject.BusinessLogic.Configs
             services.AddTransient<IChairRepository, ChairRepository>();
             services.AddTransient<ISubjectRepository, SubjectRepository>();
             services.AddTransient<ITeacherSubjectRepository, TeacherSubjectRepository>();
+            services.AddTransient<ITeacherRepository, TeacherRepository>();
             #endregion
 
             #region Services

@@ -1,5 +1,5 @@
-﻿@using UniversityProject.ViewModels.AccountViewModels
-@*@model RegisterNewTeacherUserAccountView*@
+﻿@using UniversityProject.ViewModels.AdminViewModels.TeacherViewModels
+@model ShowTeachersAdminView
 @{
     Layout = "_AdminLayout";
     ViewData["Title"] = "Teachers";
@@ -23,10 +23,9 @@
 
 <script type="text/x-kendo-template" id="detailWindowTemplate">
     <div id="details-container">
-        <h4>Teacher: <em>#= lastName # #= firstName # #= middleName #</em></h4><br />
+        <h4>Teacher: <em>#= fullName #</em></h4><br />
         <h4>Chair: <em>#= chairName #</em></h4><br />
-        <h4>Cipher: <em>#= cipher #</em></h4><br />
-        <h4>Count of students: <em>#= countOfStudents #</em></h4><br />
+        <h4>Subjects: <em>#= subjectName #</em></h4><br />
     </div>
 </script>
 
@@ -39,7 +38,7 @@
 </script>
 
 <script>
-    //var teachers = @*@Html.Raw(Json.Serialize(Model.Teachers));*@
+    var teachers = @Html.Raw(Json.Serialize(Model.Teachers));
 </script>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/kendo/kendo.all.min.js"></script>
