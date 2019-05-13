@@ -78,14 +78,6 @@
                 <label for="" class="form__field__label">Email</label>
                 <input type="text" class="form__field" name="email" value="@Model.Email">
             </div>
-            <div class="form-group">
-                <label for="" class="form__field__label">New Password</label>
-                <input type="password" class="form__field" name="password">
-            </div>
-            <div class="form-group">
-                <label for="" class="form__field__label">Confirm Password</label>
-                <input type="password" class="form__field" name="confirmPassword">
-            </div>
         </div>
 
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
@@ -118,7 +110,7 @@
     <div id="details-container">
         <div class="form-group">
             <label for="" class="form__field__label">Subject</label>
-            <select class="modal__field" , name="subjectId">
+            <select class="modal__field" name="subjectId" id="newSubjectId">
                 @for (int i = 0; i < Model.Subjects.Count; i++)
                 {
                     <option value="@Model.Subjects[i].Id">@Model.Subjects[i].Name</option>

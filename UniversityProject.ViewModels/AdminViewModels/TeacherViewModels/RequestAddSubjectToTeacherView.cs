@@ -3,6 +3,6 @@
     public class RequestAddSubjectToTeacherView
     {
         public string Username { get; set; }
-        public string SubjectName { get; set; }
+        public int SubjectId { get; set; }
     }
 }

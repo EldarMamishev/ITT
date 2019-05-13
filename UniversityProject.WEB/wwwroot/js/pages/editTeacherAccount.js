@@ -26,7 +26,11 @@ $(document).ready(function () {
         ],
         columns: [
             {
-                field: "id", hidden: true, title: "Id", width: "50px", attributes: {
+                field: "id",
+                hidden: true,
+                title: "Id",
+                width: "50px",
+                attributes: {
                     "class": "itemId"
                 }
             },
@@ -37,7 +41,9 @@ $(document).ready(function () {
             },
             {
                 command: [
-                    { text: "Delete", click: onDeleteSubjectItem }
+                    {
+                        template: '<a class="k-button k-button-icontext k-grid-Delete" onclick="onDeleteSubjectItem($(this));">Delete</a>',
+                    }
                 ],
                 title: "&nbsp;",
                 width: "40px"
@@ -59,13 +65,21 @@ $(document).ready(function () {
 
     deleteTemplate = kendo.template($("#deleteWindowTemplate").html());
     createTemplate = kendo.template($("#createWindowTemplate").html());
+
+    $("#facultyBox").change(function () {
+        getChairs();
+    });
 });
 
 var itemToDelete;
 var rowToDelete;
 function onDeleteSubjectItem(e) {
-    itemToDelete = this.dataItem($(e.currentTarget).closest("tr"));
-    rowToDelete = $(e.currentTarget).closest("tr");
+
+    let row = e.select().closest("tr");
+    let grid = $('#subjectsGrid').data('kendoGrid');
+
+    itemToDelete = grid.dataItem(row);
+    rowToDelete = row;
 
     wnd.content(deleteTemplate(itemToDelete));
     wnd.center().open();
@@ -78,18 +92,18 @@ function onCreateSubjectItem() {
 }
 
 function createSubject(e) {
-    let name = $("#createSubjectInput").val();
+    let subjectId = $("#newSubjectId").val();
     let username = $("#username").val();
 
     $.ajax({
-        type: "GET",
+        type: "POST",
         url: "/Admin/AddSubjectToTeacher",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        data: {
-            "username": username,
-            "subjectName": name
-        },
+        data: JSON.stringify({
+            username: username,
+            subjectId: subjectId
+        }),
         success: function (data) {
             $("#createTabError").text("");
             let grid = $("#subjectsGrid").data("kendoGrid");
@@ -104,14 +118,17 @@ function createSubject(e) {
 }
 
 function confirmDelete(e) {
+    let username = $("#username").val();
+
     $.ajax({
-        type: "GET",
-        url: "/Admin/DeleteSubject",
+        type: "POST",
+        url: "/Admin/DeleteSubjectFromTeacher",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        data: {
-            "id": itemToDelete.id
-        },
+        data: JSON.stringify({
+            username: username,
+            subjectId: itemToDelete.id
+        }),
         success: function (data) {
             $("#subjectsGrid").data("kendoGrid").removeRow(rowToDelete);
             closeModal(e);
@@ -124,4 +141,29 @@ function confirmDelete(e) {
 
 function closeModal(e) {
     $(e).closest("[data-role=window]").data("kendoWindow").close();
+}
+
+function getChairs() {
+    let facultyId = $("#facultyBox").val();
+
+    $("#chairBox").empty();
+    //$(".stateSpinner").show();
+
+    $.ajax({
+        type: "GET",
+        url: "/Admin/LoadChairsByFacultyId",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: {
+            facultyId: facultyId
+        },
+        success: function (response) {
+            //$(".stateSpinner").hide();
+
+            $.each(response, function (i, chair) {
+                $("#chairBox").append('<option value="' + chair.id + '">' + chair.chairName + '</option>');
+            });
+        },
+        error: function (response) { }
+    });
 }

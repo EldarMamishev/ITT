@@ -336,7 +336,7 @@ namespace UniversityProject.WEB.Controllers
         public async Task<IActionResult> RegisterTeacher()
         {
             RegisterNewTeacherUserDataAccountView result = await _adminService.LoadDataForRegisterTeacherPage();
-            
+
             return View(viewName: "Teachers/RegisterNewTeacher", result);
         }
 
@@ -352,7 +352,7 @@ namespace UniversityProject.WEB.Controllers
             catch (BaseException ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                
+
                 RegisterNewTeacherUserDataAccountView result = await _adminService.LoadDataForRegisterTeacherPage();
 
                 return View(viewName: "Teachers/RegisterNewTeacher", result);
@@ -372,8 +372,17 @@ namespace UniversityProject.WEB.Controllers
         public async Task<JsonResult> AddSubjectToTeacher([FromBody]RequestAddSubjectToTeacherView requestViewModel)
         {
             ResponseAddSubjectToTeacherView result = await _adminService.AddSubjectToTeacher(requestViewModel);
-            
+
             return new JsonResult(result);
+        }
+
+        [ValidateErrorHandlerFilter]
+        [HttpPost]
+        public async Task<IActionResult> DeleteSubjectFromTeacher([FromBody]RequestDeleteSubjectFromTeacherView requestViewModel)
+        {
+            await _adminService.DeleteSubjectFromTeacher(requestViewModel);
+
+            return new JsonResult(new OkResult());
         }
         #endregion
 

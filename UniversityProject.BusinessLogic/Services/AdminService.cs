@@ -691,7 +691,7 @@ namespace UniversityProject.BusinessLogic.Services
 
         public async Task<EditTeacherDataAccountView> LoadDataForEditTeacherAccount(string userName)
         {
-            Teacher teacher = await _teacherRepository.GetTeachersWithSubjectAndChair(userName);
+            Teacher teacher = await _teacherRepository.GetTeacherWithSubjectAndChair(userName);
 
             if (teacher is null)
             {
@@ -705,6 +705,58 @@ namespace UniversityProject.BusinessLogic.Services
             EditTeacherDataAccountView viewModel = _teacherMapper.MapEditTeacherModelsToEditViewModels(teacher, faculties, chairs, subjects);
 
             return viewModel;
+        }
+
+        public async Task<ResponseAddSubjectToTeacherView> AddSubjectToTeacher(RequestAddSubjectToTeacherView viewModel)
+        {
+            var user = await _userManager.FindByNameAsync(viewModel.Username);
+
+            if (user is null)
+            {
+                throw new AdminException("User not found.");
+            }
+
+            Teacher teacher = await _teacherRepository.GetTeacherWithSubjectAndChair(viewModel.Username);
+            TeacherSubject checkExistingItem = teacher.TeacherSubjects.FirstOrDefault(item => item.Subject.Id.Equals(viewModel.SubjectId));
+
+            if (!(checkExistingItem is null))
+            {
+                throw new AdminException("Teacher has already had this subject.");
+            }
+
+            Subject subject = await _subjectRepository.Get(viewModel.SubjectId);
+
+            if (subject is null)
+            {
+                throw new AdminException("Subject is not found");
+            }
+
+            var teacherSubject = new TeacherSubject();
+
+            teacherSubject.Subject = subject;
+            teacherSubject.Teacher = teacher;
+
+            await _teacherSubjectRepository.Create(teacherSubject);
+
+            var responseViewModel = new ResponseAddSubjectToTeacherView();
+
+            responseViewModel.Id = subject.Id;
+            responseViewModel.Name = subject.Name;
+
+            return responseViewModel;
+        }
+
+        public async Task DeleteSubjectFromTeacher(RequestDeleteSubjectFromTeacherView requestViewModel)
+        {
+            Teacher teacher = await _teacherRepository.GetTeacherWithSubjectAndChair(requestViewModel.Username);
+            TeacherSubject deleteSubjectItem = teacher.TeacherSubjects.FirstOrDefault(item => item.Subject.Id.Equals(requestViewModel.SubjectId));
+
+            if (deleteSubjectItem is null)
+            {
+                throw new AdminException("Subject is not found");
+            }
+
+            await _teacherSubjectRepository.Delete(deleteSubjectItem.Id);
         }
         #endregion
 

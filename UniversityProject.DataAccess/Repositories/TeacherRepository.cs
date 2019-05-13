@@ -24,7 +24,7 @@ namespace UniversityProject.DataAccess.Repositories
 
             return teachers;
         }
-        public async Task<Teacher> GetTeachersWithSubjectAndChair(string username)
+        public async Task<Teacher> GetTeacherWithSubjectAndChair(string username)
         {
             Teacher teacher = await _context.Teachers
                 .Include(user => user.Chair)
