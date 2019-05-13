@@ -368,11 +368,11 @@ namespace UniversityProject.WEB.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditTeacherEducationInformation(EditTeacherEducationInformationView viewModel)
+        public async Task<IActionResult> EditTeacherInformation(EditTeacherInformationView viewModel)
         {
             try
             {
-                await _adminService.EditTeacherEducationInformation(viewModel);
+                await _adminService.EditTeacherInformation(viewModel);
 
                 return await EditTeacherAccount(viewModel.Username);
             }

@@ -759,7 +759,7 @@ namespace UniversityProject.BusinessLogic.Services
             await _teacherSubjectRepository.Delete(deleteSubjectItem.Id);
         }
 
-        public async Task EditTeacherEducationInformation(EditTeacherEducationInformationView viewModel)
+        public async Task EditTeacherInformation(EditTeacherInformationView viewModel)
         {
             var user = await _userManager.FindByNameAsync(viewModel.Username) as Teacher;
 
@@ -774,6 +774,16 @@ namespace UniversityProject.BusinessLogic.Services
             {
                 throw new AdminException("Selected chair doesn't exist.");
             }
+
+            user.FirstName = viewModel.FirstName;
+            user.LastName = viewModel.LastName;
+            user.MiddleName = viewModel.MiddleName;
+            user.PhoneNumber = viewModel.PhoneNumber;
+            user.BirthDate = _dateParseHelper.ParseStringToOnlyYearDatetime(viewModel.BirthDate).Value;
+
+            user.Country = viewModel.Country;
+            user.City = viewModel.City;
+            user.AddressLine = viewModel.AddressLine;
 
             user.Chair = chair;
 
