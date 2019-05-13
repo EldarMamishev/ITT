@@ -66,17 +66,26 @@
     </section>
 </form>
 
-<form asp-action="EditTeacherAccountInformation" class="form">
+<form asp-action="EditTeacherEducationInformation" class="form">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <input type="hidden" name="username" value="@Model.Username" />
+
     <section class="panel important">
-        <h3 class="section-title">Account information</h3>
+        <h3 class="section-title">Education information</h3>
         <div class="section-form">
             <div class="form-group">
-                <label for="" class="form__field__label">Username</label>
-                <input type="text" class="form__field" name="username" value="@Model.Username">
+                <label for="" class="form__field__label">Faculty</label>
+                @Html.DropDownListFor(item => item.FacultyId, new SelectList(Model.Faculties, "Id", "Name"),
+            htmlAttributes: new { @class = "form__field", @name = "facultyId", @id = "facultyBox" })
             </div>
             <div class="form-group">
-                <label for="" class="form__field__label">Email</label>
-                <input type="text" class="form__field" name="email" value="@Model.Email">
+                <label for="" class="form__field__label">Chair</label>
+                @Html.DropDownListFor(item => item.ChairId, new SelectList(Model.Chairs, "Id", "Name"),
+            htmlAttributes: new { @class = "form__field", @name = "chairId", @id = "chairBox" })
+            </div>
+            <div class="form-group">
+                <div id="subjectsGrid" style="width:80%; margin: auto"></div>
+                <div id="subjectDetails"></div>
             </div>
         </div>
 
@@ -85,26 +94,6 @@
         <button type="submit" class="btn btn--main">Edit</button>
     </section>
 </form>
-
-<section class="panel important">
-    <h3 class="section-title">Education information</h3>
-    <div class="section-form">
-        <div class="form-group">
-            <label for="" class="form__field__label">Faculty</label>
-            @Html.DropDownListFor(item => item.FacultyId, new SelectList(Model.Faculties, "Id", "Name"),
-        htmlAttributes: new { @class = "form__field", @name = "facultyId", @id = "facultyBox" })
-        </div>
-        <div class="form-group">
-            <label for="" class="form__field__label">Chair</label>
-            @Html.DropDownListFor(item => item.ChairId, new SelectList(Model.Chairs, "Id", "Name"),
-        htmlAttributes: new { @class = "form__field", @name = "chairId", @id = "chairBox" })
-        </div>
-        <div class="form-group">
-            <div id="subjectsGrid" style="width:80%; margin: auto"></div>
-            <div id="subjectDetails"></div>
-        </div>
-    </div>
-</section>
 
 <script type="text/x-kendo-template" id="createWindowTemplate">
     <div id="details-container">

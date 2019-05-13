@@ -367,6 +367,26 @@ namespace UniversityProject.WEB.Controllers
             return View(viewName: "Teachers/EditTeacherAccount", result);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> EditTeacherEducationInformation(EditTeacherEducationInformationView viewModel)
+        {
+            try
+            {
+                await _adminService.EditTeacherEducationInformation(viewModel);
+
+                return await EditTeacherAccount(viewModel.Username);
+            }
+            catch (BaseException ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+
+                EditTeacherDataAccountView result = await _adminService.LoadDataForEditTeacherAccount(viewModel.Username);
+
+                return View(viewName: "Teachers/EditTeacherAccount", result);
+            }
+
+        }
+
         [ValidateErrorHandlerFilter]
         [HttpPost]
         public async Task<JsonResult> AddSubjectToTeacher([FromBody]RequestAddSubjectToTeacherView requestViewModel)

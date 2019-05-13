@@ -3,7 +3,7 @@
 $(document).ready(function () {
     $("#yearpicker").kendoDatePicker();
 
-    let grid = $("#subjectsGrid").kendoGrid({
+    $("#subjectsGrid").kendoGrid({
         dataSource: {
             pageSize: 10,
             data: subjects

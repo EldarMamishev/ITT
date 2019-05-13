@@ -758,6 +758,27 @@ namespace UniversityProject.BusinessLogic.Services
 
             await _teacherSubjectRepository.Delete(deleteSubjectItem.Id);
         }
+
+        public async Task EditTeacherEducationInformation(EditTeacherEducationInformationView viewModel)
+        {
+            var user = await _userManager.FindByNameAsync(viewModel.Username) as Teacher;
+
+            if (user is null)
+            {
+                throw new AdminException("User not found.");
+            }
+
+            Chair chair = await _chairRepository.GetChairByIdAndFacultyById(viewModel.FacultyId , viewModel.ChairId);
+
+            if (chair is null)
+            {
+                throw new AdminException("Selected chair doesn't exist.");
+            }
+
+            user.Chair = chair;
+
+            await _userManager.UpdateAsync(user);
+        }
         #endregion
 
         #endregion
