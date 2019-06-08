@@ -1,0 +1,240 @@
+﻿@model string
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Optic</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="~/landing/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="~/landing/fonts/font-awesome/css/font-awesome.css">
+
+    <!-- Stylesheet
+        ================================================== -->
+    <link rel="stylesheet" type="text/css" href="~/landing/css/style.css">
+    <link rel="stylesheet" type="text/css" href="~/landing/css/prettyPhoto.css">
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700,900,300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600,300' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="~/landing/js/modernizr.custom.js"></script>
+
+</head>
+<body>
+    <!-- Navigation
+        ==========================================-->
+    <nav id="menu" class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                <a class="navbar-brand" href="index.html">Optic</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#home" class="page-scroll">Головна</a></li>
+                    <li><a href="#about-section" class="page-scroll">Про нас</a></li>
+                    <li><a href="#services-section" class="page-scroll">Наші переваги</a></li>
+                    <li><a href="#team-section" class="page-scroll">Партнери</a></li>
+                    <li><a href="#contact-section" class="page-scroll">Контакти</a></li>
+                    <li><a href="#contact-section" class="page-scroll">Увійти</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <!-- Header -->
+    <header class="text-center" name="home">
+        <div class="intro-text">
+            <h1>Ми є <span class="color">Optic</span></h1>
+            <p>Університетський додаток який покращує життя</p>
+            <div class="clearfix"></div>
+            <a href="#about-section" class="btn btn-default btn-lg page-scroll">Увійти</a>
+        </div>
+    </header>
+    <!-- About Section -->
+    <div id="about-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Про нас</h2>
+                <hr>
+            </div>
+            <div class="space"></div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h4>Що?</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam. Sed commodo nibh ante facilisis bibendum dolor feugiat at. Duis sed dapibus leo nec ornare diam commodo nibh ante facilisis bibendum.</p>
+                </div>
+                <div class="col-md-4">
+                    <h4>Як?</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam. Sed commodo nibh ante facilisis bibendum dolor feugiat at. Duis sed dapibus leo nec ornare diam commodo nibh ante facilisis bibendum.</p>
+                </div>
+                <div class="col-md-4">
+                    <h4>Навіщо?</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam. Sed commodo nibh ante facilisis bibendum dolor feugiat at. Duis sed dapibus leo nec ornare diam commodo nibh ante facilisis bibendum.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Services Section -->
+    <div id="services-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Наші Переваги</h2>
+                <hr>
+            </div>
+            <div class="space"></div>
+            <div class="row">
+                <div class="col-md-3 col-sm-6 service">
+                    <i class="fa fa-desktop"></i>
+                    <h4>Web design</h4>
+                    <p>Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam.</p>
+                </div>
+                <div class="col-md-3 col-sm-6 service">
+                    <i class="fa fa-gears"></i>
+                    <h4>App Development</h4>
+                    <p>Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque.</p>
+                </div>
+                <div class="col-md-3 col-sm-6 service">
+                    <i class="fa fa-pie-chart"></i>
+                    <h4>Analystics</h4>
+                    <p>Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam.</p>
+                </div>
+                <div class="col-md-3 col-sm-6 service">
+                    <i class="fa fa-line-chart"></i>
+                    <h4>Marketing</h4>
+                    <p>Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Team Section -->
+    <div id="team-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Наші партнери</h2>
+                <hr>
+            </div>
+            <div id="row">
+                <div class="col-md-3 col-sm-6 team">
+                    <div class="thumbnail">
+                        <img src="https://s.dou.ua/CACHE/images/img/static/companies/epam_logo/2c0129f6323cb3dd4a45a250aac2c0f5.png" alt="..." class="team-img">
+                        <div class="caption">
+                            <h3>EPAM</h3>
+                            <p>IT-Компанія</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 team">
+                    <div class="thumbnail">
+                        <img src="https://www.nixsolutions.com/ru/uploads//2017/06/nix_logo_500x500.jpg" alt="..." class="team-img">
+                        <div class="caption">
+                            <h3>Nix Solutions</h3>
+                            <p>IT-Компанія</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 team">
+                    <div class="thumbnail">
+                        <img src="http://www.securitylab.ru/upload/iblock/6f8/6f8c9d88b2251b0b98cad04fb329345b.jpg" alt="..." class="team-img">
+                        <div class="caption">
+                            <h3>IBM</h3>
+                            <p>IT-Компанія</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 team">
+                    <div class="thumbnail">
+                        <img src="https://eba.com.ua/wp-content/uploads/2009/11/Sigma_Software_logo-200x180.jpg" alt="..." class="team-img">
+                        <div class="caption">
+                            <h3>Sigma</h3>
+                            <p>IT-Компанія</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Contact Section -->
+    <div id="contact-section">
+        <div class="container">
+            <div class="section-title center">
+                <h2>Зв'язок з нами</h2>
+                <hr>
+            </div>
+            <div class="col-md-4">
+                <h4>Контакна інформація</h4>
+                <div class="space"></div>
+                <p>
+                    <i class="fa fa-map-marker"></i>Лозовенька пров., 35,<br>
+                    Харків,
+                </p>
+                <div class="space"></div>
+                <p><i class="fa fa-envelope-o"></i>info@university.com</p>
+                <div class="space"></div>
+                <p><i class="fa fa-phone"></i>+380 (66) 55 33 444</p>
+            </div>
+            <div class="col-md-8">
+                <h4>Залиште повідомлення</h4>
+                <form name="sentMessage" id="contactForm" novalidate>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" id="name" class="form-control" placeholder="Ім'я" required="required">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="email" id="email" class="form-control" placeholder="Email" required="required">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" id="message" class="form-control" rows="4" placeholder="Повідомлення" required></textarea>
+                        <p class="help-block text-danger"></p>
+                    </div>
+                    <div id="success"></div>
+                    <button type="submit" class="btn btn-default">Відправити повідомлення</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="social-section">
+        <div class="container">
+            <div class="social">
+                <ul>
+                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <div class="container">
+            <p>Copyright &copy; Optic.</p>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="~landing/js/jquery.1.11.1.js"></script>
+    <script type="text/javascript" src="~landing/js/bootstrap.js"></script>
+    <script type="text/javascript" src="~landing/js/SmoothScroll.js"></script>
+    <script type="text/javascript" src="~landing/js/jquery.prettyPhoto.js"></script>
+    <script type="text/javascript" src="~landing/js/jquery.isotope.js"></script>
+    <script type="text/javascript" src="~landing/js/jqBootstrapValidation.js"></script>
+    <script type="text/javascript" src="~landing/js/contact_me.js"></script>
+    <script type="text/javascript" src="~landing/js/main.js"></script>
+</body>
+</html>
