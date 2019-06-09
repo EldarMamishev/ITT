@@ -1,5 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using UniversityProject.ViewModels.AdminViewModels.ChairViewModels;
+using UniversityProject.ViewModels.AdminViewModels.GroupViewModels;
+using UniversityProject.ViewModels.AdminViewModels.SubjectsViewModels;
+using UniversityProject.ViewModels.AdminViewModels.TeacherViewModels;
 using UniversityProject.ViewModels.Faculty;
 
 namespace UniversityProject.BusinessLogic.Services.Interfaces
@@ -21,6 +25,33 @@ namespace UniversityProject.BusinessLogic.Services.Interfaces
         Task<EditChairDataAdminView> EditChair(int id);
         Task EditChair(EditChairAdminView viewModel);
         Task DeleteChair(int id);
+        #endregion
+
+        #region Groups
+        Task<ShowGroupsAdminView> ShowGroups();
+        Task<CreateGroupDataAdminView> LoadDataForCreateGroupPage();
+        Task<JsonResult> LoadChairsByFacultyId(int facultyId);
+        Task CreateGroup(CreateGroupAdminView viewModel);
+        Task<EditGroupDataAdminView> EditGroup(int id);
+        Task EditGroup(EditGroupAdminView viewModel);
+        Task DeleteGroup(int id);
+        #endregion
+
+        #region Subjects
+        Task<ShowSubjectsAdminView> ShowSubjects();
+        Task<ResponseSubjectView> CreateSubject(string subjectName);
+        Task<ResponseSubjectView> EditSubject(RequestSubjectView requestViewModel);
+        Task DeleteSubject(int id);
+        #endregion
+
+        #region Teachers
+        Task<ShowTeachersAdminView> ShowTeachers();
+        Task<RegisterNewTeacherUserDataAccountView> LoadDataForRegisterTeacherPage();
+        Task RegisterTeacher(RegisterNewTeacherUserAccountView viewModel);
+        Task<EditTeacherDataAccountView> LoadDataForEditTeacherAccount(string userName);
+        Task<ResponseAddSubjectToTeacherView> AddSubjectToTeacher(RequestAddSubjectToTeacherView viewModel);
+        Task DeleteSubjectFromTeacher(RequestDeleteSubjectFromTeacherView viewModel);
+        Task EditTeacherInformation(EditTeacherInformationView viewModel);
         #endregion
     }
 }

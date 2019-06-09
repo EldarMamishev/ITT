@@ -112,8 +112,9 @@ namespace UniversityProject.WEB.Controllers
         }
 
         [HttpGet]
-        public IActionResult FinishRegistration(FinishRegistrationAccountView viewModel)
+        public async Task<IActionResult> FinishRegistration(FinishRegistrationAccountView viewModel)
         {
+            await _accountService.LoadFinishRegistrationData(viewModel);
             return View(viewModel);
         }
 

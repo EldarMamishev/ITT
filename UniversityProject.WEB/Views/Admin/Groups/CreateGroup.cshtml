@@ -1,29 +1,61 @@
-﻿
-@{   
+﻿@using UniversityProject.ViewModels.AdminViewModels.GroupViewModels
+@model CreateGroupDataAdminView
+@{
     Layout = "_AdminLayout";
     ViewData["Title"] = "Create Group";
 }
 
+<link href="~/lib/kendo/kendo.common-material.css" rel="stylesheet" />
+<link href="~/lib/kendo/kendo.material.css" rel="stylesheet" />
+<link href="~/lib/kendo/kendo.material.mobile.css" rel="stylesheet" />
+
 <section class="panel important">
     <div class="panel-navbar">
-        <h2>Create Group</h2>
+        <h2 class="panel-navbar-title">Create Group</h2>
     </div>
 </section>
 
-<section class="panel important">
-    <form asp-action="CreateGroup" class="form">
-        <input type="text" name="name" placeholder="chair name" class="form__field">
-        <input type="text" name="cipher" placeholder="chair cipher" class="form__field">
-        <select name="facultyId">
-            @foreach (var faculty in Model.Faculties)
-            {
-                <option value="@faculty.Id">@faculty.FacultyName</option>
+<form asp-action="CreateGroup" class="form">
+    <section class="panel important">
+        <h3 class="section-title">Group information</h3>
+        <div class="form-group">
+            <label for="" class="form__field__label">Faculty</label>
+            @Html.DropDownList(string.Empty, new SelectList(Model.Faculties, "Id", "FacultyName"),
+        htmlAttributes: new { @class = "form__field", @name = "facultyId", @id = "facultyBox" })
+        </div>
+        <div class="form-group">
+            <label for="" class="form__field__label">Chair</label>
+            @Html.DropDownList(string.Empty, new SelectList(Model.Chairs, "Id", "ChairName"),
+         htmlAttributes: new { @class = "form__field", @name = "chairId", @id = "chairBox" })
+        </div>
+        <div class="form-group">
+            <label for="" class="form__field__label">Group Number</label>
+            <input type="text" name="groupNumber" class="form__field">
+        </div>
+        <div class="form-group">
+            @{
+                var courses = Model.CourseNumberTypes.Select(item => new SelectListItem
+                {
+                    Text = item.ToString(),
+                    Value = item.ToString()
+                });
             }
-        </select>
+            <label for="" class="form__field__label">Course Year</label>
+            @Html.DropDownList(string.Empty, new SelectList(courses, "Text", "Value"),
+        htmlAttributes: new { @class = "form__field", @name = "courseNumberTypeId" })
+        </div>
+        <div class="form-group">
+            <label for="" class="form__field__label">Created Year</label>
+            <input id="yearpicker" name="creationYear" />
+        </div>
 
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
 
         <a asp-action="ShowGroups" class="btn btn--main-outline">Go Back</a>
         <button type="submit" class="btn btn--main">Create Group</button>
-    </form>
-</section>
+    </section>
+</form>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/kendo/kendo.all.min.js"></script>
+<script src="~/js/pages/createGroup.js"></script>

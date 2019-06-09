@@ -1,0 +1,69 @@
+﻿@using UniversityProject.ViewModels.AdminViewModels.SubjectsViewModels
+@model ShowSubjectsAdminView
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Subjects";
+}
+
+<link href="~/lib/kendo/kendo.common-material.css" rel="stylesheet" />
+<link href="~/lib/kendo/kendo.material.css" rel="stylesheet" />
+<link href="~/lib/kendo/kendo.material.mobile.css" rel="stylesheet" />
+
+<section class="panel important">
+    <div class="panel-navbar">
+        <h2 class="panel-navbar-title">Subjects</h2>
+        <button class="btn btn--main-outline" onclick="onCreateSubjectItem()">Create Subject</button>
+    </div>
+</section>
+
+<div class="panel important">
+    <div id="subjectsGrid"></div>
+    <div id="subjectDetails"></div>
+</div>
+
+@* TODO List of teachers *@
+<script type="text/x-kendo-template" id="detailWindowTemplate">
+    <div id="details-container">
+        <h4>Name: <em>#= name #</em></h4><br />
+    </div>
+</script>
+
+<script type="text/x-kendo-template" id="createWindowTemplate">
+    <div id="details-container">
+        <h4>Name</h4>
+        <input type="text" name="name" id="createSubjectInput" class="modal__field" /><br />
+        <h6 class="text-danger" id="createTabError"></h6><br />
+        <div class="table-modal-btn">
+            <button type="button" class="btn confirm-button" onclick="createSubject(this)">Create</button>
+            <button type="button" class="btn cancel-button" onclick="closeModal(this)">Cancel</button>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-kendo-template" id="editWindowTemplate">
+    <div id="details-container">
+        <input type="hidden" id="editSubjectIdInput" value="#= id #" />
+        <h4>Name</h4>
+        <input type="text" id="editSubjectNameInput" value="#= name #" class="modal__field"/><br />
+        <h6 class="text-danger" id="editTabError"></h6><br />
+        <div class="table-modal-btn">
+            <button type="button" class="btn confirm-button" onclick="editSubject(this)">Edit</button>
+            <button type="button" class="btn cancel-button" onclick="closeModal(this)">Cancel</button>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-kendo-template" id="deleteWindowTemplate">
+    <div id="details-container">
+        <h4>Are you sure to delete item?</h4><br />
+        <button type="button" class="btn confirm-button" onclick="confirmDelete(this)">Confirm</button>
+        <button type="button" class="btn cancel-button" onclick="closeModal(this)">Cancel</button>
+    </div>
+</script>
+
+<script>
+    var subjects = @Html.Raw(Json.Serialize(Model.Subjects));
+</script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/kendo/kendo.all.min.js"></script>
+<script src="~/js/pages/subjects.js"></script>

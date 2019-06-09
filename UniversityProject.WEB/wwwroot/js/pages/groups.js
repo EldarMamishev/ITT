@@ -1,10 +1,10 @@
 ﻿var wnd, detailsTemplate, deleteTemplate;
 
 $(document).ready(function () {
-    let grid = $("#grid").kendoGrid({
+    let grid = $("#groupsGrid").kendoGrid({
         dataSource: {
             pageSize: 10,
-            data: faculties
+            data: groups
         },
         sortable: {
             mode: "single",
@@ -21,14 +21,15 @@ $(document).ready(function () {
                     "class": "itemId"
                 }
             },
-            { field: "name", title: "Name", width: "80px" },
-            { field: "cipher", title: "Cipher", width: "80px" },
-            { field: "phoneNumber", title: "PhoneNumber", width: "140px" },
+            { field: "cipher", title: "Cipher", width: "100px" },
+            { field: "facultyName", title: "Faculty", width: "80px" },
+            { field: "chairName", title: "Chair", width: "80px" },
+            { field: "countOfStudents", title: "Students Count", width: "80px" },
             {
                 command: [
                     { text: "View Details", click: showDetails },
-                    { text: "Edit", click: openEditFacultyItem },
-                    { text: "Delete", click: onDeleteFacultyItem }
+                    { text: "Edit", click: openEditGroupItem },
+                    { text: "Delete", click: onDeleteGroupItem }
                 ],
                 title: "&nbsp;",
                 width: "180px"
@@ -36,13 +37,12 @@ $(document).ready(function () {
         ],
         noRecords: true,
         messages: {
-            noRecords: "There are no faculties on current page"
+            noRecords: "There are no groups on current page"
         }
     }).data("kendoGrid");
 
-    wnd = $("#details")
-        .kendoWindow({
-            title: "Faculty Details",
+    wnd = $("#groupDetails").kendoWindow({
+            title: "Group Details",
             modal: true,
             visible: false,
             resizable: false,
@@ -61,14 +61,14 @@ function showDetails(e) {
     wnd.center().open();
 }
 
-function openEditFacultyItem(e) {
+function openEditGroupItem(e) {
     let dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-    window.location.href = "EditFaculty?id=" + dataItem.id;
+    window.location.href = "EditGroup?id=" + dataItem.id;
 }
 
 var itemToDelete;
 var rowToDelete;
-function onDeleteFacultyItem(e) {
+function onDeleteGroupItem(e) {
     itemToDelete = this.dataItem($(e.currentTarget).closest("tr"));
     rowToDelete = $(e.currentTarget).closest("tr");
 
@@ -79,14 +79,14 @@ function onDeleteFacultyItem(e) {
 function confirmDelete(e) {
     $.ajax({
         type: "GET",
-        url: "/Admin/DeleteFaculty",
+        url: "/Admin/DeleteGroup",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: {
             "id": itemToDelete.id
         },
         success: function (data) {
-            $("#grid").data("kendoGrid").removeRow(rowToDelete);
+            $("#groupsGrid").data("kendoGrid").removeRow(rowToDelete);
             closeModal(e);
         },
         error: function (data) {

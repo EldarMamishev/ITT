@@ -1,0 +1,114 @@
+﻿@using UniversityProject.ViewModels.AdminViewModels.TeacherViewModels
+@model RegisterNewTeacherUserDataAccountView
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Register New Teacher";
+}
+
+<link href="~/lib/kendo/kendo.common-material.css" rel="stylesheet" />
+<link href="~/lib/kendo/kendo.material.css" rel="stylesheet" />
+<link href="~/lib/kendo/kendo.material.mobile.css" rel="stylesheet" />
+
+<section class="panel important">
+    <div class="panel-navbar">
+        <h2 class="panel-navbar-title">Register Teacher</h2>
+    </div>
+</section>
+
+<form asp-action="RegisterTeacher" class="form">
+    <section class="panel important">
+        <h3 class="section-title">Personal information</h3>
+        <div class="section-form">
+            <div class="form-group">
+                <label for="" class="form__field__label">FirstName <span>*</span></label>
+                <input type="text" name="firstName" class="form__field">
+            </div>
+            <div class="form-group">
+                <label for="" class="form__field__label">LastName <span>*</span></label>
+                <input type="text" name="lastName" class="form__field">
+            </div>
+            <div class="form-group">
+                <label for="" class="form__field__label">MiddleName</label>
+                <input type="text" name="middleName" class="form__field">
+            </div>
+            <div class="form-group">
+                <label for="" class="form__field__label">Personal Phone Number <span>*</span></label>
+                <input type="text" name="phoneNumber" class="form__field">
+            </div>
+            <div class="form-group">
+                <label for="" class="form__field__label">Birth Date <span>*</span></label>
+                <input id="yearpicker" name="birthDate" />
+            </div>
+        </div>
+    </section>
+
+    <section class="panel important">
+        <h3 class="section-title">Account information</h3>
+        <div class="section-form">
+            <div class="form-group">
+                <label for="" class="form__field__label">Username <span>*</span></label>
+                <input type="text" class="form__field" name="username">
+            </div>
+            <div class="form-group">
+                <label for="" class="form__field__label">Email <span>*</span></label>
+                <input type="text" class="form__field" name="email">
+            </div>
+            <div class="form-group">
+                <label for="" class="form__field__label">Password <span>*</span></label>
+                <input type="password" class="form__field" name="password">
+            </div>
+            <div class="form-group">
+                <label for="" class="form__field__label">Confirm Password <span>*</span></label>
+                <input type="password" class="form__field" name="confirmPassword">
+            </div>
+        </div>
+    </section>
+
+    <section class="panel important">
+        <h3 class="section-title">Living information</h3>
+        <div class="section-form">
+            <div class="form-group">
+                <label for="" class="form__field__label">Country <span>*</span></label>
+                <input type="text" class="form__field" name="country">
+            </div>
+            <div class="form-group">
+                <label for="" class="form__field__label">City <span>*</span></label>
+                <input type="text" class="form__field" name="city">
+            </div>
+            <div class="form-group">
+                <label for="" class="form__field__label">Address <span>*</span></label>
+                <input type="text" class="form__field" name="addressLine">
+            </div>
+        </div>
+    </section>
+
+    <section class="panel important">
+        <h3 class="section-title">Education information</h3>
+        <div class="section-form">
+            <div class="form-group">
+                <label for="" class="form__field__label">Faculty</label>
+                @Html.DropDownList(string.Empty, new SelectList(Model.Faculties, "Id", "Name"),
+            htmlAttributes: new { @class = "form__field", @name = "facultyId", @id = "facultyBox" })
+            </div>
+            <div class="form-group">
+                <label for="" class="form__field__label">Chair</label>
+                @Html.DropDownList(string.Empty, new SelectList(Model.Chairs, "Id", "Name"),
+            htmlAttributes: new { @class = "form__field", @name = "chairId", @id = "chairBox" })
+            </div>
+            <div class="form-group">
+                <label for="" class="form__field__label">Subject</label>
+                @Html.DropDownList(string.Empty, new SelectList(Model.Subjects, "Id", "Name"),
+            htmlAttributes: new { @class = "form__field", @name = "subjectId" })
+            </div>
+        </div>
+
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+        <a asp-action="ShowTeachers" class="btn btn--main-outline">Go Back</a>
+        <button type="submit" class="btn btn--main">Register Teacher</button>
+
+    </section>
+</form>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/kendo/kendo.all.min.js"></script>
+<script src="~/js/pages/registerTeacher.js"></script>

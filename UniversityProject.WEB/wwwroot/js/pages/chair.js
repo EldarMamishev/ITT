@@ -12,6 +12,9 @@ $(document).ready(function () {
         },
         pageable: true,
         height: 600,
+        filterable: {
+            mode: "row"
+        },
         columns: [
             {
                 field: "id", hidden: true, title: "Id", width: "50px", attributes: {
@@ -24,8 +27,8 @@ $(document).ready(function () {
             {
                 command: [
                     { text: "View Details", click: showDetails },
-                    { text: "Edit", click: openEditFacultyItem },
-                    { text: "Delete", click: onDeleteFacultyItem }
+                    { text: "Edit", click: openEditChairItem },
+                    { text: "Delete", click: onDeleteChairItem }
                 ],
                 title: "&nbsp;",
                 width: "180px"
@@ -58,14 +61,14 @@ function showDetails(e) {
     wnd.center().open();
 }
 
-function openEditFacultyItem(e) {
+function openEditChairItem(e) {
     let dataItem = this.dataItem($(e.currentTarget).closest("tr"));
     window.location.href = "EditChair?id=" + dataItem.id;
 }
 
 var itemToDelete;
 var rowToDelete;
-function onDeleteFacultyItem(e) {
+function onDeleteChairItem(e) {
     itemToDelete = this.dataItem($(e.currentTarget).closest("tr"));
     rowToDelete = $(e.currentTarget).closest("tr");
 

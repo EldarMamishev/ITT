@@ -1,0 +1,125 @@
+﻿@using UniversityProject.ViewModels.AdminViewModels.TeacherViewModels
+@model EditTeacherDataAccountView
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Edit Teacher Account";
+}
+
+<link href="~/lib/kendo/kendo.common-material.css" rel="stylesheet" />
+<link href="~/lib/kendo/kendo.material.css" rel="stylesheet" />
+<link href="~/lib/kendo/kendo.material.mobile.css" rel="stylesheet" />
+
+<section class="panel important">
+    <div class="panel-navbar">
+        <a href="./ShowTeachers">
+            <i class="fa fa-chevron-left btn-back"></i>
+        </a>
+        <h2 class="panel-navbar-title">Edit Teacher Account</h2>
+    </div>
+</section>
+
+<form asp-action="EditTeacherInformation" class="form">
+    <section class="panel important">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <input type="hidden" id="username" name="username" value="@Model.Username" />
+
+        <h3 class="section-title">Personal information</h3>
+        <div class="section-form">
+            <div class="form-group">
+                <label for="" class="form__field__label">FirstName <span>*</span></label>
+                <input type="text" name="firstName" class="form__field" value="@Model.FirstName">
+            </div>
+            <div class="form-group">
+                <label for="" class="form__field__label">LastName <span>*</span></label>
+                <input type="text" name="lastName" class="form__field" value="@Model.LastName">
+            </div>
+            <div class="form-group">
+                <label for="" class="form__field__label">MiddleName</label>
+                <input type="text" name="middleName" class="form__field" value="@Model.MiddleName">
+            </div>
+            <div class="form-group">
+                <label for="" class="form__field__label">Personal Phone Number <span>*</span></label>
+                <input type="text" name="phoneNumber" class="form__field" value="@Model.PhoneNumber">
+            </div>
+            <div class="form-group">
+                <label for="" class="form__field__label">Birth Date <span>*</span></label>
+                <input id="yearpicker" name="birthDate" value="@Model.BirthDate" />
+            </div>
+        </div>
+
+        <h3 class="section-title">Living information</h3>
+        <div class="section-form">
+            <div class="form-group">
+                <label for="" class="form__field__label">Country <span>*</span></label>
+                <input type="text" class="form__field" name="country" value="@Model.Country">
+            </div>
+            <div class="form-group">
+                <label for="" class="form__field__label">City <span>*</span></label>
+                <input type="text" class="form__field" name="city" value="@Model.City">
+            </div>
+            <div class="form-group">
+                <label for="" class="form__field__label">Address <span>*</span></label>
+                <input type="text" class="form__field" name="addressLine" value="@Model.AddressLine">
+            </div>
+        </div>
+
+        <h3 class="section-title">Education information</h3>
+        <div class="section-form">
+            <div class="form-group">
+                <label for="" class="form__field__label">Faculty</label>
+                @Html.DropDownListFor(item => item.FacultyId, new SelectList(Model.Faculties, "Id", "Name"),
+            htmlAttributes: new { @class = "form__field", @name = "facultyId", @id = "facultyBox" })
+            </div>
+            <div class="form-group">
+                <label for="" class="form__field__label">Chair</label>
+                @Html.DropDownListFor(item => item.ChairId, new SelectList(Model.Chairs, "Id", "Name"),
+            htmlAttributes: new { @class = "form__field", @name = "chairId", @id = "chairBox" })
+            </div>
+        </div>
+
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+        <button type="submit" class="btn btn--main">Edit</button>
+    </section>
+</form>
+
+<section class="panel important">
+    <div class="section-form">
+        <div id="subjectsGrid" style="width: 100%; padding-bottom: 0px;"></div>
+        <div id="subjectDetails"></div>
+    </div>
+</section>
+
+<script type="text/x-kendo-template" id="createWindowTemplate">
+    <div id="details-container">
+        <div class="form-group">
+            <label for="" class="form__field__label">Subject</label>
+            <select class="modal__field" name="subjectId" id="newSubjectId">
+                @for (int i = 0; i < Model.Subjects.Count; i++)
+                {
+                    <option value="@Model.Subjects[i].Id">@Model.Subjects[i].Name</option>
+                }
+            </select>
+        </div>
+        <h6 class="text-danger" id="createTabError"></h6><br />
+        <div class="table-modal-btn">
+            <button type="button" class="btn confirm-button" onclick="createSubject(this)">Create</button>
+            <button type="button" class="btn cancel-button" onclick="closeModal(this)">Cancel</button>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-kendo-template" id="deleteWindowTemplate">
+    <div id="details-container">
+        <h4>Are you sure to delete item?</h4><br />
+        <button type="button" class="btn confirm-button" onclick="confirmDelete(this)">Confirm</button>
+        <button type="button" class="btn cancel-button" onclick="closeModal(this)">Cancel</button>
+    </div>
+</script>
+
+<script>
+    var subjects = @Html.Raw(Json.Serialize(Model.SelectedSubjects));
+</script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/kendo/kendo.all.min.js"></script>
+<script src="~/js/pages/editTeacherAccount.js"></script>

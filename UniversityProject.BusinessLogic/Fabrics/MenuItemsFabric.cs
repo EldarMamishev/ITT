@@ -129,6 +129,14 @@ namespace UniversityProject.BusinessLogic.Fabrics
                 ActionName = "ShowScheduler"
             };
             TryAddMenuViewModelItem(items, item);
+
+            item = new MenuViewModelItem()
+            {
+                Title = "Предмети",
+                ControllerName = "Admin",
+                ActionName = "ShowSubjects"
+            };
+            TryAddMenuViewModelItem(items, item);
         }
 
         private void AddTeacherMenuViewModelItems(List<MenuViewModelItem> items)

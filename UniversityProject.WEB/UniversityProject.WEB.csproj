@@ -69,8 +69,4 @@
     <None Include="wwwroot\landing\js\waypoints.js" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Admin\Teachers\" />
-  </ItemGroup>
-
 </Project>

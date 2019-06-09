@@ -15960,7 +15960,7 @@ div.editorToolbarWindow.k-window-content {
 }
 
 .k-header.k-grid-toolbar {
-    border-color: #3343a4
+    border-color: #fff;
 }
 
 .k-grid-toolbar, .k-grouping-header {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using UniversityProject.DataAccess.DataAccept;
@@ -14,6 +15,33 @@ namespace UniversityProject.DataAccess.Repositories
         {
         }
 
+        public async Task<Chair> GetChairWithFacultyById(int id)
+        {
+            Chair chair = await _context.Chairs
+                .Include(item => item.Faculty)
+                .FirstOrDefaultAsync(item => item.Id.Equals(id));
+
+            return chair;
+        }
+        public async Task<Chair> GetChairByIdAndFacultyById(int facultyId, int chairId)
+        {
+            Chair chair = await _context.Chairs
+                   .FirstOrDefaultAsync(item => item.Id.Equals(chairId) 
+                   && item.FacultyId.Equals(facultyId));
+
+            return chair;
+        }
+
+        public async Task<List<Chair>> GetAllChairsByFacultyId(int facultyId)
+        {
+            List<Chair> chairs = await _context.Chairs
+                .Include(item => item.Faculty)
+                .Where(item => item.FacultyId.Equals(facultyId))
+                .ToListAsync();
+
+            return chairs;
+        }
+        
         public async Task<List<Chair>> GetAllChairsWithFaculty()
         {
             List<Chair> chairs = await _context.Chairs
@@ -25,16 +53,25 @@ namespace UniversityProject.DataAccess.Repositories
 
         public async Task<Chair> FindChairByName(string name)
         {
-            Chair faculty = await _context.Chairs.FirstOrDefaultAsync(f => f.Name.Equals(name));
+            Chair chair = await _context.Chairs.FirstOrDefaultAsync(f => f.Name.Equals(name));
 
-            return faculty;
+            return chair;
         }
 
         public async Task<Chair> FindChairByCipher(string cipher)
         {
-            Chair faculty = await _context.Chairs.FirstOrDefaultAsync(f => f.Cipher.Equals(cipher));
+            Chair chair = await _context.Chairs
+                .FirstOrDefaultAsync(f => f.Cipher.Equals(cipher));
 
-            return faculty;
+            return chair;
+        }
+
+        public async Task<Chair> FindChairByCipherAndFaculty(string cipher, int facultyId)
+        {
+            Chair chair = await _context.Chairs
+                .FirstOrDefaultAsync(f => f.Cipher.Equals(cipher) && f.FacultyId.Equals(facultyId));
+
+            return chair;
         }
     }
 }

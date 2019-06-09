@@ -7,13 +7,16 @@
     font-size: 40px;
     margin-bottom: 15px; }
   .form__field {
-    width: 100%;
+    width: 99%;
     height: 35px;
     line-height: 35px;
     padding-left: 15px;
     margin-bottom: 15px;
-    background: #f4f8f7;
-    border: none; }
+    background: #c7e3f5;
+    border: none;
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-right: 5px; }
     .form__field:last-child {
       margin-bottom: 0; }
     .form__field::-webkit-input-placeholder {
@@ -67,6 +70,18 @@
 #details-container dt {
   margin: 0;
   display: inline; }
+
+.table-modal-btn {
+  display: flex;
+  justify-content: space-around; }
+
+.modal__field {
+  width: 100%;
+  height: 35px;
+  line-height: 35px;
+  background: #c7e3f5;
+  border: none;
+  border-radius: 5px; }
 
 .delete-profile-header {
   width: 100%;
@@ -443,9 +458,9 @@ th {
   padding: 0 10px;
   padding-bottom: 14px; }
 
-tr:not(:first-child):hover {
-  background: rgba(0, 0, 0, 0.1); }
-
+/*tr:not(:first-child):hover {
+    background: rgba(0, 0, 0, 0.1);
+}*/
 td {
   line-height: 40px;
   font-weight: 300;
@@ -513,7 +528,8 @@ td {
     margin: 0; }
   .panel {
     width: 47%;
-    clear: none; }
+    clear: none;
+    border-radius: 5px; }
     .panel.important {
       width: 96%; }
     .panel.secondary {
@@ -525,13 +541,16 @@ td {
     font-size: 40px;
     margin-bottom: 15px; }
   .form__field {
-    width: 100%;
+    width: 99%;
     height: 35px;
     line-height: 35px;
     padding-left: 15px;
     margin-bottom: 15px;
-    background: #f4f8f7;
-    border: none; }
+    background: #c7e3f5;
+    border: none;
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-right: 5px; }
     .form__field:last-child {
       margin-bottom: 0; }
     .form__field::-webkit-input-placeholder {
@@ -548,6 +567,49 @@ td {
       text-transform: capitalize; }
     .form__field:focus, .form__field:active {
       outline: 0; }
+  .form__field__label {
+    display: block;
+    margin: 1em 0 .5em;
+    font-family: 'Open Sans', arial, sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    margin-left: 5px; }
   .form__text {
     margin-bottom: 15px;
     font-size: 14px; }
+
+.k-datepicker {
+  margin-left: 5px !important;
+  border-radius: 5px !important; }
+
+.k-picker-wrap {
+  border-radius: 5px !important;
+  border-color: #c7e3f5 !important; }
+
+.k-state-hover {
+  border-color: #c7e3f5 !important; }
+
+.k-datepicker .k-input {
+  background-color: #c7e3f5 !important; }
+
+#yearpicker {
+  border-radius: 5px 0px 0px 5px; }
+
+.admin-nav-items {
+  font-size: 16px; }
+
+h2.panel-navbar-title {
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-bottom: 5px; }
+
+h3.section-title {
+  margin-left: 5px;
+  margin-top: 10px; }
+
+.btn-back {
+  font-size: 30px;
+  margin-top: 7px;
+  margin-bottom: auto;
+  margin-left: 5px;
+  color: #3498db; }

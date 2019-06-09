@@ -29,7 +29,7 @@
                 foreach (MenuViewModelItem item in menu.Items)
                 {
                     <li>
-                        <a asp-controller="@item.ControllerName" asp-action="@item.ActionName">@item.Title</a>
+                        <a class="admin-nav-items" asp-controller="@item.ControllerName" asp-action="@item.ActionName">@item.Title</a>
                     </li>
                 }
             }

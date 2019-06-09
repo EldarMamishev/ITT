@@ -3,6 +3,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using UniversityProject.BusinessLogic.Fabrics;
 using UniversityProject.BusinessLogic.Fabrics.Interfaces;
+using UniversityProject.BusinessLogic.Helpers;
+using UniversityProject.BusinessLogic.Helpers.Interfaces;
 using UniversityProject.BusinessLogic.Mappers;
 using UniversityProject.BusinessLogic.Mappers.Interfaces;
 using UniversityProject.BusinessLogic.Providers;
@@ -33,6 +35,13 @@ namespace UniversityProject.BusinessLogic.Configs
             services.AddTransient<IAccountMapper, AccountMapper>();
             services.AddTransient<IFacultyMapper, FacultyMapper>();
             services.AddTransient<IChairMapper, ChairMapper>();
+            services.AddTransient<IGroupMapper, GroupMapper>();
+            services.AddTransient<ISubjectMapper, SubjectMapper>();
+            services.AddTransient<ITeacherMapper, TeacherMapper>();
+            #endregion
+
+            #region Helpers
+            services.AddTransient<IDateParseHelper, DateParseHelper>();
             #endregion
 
             #region Repositories
@@ -40,6 +49,8 @@ namespace UniversityProject.BusinessLogic.Configs
             services.AddTransient<IGroupRepository, GroupRepository>();
             services.AddTransient<IChairRepository, ChairRepository>();
             services.AddTransient<ISubjectRepository, SubjectRepository>();
+            services.AddTransient<ITeacherSubjectRepository, TeacherSubjectRepository>();
+            services.AddTransient<ITeacherRepository, TeacherRepository>();
             #endregion
 
             #region Services

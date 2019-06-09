@@ -12,13 +12,16 @@ $sec-color: #3498db;
     }
 
     &__field {
-        width: 100%;
+        width: 99%;
         height: 35px;
         line-height: 35px;
         padding-left: 15px;
         margin-bottom: 15px;
-        background: #f4f8f7;
+        background: #c7e3f5;
         border: none;
+        border-radius: 5px;
+        margin-left: 5px;
+        margin-right: 5px;
 
         &:last-child {
             margin-bottom: 0;
@@ -98,4 +101,18 @@ $sec-color: #3498db;
 #details-container dt {
     margin: 0;
     display: inline;
+}
+
+.table-modal-btn {
+    display: flex;
+    justify-content: space-around;
+}
+
+.modal__field {
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+    background: #c7e3f5;
+    border: none;
+    border-radius: 5px;
 }

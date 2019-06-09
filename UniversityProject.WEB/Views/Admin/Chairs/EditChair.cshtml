@@ -8,22 +8,28 @@
 
 <section class="panel important">
     <div class="panel-navbar">
-        <h2>Edit Chair</h2>
+        <h2 class="panel-navbar-title">Edit Chair</h2>
     </div>
 </section>
 
 <section class="panel important">
     <form asp-action="EditChair" class="form">
         <input type="hidden" name="id" value="@Model.Id" />
-        <input type="hidden" name="previousName" value="@Model.Name" />
-        <input type="hidden" name="previousCipher" value="@Model.Cipher" />
-        <input type="text" name="name" placeholder="chair name" class="form__field" value="@Model.Name">
-        <input type="text" name="cipher" placeholder="chair cipher" class="form__field" value="@Model.Cipher">
+        <div class="form-group">
+            <label for="" class="form__field__label">Name<span>*</span></label>
+            <input type="text" name="name" class="form__field" value="@Model.Name">
+        </div>
+        <div class="form-group">
+            <label for="" class="form__field__label">Cipher<span>*</span></label>
+            <input type="text" name="cipher" class="form__field" value="@Model.Cipher">
+        </div>
+        <div class="form-group">
+            <label for="" class="form__field__label">Faculty</label>
+            @Html.DropDownListFor(x => Model.FacultyId,
+           new SelectList(Model.Faculties, "Id", "FacultyName"),
+           htmlAttributes: new { @class = "form__field", @name = "facultyId" })
+        </div>
         
-        @Html.DropDownListFor(x => Model.FacultyId, 
-           new SelectList(Model.Faculties, "Id", "FacultyName"), 
-           htmlAttributes: new { @class = "form__field", @name="facultyId"})
-
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
 
         <a asp-action="ShowChairs" class="btn btn--main-outline">Go Back</a>
