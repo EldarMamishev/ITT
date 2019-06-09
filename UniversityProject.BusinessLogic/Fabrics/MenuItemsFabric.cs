@@ -68,7 +68,7 @@ namespace UniversityProject.BusinessLogic.Fabrics
 
             item = new MenuViewModelItem()
             {
-                Title = "Home",
+                Title = "Головна",
                 ControllerName = "Admin",
                 ActionName = "Index"
             };
@@ -76,7 +76,7 @@ namespace UniversityProject.BusinessLogic.Fabrics
 
             item = new MenuViewModelItem()
             {
-                Title = "Faculties",
+                Title = "Факультети",
                 ControllerName = "Admin",
                 ActionName = "ShowFaculties"
             };
@@ -84,7 +84,7 @@ namespace UniversityProject.BusinessLogic.Fabrics
 
             item = new MenuViewModelItem()
             {
-                Title = "Chairs",
+                Title = "Кафедри",
                 ControllerName = "Admin",
                 ActionName = "ShowChairs"
             };
@@ -92,7 +92,7 @@ namespace UniversityProject.BusinessLogic.Fabrics
 
             item = new MenuViewModelItem()
             {
-                Title = "Groups",
+                Title = "Групи",
                 ControllerName = "Admin",
                 ActionName = "ShowGroups"
             };
@@ -100,15 +100,7 @@ namespace UniversityProject.BusinessLogic.Fabrics
 
             item = new MenuViewModelItem()
             {
-                Title = "Journals",
-                ControllerName = "Admin",
-                ActionName = "ShowJournals"
-            };
-            TryAddMenuViewModelItem(items, item);
-
-            item = new MenuViewModelItem()
-            {
-                Title = "Teachers",
+                Title = "Викладачі",
                 ControllerName = "Teacher",
                 ActionName = "Index"
             };
@@ -116,9 +108,25 @@ namespace UniversityProject.BusinessLogic.Fabrics
 
             item = new MenuViewModelItem()
             {
-                Title = "Students",
+                Title = "Студенти",
                 ControllerName = "Student",
                 ActionName = "Index"
+            };
+            TryAddMenuViewModelItem(items, item);
+
+            item = new MenuViewModelItem()
+            {
+                Title = "Журнали",
+                ControllerName = "Admin",
+                ActionName = "ShowJournals"
+            };
+            TryAddMenuViewModelItem(items, item);
+
+            item = new MenuViewModelItem()
+            {
+                Title = "Календар занять",
+                ControllerName = "Admin",
+                ActionName = "ShowScheduler"
             };
             TryAddMenuViewModelItem(items, item);
         }

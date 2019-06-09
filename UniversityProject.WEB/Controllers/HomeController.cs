@@ -24,9 +24,9 @@ namespace UniversityProject.WEB.Controllers
             return View();
         }
 
-        public IActionResult Landing(string returnUrl)
+        public IActionResult Landing()
         {
-            return View(returnUrl as object);
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

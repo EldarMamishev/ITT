@@ -221,6 +221,17 @@ namespace UniversityProject.WEB.Controllers
         }
         #endregion
 
+        [HttpGet]
+        public IActionResult ShowScheduler()
+        {
+            return View(viewName: "Scheduler/Scheduler");
+        }
+
+        [HttpGet]
+        public IActionResult ShowJournals()
+        {
+            return View(viewName: "Journals/Journals");
+        }
         #endregion
     }
 }
