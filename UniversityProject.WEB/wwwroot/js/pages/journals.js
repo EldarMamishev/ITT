@@ -4,7 +4,22 @@ $(document).ready(function () {
     let grid = $("#groupsGrid").kendoGrid({
         dataSource: {
             pageSize: 10,
-            data: groups
+            data: [
+                {
+                    "id": 1,
+                    "cipher": "06.05.01",
+                    "facultyName": "EI",
+                    "chairName": "Комп'ютерні науки",
+                    "subject": "ООП"
+                },
+                {
+                    "id": 2,
+                    "cipher": "06.04.01",
+                    "facultyName": "EI",
+                    "chairName": "Комп'ютерні науки",
+                    "subject": "КП"
+                }
+            ]
         },
         sortable: {
             mode: "single",
@@ -21,10 +36,10 @@ $(document).ready(function () {
                     "class": "itemId"
                 }
             },
-            { field: "cipher", title: "Шифр", width: "100px" },
+            { field: "cipher", title: "Шифр групи", width: "100px" },
             { field: "facultyName", title: "Факультет", width: "80px" },
             { field: "chairName", title: "Кафедра", width: "80px" },
-            { field: "countOfStudents", title: "Кіл-ть студентів", width: "80px" },
+            { field: "subject", title: "Предмет", width: "80px" },
             {
                 command: [
                     { text: "View Details", click: showDetails },
@@ -37,20 +52,9 @@ $(document).ready(function () {
         ],
         noRecords: true,
         messages: {
-            noRecords: "There are no groups on current page"
+            noRecords: "Нема створених журналів"
         }
     }).data("kendoGrid");
-
-    wnd = $("#groupDetails").kendoWindow({
-            title: "Group Details",
-            modal: true,
-            visible: false,
-            resizable: false,
-            width: 300
-        }).data("kendoWindow");
-
-    detailsTemplate = kendo.template($("#detailWindowTemplate").html());
-    deleteTemplate = kendo.template($("#deleteWindowTemplate").html());
 });
 
 function showDetails(e) {
@@ -74,27 +78,4 @@ function onDeleteGroupItem(e) {
 
     wnd.content(deleteTemplate(itemToDelete));
     wnd.center().open();
-}
-
-function confirmDelete(e) {
-    $.ajax({
-        type: "GET",
-        url: "/Admin/DeleteGroup",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: {
-            "id": itemToDelete.id
-        },
-        success: function (data) {
-            $("#groupsGrid").data("kendoGrid").removeRow(rowToDelete);
-            closeModal(e);
-        },
-        error: function (data) {
-            console.log(data.responseJSON.message);
-        }
-    });
-}
-
-function closeModal(e) {
-    $(e).closest("[data-role=window]").data("kendoWindow").close();
 }

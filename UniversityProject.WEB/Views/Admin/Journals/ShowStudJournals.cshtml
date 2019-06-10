@@ -1,18 +1,14 @@
-﻿@using UniversityProject.ViewModels.AdminViewModels.GroupViewModels
-@model ShowGroupsAdminView
-@{
+﻿@{
     Layout = "_AdminLayout";
-    ViewData["Title"] = "Groups";
+    ViewData["Title"] = "Journals";
 }
-
 <link href="~/lib/kendo/kendo.common-material.css" rel="stylesheet" />
 <link href="~/lib/kendo/kendo.material.css" rel="stylesheet" />
 <link href="~/lib/kendo/kendo.material.mobile.css" rel="stylesheet" />
 
 <section class="panel important">
     <div class="panel-navbar">
-        <h2 class="panel-navbar-title">Групи</h2>
-        <a asp-action="CreateGroup" class="btn btn--main-outline">Створити групу</a>
+        <h2 class="panel-navbar-title">Журнали</h2>
     </div>
 </section>
 
@@ -23,10 +19,10 @@
 
 <script type="text/x-kendo-template" id="detailWindowTemplate">
     <div id="details-container">
-        <h4>Факультет: <em>#= facultyName #</em></h4><br />
-        <h4>Кафедра: <em>#= chairName #</em></h4><br />
-        <h4>Шифр: <em>#= cipher #</em></h4><br />
-        <h4>Кіл-ть студентів: <em>#= countOfStudents #</em></h4><br />
+        <h4>Faculty: <em>#= facultyName #</em></h4><br />
+        <h4>Chair: <em>#= chairName #</em></h4><br />
+        <h4>Cipher: <em>#= cipher #</em></h4><br />
+        <h4>Count of students: <em>#= countOfStudents #</em></h4><br />
     </div>
 </script>
 
@@ -38,9 +34,6 @@
     </div>
 </script>
 
-<script>
-    var groups = @Html.Raw(Json.Serialize(Model.Groups));
-</script>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/kendo/kendo.all.min.js"></script>
-<script src="~/js/pages/groups.js"></script>
+<script src="~/js/pages/showJournals.js"></script>

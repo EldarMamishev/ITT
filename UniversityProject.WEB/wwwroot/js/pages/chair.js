@@ -21,9 +21,9 @@ $(document).ready(function () {
                     "class": "itemId"
                 }
             },
-            { field: "name", title: "Name", width: "150px" },
-            { field: "cipher", title: "Cipher", width: "80px" },
-            { field: "facultyName", title: "Faculty Name", width: "80px" },
+            { field: "name", title: "Назва", width: "150px" },
+            { field: "cipher", title: "Шифр", width: "80px" },
+            { field: "facultyName", title: "Назва факультету", width: "80px" },
             {
                 command: [
                     { text: "View Details", click: showDetails },

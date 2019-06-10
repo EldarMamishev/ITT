@@ -1,0 +1,584 @@
+﻿@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "CreateJournals";
+}
+
+<section class="panel important">
+    <div class="panel-navbar">
+        <h2>Створення Журналу</h2>
+    </div>
+    <div class="dropdowns-container">
+        <div class="lm-select" id="one">
+            <span class="display: block; margin-bottom: 2%;">Факультет</span>
+            <span class="lm-select-ico"></span>
+            <div class="lm-select-value"></div>
+            <div class="lm-select-options">
+                <div class="lm-select-list">
+                    <div data-value="6" class="lm-select-item">EІ</div>
+                </div>
+            </div>
+            <div class="lm-select-overflow"></div>
+        </div>
+        <div id="test"></div>
+        <div class="lm-select" id="two">
+            <span class="display: block; margin-bottom: 2%;">Кафедра</span>
+            <span class="lm-select-ico"></span>
+            <div class="lm-select-value"></div>
+            <div class="lm-select-options">
+                <div class="lm-select-list">
+                    <div data-value="6" class="lm-select-item">Інформаційні системи</div>
+                </div>
+            </div>
+            <div class="lm-select-overflow"></div>
+        </div>
+        <div id="test"></div>
+        <div class="lm-select" id="three">
+            <span class="display: block; margin-bottom: 2%;">Група</span>
+            <span class="lm-select-ico"></span>
+            <div class="lm-select-value"></div>
+            <div class="lm-select-options">
+                <div class="lm-select-list">
+                    <div data-value="6" class="lm-select-item">06.05.01</div>
+                </div>
+            </div>
+            <div class="lm-select-overflow"></div>
+        </div>
+        <div id="test"></div>
+        <div class="lm-select" id="four">
+            <span class="display: block; margin-bottom: 2%;">Предмет</span>
+            <span class="lm-select-ico"></span>
+            <div class="lm-select-value"></div>
+            <div class="lm-select-options">
+                <div class="lm-select-list">
+                    <div data-value="6" class="lm-select-item">Вища математика</div>
+                </div>
+            </div>
+            <div class="lm-select-overflow"></div>
+        </div>
+        <div id="test"></div>
+        <button type="button" class="btn btn--main lm-select-value btn-search" style="        margin: 3.5% 0% 0% 2%;
+        padding-bottom: 2.5px;">
+            Створити
+        </button>
+    </div>
+</section>
+
+<section class="panel important">
+    <div class="subject-info" style="        margin: 2%;
+        display: flex;">
+        <h3><strong>11</strong> Лекц.занять&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+        <h3><strong>5</strong> Лаб.занять&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+        <h3><strong>4</strong> Практ.занять</h3>
+        <button type="button" class="btn btn--main lm-select-value" style="color: white;
+    float: right;
+    margin-left: 12px;">
+            Додати тиждень
+        </button>
+        <button type="button" class="btn btn--main lm-select-value" style="color: white;
+    float: right;
+    margin-left: 12px;">
+            Зберегти
+        </button>
+    </div>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th></th>
+                <th>
+                    Тиждень 1
+                </th>
+                <th>
+                    Тиждень 2
+                </th>
+                <th>
+                    Тиждень 3
+                </th>
+                <th>
+                    Тиждень 4
+                </th>
+            </tr>
+        </thead>
+        <tr style="        text-align: center;">
+            <td rowspan="4" style="        padding-top: 8%;">Студент</td>
+            <td>
+                Тип заняття
+            </td>
+            <td>
+                Тип заняття
+            </td>
+            <td>
+                Тип заняття
+            </td>
+            <td>
+                Тип заняття
+            </td>
+        </tr>
+        <tr style="        text-align: center;">
+            <td>
+                Вчитель
+            </td>
+            <td>
+                Вчитель
+            </td>
+            <td>
+                Вчитель
+            </td>
+            <td>
+                Вчитель
+            </td>
+        </tr>
+        <tr style="        text-align: center;">
+            <td>
+                Дата
+            </td>
+            <td>
+                Дата
+            </td>
+            <td>
+                Дата
+            </td>
+            <td>
+                Дата
+            </td>
+        </tr>
+        <tr style="        text-align: center;">
+            <td>Тип роботи</td>
+            <td>Тип роботи</td>
+            <td>Тип роботи</td>
+            <td>Тип роботи</td>
+        </tr>
+        <tr style="        text-align: center;">
+            <td>
+                Абрамов О.Е.
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr style="        text-align: center;">
+            <td>
+                Васильов О.М.
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr style="        text-align: center;">
+            <td>
+                Дружиніна Я.О.
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr style="        text-align: center;">
+            <td>
+                Матвеєва В.М.
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr style="        text-align: center;">
+            <td>
+                Кулакова С.Д.
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr style="        text-align: center;">
+            <td>
+                Орлов Г.П.
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr style="        text-align: center;">
+            <td>
+                Сергієнко В.К.
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr style="        text-align: center;">
+            <td>
+                Філатов Г.П.
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+</section>
+
+
+<style>
+
+    .table-row-btn {
+        float: right;
+        background-color: #308fcf;
+        color: white;
+        border-color: #308fce;
+        box-shadow: none;
+        border: 1px solid;
+        border-radius: 4px;
+    }
+
+    .search-bar-panel h3 {
+        margin: 1% 0% 0% 2%;
+    }
+
+    .dropdowns-container {
+        display: flex;
+        margin-bottom: 10px;
+        margin-right: 2%;
+    }
+
+    .table-bordered {
+        border: 1px solid #dee2e6 !important;
+        max-width: 60%;
+        margin: 1% 0% 0% 2%;
+    }
+
+    .th-center, .td-center {
+        text-align: center;
+    }
+
+    .span-block {
+        display: block;
+    }
+
+    th {
+        min-width: 130px;
+    }
+
+    td.td-center {
+        font-size: 12px;
+    }
+
+    .lm-select {
+        box-sizing: border-box;
+        position: relative;
+        display: inline-block;
+        width: 300px;
+        text-align: left;
+        font: 16px arial, sans-serif;
+        margin: 2% 0% 0% 2%;
+    }
+
+        .lm-select * {
+            box-sizing: border-box;
+        }
+
+    .lm-select-ico {
+        position: absolute;
+        top: 50%;
+        right: 8px;
+        margin-top: 7px;
+        border-width: 6px;
+        border-style: solid;
+        border-color: #c1e4fe transparent transparent;
+    }
+
+    .lm-select-value {
+        padding: 5px 10px;
+        cursor: pointer;
+        z-index: 4;
+        border: 1px solid #3498db;
+        border-radius: 4px;
+        color: #3498db;
+        font-size: 14px;
+    }
+
+    .lm-select-active .lm-select-value {
+        z-index: 1;
+    }
+
+    .lm-select-options {
+        position: absolute;
+        top: 0;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+        left: 0px;
+        width: 100%;
+        visibility: hidden;
+        z-index: 3;
+        opacity: 0;
+        transform: scale(.9,.9);
+        background: #fff;
+        box-shadow: 0 0 16px 0 rgba(0,0,0,.14);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .lm-select-animating .lm-select-options {
+        visibility: visible;
+    }
+
+    .lm-select-active .lm-select-options {
+        transform: scale(1,1);
+        opacity: 1;
+    }
+
+    .lm-select-list {
+        position: relative;
+        width: 100%;
+        max-height: 266px;
+        overflow: auto;
+    }
+
+    .lm-select-item {
+        padding: 12px 11px;
+        cursor: pointer;
+    }
+
+        .lm-select-item:hover {
+            background: rgba(25, 0, 255, 0.1);
+        }
+
+        .lm-select-item:active {
+            background: rgba(25, 0, 255, 0.5);
+            transition: background 0.2s ease;
+        }
+
+        .lm-select-item.lm-select-selected {
+            background: rgba(25, 0, 255, 0.5);
+        }
+
+    .lm-select-overflow {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 2;
+        display: none;
+    }
+
+    .lm-select-active .lm-select-overflow {
+        display: block;
+    }
+
+    .table-danger {
+        background-color: #f5c6cb8f !important;
+    }
+
+    .table-info {
+        background-color: #E5F5F7 !important;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .button-bar {
+        padding: 10px;
+    }
+
+    .button {
+        position: relative;
+        margin: 0;
+        padding-left: 14px;
+        padding-right: 14px;
+        padding-top: 2.8px;
+        padding-bottom: 2.8px;
+        background: #3498db;
+        color: white;
+        font-size: 12px;
+    }
+
+        .button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .button:hover {
+            background: #0585e8;
+        }
+
+    .next::after,
+    .prev::after {
+        border-style: solid;
+    }
+
+    .next::after {
+        right: -22px;
+        border-width: 11px;
+        border-color: transparent transparent transparent #3498db;
+    }
+
+    .next:hover::after {
+        border-left-color: #0585e8;
+    }
+
+    .prev::after {
+        left: -22px;
+        border-color: transparent #3498db transparent transparent;
+        border-width: 11px;
+    }
+
+    .prev:hover::after {
+        border-right-color: #0585e8;
+    }
+
+    .student-table-container {
+        text-align: center;
+    }
+
+    .week-label {
+        float: left;
+        margin: 2% 2% 0 2%;
+    }
+
+    .btn-search {
+        color: white;
+        width: 200px;
+    }
+
+    #example {
+        min-height: 500px;
+    }
+
+    #undo {
+        text-align: center;
+        position: absolute;
+        white-space: nowrap;
+        padding: 1em;
+        cursor: pointer;
+    }
+
+    .armchair {
+        float: left;
+        margin: 30px 30px 120px 30px;
+        text-align: center;
+    }
+
+        .armchair img {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+    .k-window-content a {
+        color: #BBB;
+    }
+
+    .k-window-content p {
+        margin-bottom: 1em;
+    }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<script>
+
+    function test(data) {
+        document.querySelector('#test').textContent = data.value;
+    }
+    var one = lmSelect(document.querySelector('#one'), test);
+    var two = lmSelect(document.querySelector('#two'), test);
+    var three = lmSelect(document.querySelector('#three'), test);
+    var four = lmSelect(document.querySelector('#four'), test);
+
+    function lmSelect(select, onChange) {
+        var selectValue = select.querySelector('.lm-select-value');
+        var options = select.querySelector('.lm-select-options');
+        var list = select.querySelector('.lm-select-list');
+        var items = select.querySelectorAll('.lm-select-item');
+        var overflow = select.querySelector('.lm-select-overflow');
+        var bodyScroll;
+
+        function selectItem(selected, isUpdate) {
+            var value = selected.getAttribute('data-value') || selected.textContent;
+            selected.classList.add('lm-select-selected');
+            selectValue.textContent = selected.textContent;
+            selectValue.setAttribute('data-value', value);
+            if (onChange && isUpdate) {
+                onChange(getData());
+            }
+        }
+
+        function getData() {
+            return { text: selectValue.textContent, value: selectValue.getAttribute('data-value') };
+        }
+
+        function hideSelect() {
+            select.classList.remove("lm-select-active");
+            removeDScroll();
+            setTimeout(function () {
+                select.classList.remove("lm-select-animating");
+            }, 400);
+        }
+
+        function handleChange(event) {
+            var old = select.querySelector('.lm-select-selected');
+            if (old) {
+                old.classList.remove('lm-select-selected');
+            }
+
+            selectItem(event.target, true);
+            hideSelect();
+        }
+
+        function handleOpen() {
+            setDScroll();
+            var selected = select.querySelector('.lm-select-selected');
+            select.classList.add("lm-select-animating");
+            var scrollTop = (selected.offsetTop + (selected.offsetHeight / 2)) - list.offsetHeight / 2;
+            list.scrollTop = Math.max(0, scrollTop);
+            var listTop = Math.min(select.offsetTop - 10, selected.offsetTop - list.scrollTop) * -1
+            options.style.top = listTop + "px";
+
+            setTimeout(function () {
+                select.classList.add("lm-select-active");
+            }, 10);
+        }
+
+        function setDScroll() {
+            bodyScroll = document.body.scrollTop;
+            if (document.documentElement.clientHeight < document.documentElement.offsetHeight) {
+                document.documentElement.style.overflowY = "scroll";
+            }
+            document.body.style.position = "fixed";
+            document.body.style.width = "100%";
+            document.body.style.top = bodyScroll * -1 + "px";
+        }
+        function removeDScroll() {
+            document.body.style.position = "";
+            document.body.style.width = "";
+            document.body.style.top = "";
+            document.body.scrollTop = bodyScroll;
+            document.documentElement.style.overflowY = "";
+        }
+
+        selectItem(select.querySelector('.lm-select-selected') ||
+            select.querySelector('.lm-select-item'));
+
+        selectValue.addEventListener('click', handleOpen);
+
+        for (var i = 0, l = items.length; i < l; i++) {
+            items[i].addEventListener('click', handleChange);
+        }
+
+        overflow.addEventListener('click', hideSelect);
+
+        return {
+            get: getData
+        }
+    }
+</script>

@@ -8,24 +8,24 @@
 
 <section class="panel important">
     <div class="panel-navbar">
-        <h2 class="panel-navbar-title">Create Chair</h2>
+        <h2 class="panel-navbar-title">Створення кафедри</h2>
     </div>
 </section>
 
 <section class="panel important">
     <form asp-action="CreateChair" class="form">
-        <h3 class="section-title">Chair information</h3>
+        <h3 class="section-title">Інформація</h3>
         <div class="section-form">
             <div class="form-group">
-                <label for="" class="form__field__label">Name<span>*</span></label>
+                <label for="" class="form__field__label">Назва<span>*</span></label>
                 <input type="text" name="name" class="form__field">
             </div>
             <div class="form-group">
-                <label for="" class="form__field__label">Cipher<span>*</span></label>
+                <label for="" class="form__field__label">Шифр<span>*</span></label>
                 <input type="text" name="cipher" class="form__field">
             </div>
             <div class="form-group">
-                <label for="" class="form__field__label">Faculty</label>
+                <label for="" class="form__field__label">Факультет</label>
                 @Html.DropDownList(string.Empty, new SelectList(Model.Faculties, "Id", "FacultyName"),
                 htmlAttributes: new { @class = "form__field", @name = "facultyId" })
             </div>
@@ -33,7 +33,7 @@
 
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
 
-        <a asp-action="ShowChairs" class="btn btn--main-outline">Go Back</a>
-        <button type="submit" class="btn btn--main">Create Chair</button>
+        <a asp-action="ShowChairs" class="btn btn--main-outline">Повернутися</a>
+        <button type="submit" class="btn btn--main">Зберегти</button>
     </form>
 </section>

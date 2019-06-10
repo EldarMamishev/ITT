@@ -389,9 +389,11 @@ body {
   border: none;
   border-radius: 30px;
   font-size: 16px; }
-  .btn--main {
+.btn--main {
     background: linear-gradient(45deg, #71bd46, #71bd46);
-    color: #fff; }
+    color: #fff;
+    border-radius: 4px;
+}
   .btn--main-outline {
     border: 2px solid linear-gradient(45deg, #71bd46, #71bd46);
     color: #71bd46; }

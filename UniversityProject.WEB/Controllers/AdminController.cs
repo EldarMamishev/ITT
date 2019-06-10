@@ -423,6 +423,30 @@ namespace UniversityProject.WEB.Controllers
         {
             return View(viewName: "Journals/Journals");
         }
+
+        [HttpGet]
+        public IActionResult CreateJournal()
+        {
+            return View(viewName: "Journals/CreateJournal");
+        }
+
+        [HttpGet]
+        public IActionResult CreateJournalTeacher()
+        {
+            return View(viewName: "Journals/CreateJournalTeacher");
+        }
+
+        [HttpGet]
+        public IActionResult ShowMarks()
+        {
+            return View(viewName: "Marks/ShowMarks");
+        }
+
+        [HttpGet]
+        public IActionResult ShowStudJournals()
+        {
+            return View(viewName: "Journals/ShowStudJournals");
+        }
         #endregion
     }
 }

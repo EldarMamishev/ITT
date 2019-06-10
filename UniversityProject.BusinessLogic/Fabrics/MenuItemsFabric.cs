@@ -116,6 +116,14 @@ namespace UniversityProject.BusinessLogic.Fabrics
 
             item = new MenuViewModelItem()
             {
+                Title = "Предмети",
+                ControllerName = "Admin",
+                ActionName = "ShowSubjects"
+            };
+            TryAddMenuViewModelItem(items, item);
+
+            item = new MenuViewModelItem()
+            {
                 Title = "Журнали",
                 ControllerName = "Admin",
                 ActionName = "ShowJournals"
@@ -124,7 +132,7 @@ namespace UniversityProject.BusinessLogic.Fabrics
 
             item = new MenuViewModelItem()
             {
-                Title = "Календар занять",
+                Title = "Розклад занять",
                 ControllerName = "Admin",
                 ActionName = "ShowScheduler"
             };
@@ -132,9 +140,17 @@ namespace UniversityProject.BusinessLogic.Fabrics
 
             item = new MenuViewModelItem()
             {
-                Title = "Предмети",
+                Title = "Оцінки",
                 ControllerName = "Admin",
-                ActionName = "ShowSubjects"
+                ActionName = "ShowMarks"
+            };
+            TryAddMenuViewModelItem(items, item);
+
+            item = new MenuViewModelItem()
+            {
+                Title = "Список журналів",
+                ControllerName = "Admin",
+                ActionName = "ShowStudJournals"
             };
             TryAddMenuViewModelItem(items, item);
         }

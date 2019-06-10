@@ -21,9 +21,9 @@ $(document).ready(function () {
                     "class": "itemId"
                 }
             },
-            { field: "name", title: "Name", width: "80px" },
-            { field: "cipher", title: "Cipher", width: "80px" },
-            { field: "phoneNumber", title: "PhoneNumber", width: "140px" },
+            { field: "name", title: "Назва", width: "80px" },
+            { field: "cipher", title: "Шифр", width: "80px" },
+            { field: "phoneNumber", title: "Мобільний номер", width: "140px" },
             {
                 command: [
                     { text: "View Details", click: showDetails },

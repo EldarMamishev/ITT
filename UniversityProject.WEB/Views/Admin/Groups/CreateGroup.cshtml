@@ -11,25 +11,25 @@
 
 <section class="panel important">
     <div class="panel-navbar">
-        <h2 class="panel-navbar-title">Create Group</h2>
+        <h2 class="panel-navbar-title">Створення групи</h2>
     </div>
 </section>
 
 <form asp-action="CreateGroup" class="form">
     <section class="panel important">
-        <h3 class="section-title">Group information</h3>
+        <h3 class="section-title">Інформація</h3>
         <div class="form-group">
-            <label for="" class="form__field__label">Faculty</label>
+            <label for="" class="form__field__label">Факультет</label>
             @Html.DropDownList(string.Empty, new SelectList(Model.Faculties, "Id", "FacultyName"),
         htmlAttributes: new { @class = "form__field", @name = "facultyId", @id = "facultyBox" })
         </div>
         <div class="form-group">
-            <label for="" class="form__field__label">Chair</label>
+            <label for="" class="form__field__label">Кафедра</label>
             @Html.DropDownList(string.Empty, new SelectList(Model.Chairs, "Id", "ChairName"),
          htmlAttributes: new { @class = "form__field", @name = "chairId", @id = "chairBox" })
         </div>
         <div class="form-group">
-            <label for="" class="form__field__label">Group Number</label>
+            <label for="" class="form__field__label">Номер групи</label>
             <input type="text" name="groupNumber" class="form__field">
         </div>
         <div class="form-group">
@@ -40,19 +40,19 @@
                     Value = item.ToString()
                 });
             }
-            <label for="" class="form__field__label">Course Year</label>
+            <label for="" class="form__field__label">Курс</label>
             @Html.DropDownList(string.Empty, new SelectList(courses, "Text", "Value"),
         htmlAttributes: new { @class = "form__field", @name = "courseNumberTypeId" })
         </div>
         <div class="form-group">
-            <label for="" class="form__field__label">Created Year</label>
+            <label for="" class="form__field__label">Рік створення</label>
             <input id="yearpicker" name="creationYear" />
         </div>
 
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
 
-        <a asp-action="ShowGroups" class="btn btn--main-outline">Go Back</a>
-        <button type="submit" class="btn btn--main">Create Group</button>
+        <a asp-action="ShowGroups" class="btn btn--main-outline">Повернутися</a>
+        <button type="submit" class="btn btn--main">Зберегти</button>
     </section>
 </form>
 

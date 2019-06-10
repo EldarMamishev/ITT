@@ -24,14 +24,19 @@
 @* TODO List of teachers *@
 <script type="text/x-kendo-template" id="detailWindowTemplate">
     <div id="details-container">
-        <h4>Name: <em>#= name #</em></h4><br />
+        <h4>Назва: <em>#= name #</em></h4><br />
+    </div>
+    <div id="details-container">
+        <h4>Кількість кредитів: </h4><br />
     </div>
 </script>
 
 <script type="text/x-kendo-template" id="createWindowTemplate">
     <div id="details-container">
-        <h4>Name</h4>
+        <h4>Назва</h4>
         <input type="text" name="name" id="createSubjectInput" class="modal__field" /><br />
+        <h4>Кількість кредитів</h4>
+        <input type="text" id="" class="modal__field" /><br />
         <h6 class="text-danger" id="createTabError"></h6><br />
         <div class="table-modal-btn">
             <button type="button" class="btn confirm-button" onclick="createSubject(this)">Create</button>
