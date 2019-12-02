@@ -15,19 +15,19 @@ namespace UniversityProject.DataAccess.Repositories
         {
         }
 
-        public async Task<Group> GetWithChair(int id)
+        public async Task<Group> GetWithCathedra(int id)
         {
-            Group group = await _context.Groups
+            Group group = await _context.Groups.Include(item => item.Cathedra)
                 .FirstOrDefaultAsync(item => item.Id.Equals(id));
 
             return group;
         }
 
-        public async Task<Group> GetWithChairAndFaculty(int id)
+        public async Task<Group> GetWithCathedraAndFaculty(int id)
         {
             Group group = await _context.Groups
-                .Include(item => item.Chair)
-                .ThenInclude(chair => chair.Faculty)
+                .Include(item => item.Cathedra)
+                .ThenInclude(cathedra => cathedra.Faculty)
                 .FirstOrDefaultAsync(item => item.Id.Equals(id));
 
             return group;
@@ -36,8 +36,8 @@ namespace UniversityProject.DataAccess.Repositories
         public async Task<List<Group>> GetAllGroups()
         {
             List<Group> groups = await _context.Groups
-                .Include(item => item.Chair)
-                .ThenInclude(chair => chair.Faculty)
+                .Include(item => item.Cathedra)
+                .ThenInclude(cathedra => cathedra.Faculty)
                 .ToListAsync();
 
             return groups;
@@ -54,20 +54,20 @@ namespace UniversityProject.DataAccess.Repositories
         public async Task<List<Group>> FindGroupsByFacultyId(int id)
         {
             List<Group> groups = await _context.Groups
-                .Include(item => item.Chair)
-                .ThenInclude(chair => chair.Faculty)
-                .Where(item => item.Chair.FacultyId.Equals(id))
+                .Include(item => item.Cathedra)
+                .ThenInclude(cathedra => cathedra.Faculty)
+                .Where(item => item.Cathedra.FacultyId.Equals(id))
                . ToListAsync();
 
             return groups;
         }
 
-        public async Task<List<Group>> FindGroupsByChairId(int id)
+        public async Task<List<Group>> FindGroupsByCathedraId(int id)
         {
             List<Group> groups = await _context.Groups
-                .Include(item => item.Chair)
-                .ThenInclude(chair => chair.Faculty)
-                .Where(item => item.ChairId.Equals(id))
+                .Include(item => item.Cathedra)
+                .ThenInclude(cathedra => cathedra.Faculty)
+                .Where(item => item.CathedraId.Equals(id))
                .ToListAsync();
 
             return groups;

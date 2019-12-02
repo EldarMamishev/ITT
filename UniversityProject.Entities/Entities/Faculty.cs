@@ -16,11 +16,11 @@ namespace UniversityProject.Entities.Entities
         public string PhoneNumber { get; set; }
         public uint StudentsCount { get; set; }
 
-        public ICollection<Chair> Chairs { get; set; }
+        public ICollection<Cathedra> Cathedras { get; set; }
 
         public Faculty() : base()
         {
-            Chairs = new List<Chair>();
+            Cathedras = new List<Cathedra>();
         }
     }
 }

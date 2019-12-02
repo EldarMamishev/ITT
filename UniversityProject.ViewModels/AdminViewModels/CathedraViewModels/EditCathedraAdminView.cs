@@ -1,6 +1,6 @@
-﻿namespace UniversityProject.ViewModels.AdminViewModels.ChairViewModels
+﻿namespace UniversityProject.ViewModels.AdminViewModels.CathedraViewModels
 {
-    public class EditChairAdminView
+    public class EditCathedraAdminView
     {
         public int Id { get; set; }
         public string Name { get; set; }

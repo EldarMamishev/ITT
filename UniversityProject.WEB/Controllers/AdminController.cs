@@ -6,7 +6,7 @@ using UniversityProject.BusinessLogic.Services.Interfaces;
 using UniversityProject.Shared.Constants;
 using UniversityProject.Shared.Exceptions.BaseExceptions;
 using UniversityProject.Shared.Exceptions.BusinessLogicExceptions;
-using UniversityProject.ViewModels.AdminViewModels.ChairViewModels;
+using UniversityProject.ViewModels.AdminViewModels.CathedraViewModels;
 using UniversityProject.ViewModels.AdminViewModels.GroupViewModels;
 using UniversityProject.ViewModels.AdminViewModels.SubjectsViewModels;
 using UniversityProject.ViewModels.AdminViewModels.TeacherViewModels;
@@ -114,81 +114,81 @@ namespace UniversityProject.WEB.Controllers
         }
         #endregion
 
-        #region Chairs
+        #region Cathedras
         [HttpGet]
-        public async Task<IActionResult> ShowChairs()
+        public async Task<IActionResult> ShowCathedras()
         {
-            ShowChairsAdminView result = await _adminService.ShowChairs();
+            ShowCathedrasAdminView result = await _adminService.ShowCathedras();
 
-            return View(viewName: "Chairs/Chairs", result);
+            return View(viewName: "Cathedras/Cathedras", result);
         }
 
         [HttpGet]
-        public async Task<IActionResult> CreateChair()
+        public async Task<IActionResult> CreateCathedra()
         {
-            CreateChairDataAdminView result = await _adminService.LoadDataForCreateChairPage();
+            CreateCathedraDataAdminView result = await _adminService.LoadDataForCreateCathedraPage();
 
-            return View("Chairs/CreateChair", result);
+            return View("Cathedras/CreateCathedra", result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateChair(CreateChairAdminView viewModel)
+        public async Task<IActionResult> CreateCathedra(CreateCathedraAdminView viewModel)
         {
             try
             {
-                await _adminService.CreateChair(viewModel);
+                await _adminService.CreateCathedra(viewModel);
 
-                return RedirectToAction("ShowChairs");
+                return RedirectToAction("ShowCathedras");
             }
             catch (AdminException ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
 
-                CreateChairDataAdminView result = await _adminService.LoadDataForCreateChairPage();
+                CreateCathedraDataAdminView result = await _adminService.LoadDataForCreateCathedraPage();
 
-                return View("Chairs/CreateChair", result);
+                return View("Cathedras/CreateCathedra", result);
             }
         }
 
         [HttpGet]
-        public async Task<IActionResult> EditChair(int id)
+        public async Task<IActionResult> EditCathedra(int id)
         {
-            EditChairDataAdminView result = await _adminService.EditChair(id);
+            EditCathedraDataAdminView result = await _adminService.EditCathedra(id);
 
-            return View("Chairs/EditChair", result);
+            return View("Cathedras/EditCathedra", result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditChair(EditChairAdminView viewModel)
+        public async Task<IActionResult> EditCathedra(EditCathedraAdminView viewModel)
         {
             try
             {
-                await _adminService.EditChair(viewModel);
+                await _adminService.EditCathedra(viewModel);
 
-                return RedirectToAction("ShowChairs");
+                return RedirectToAction("ShowCathedras");
             }
             catch (AdminException ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
 
-                EditChairDataAdminView result = await _adminService.EditChair(viewModel.Id);
+                EditCathedraDataAdminView result = await _adminService.EditCathedra(viewModel.Id);
 
-                return View("Chairs/EditChair", result);
+                return View("Cathedras/EditCathedra", result);
             }
         }
 
         [HttpGet]
-        public async Task<IActionResult> DeleteChair(int id)
+        public async Task<IActionResult> DeleteCathedra(int id)
         {
             try
             {
-                await _adminService.DeleteChair(id);
+                await _adminService.DeleteCathedra(id);
 
                 return new JsonResult(new OkResult());
             }
             catch (AdminException)
             {
-                return RedirectToAction("ShowChairs");
+                return RedirectToAction("ShowCathedras");
             }
         }
         #endregion
@@ -230,9 +230,9 @@ namespace UniversityProject.WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> LoadChairsByFacultyId(int facultyId)
+        public async Task<JsonResult> LoadCathedrasByFacultyId(int facultyId)
         {
-            JsonResult result = await _adminService.LoadChairsByFacultyId(facultyId);
+            JsonResult result = await _adminService.LoadCathedrasByFacultyId(facultyId);
 
             return result;
         }
@@ -406,12 +406,11 @@ namespace UniversityProject.WEB.Controllers
         }
         #endregion
 
-        #region Journals
-        #endregion
-
         #region Students
+
         #endregion
 
+        #region Journals
         [HttpGet]
         public IActionResult ShowScheduler()
         {
@@ -447,6 +446,8 @@ namespace UniversityProject.WEB.Controllers
         {
             return View(viewName: "Journals/ShowStudJournals");
         }
+        #endregion
+
         #endregion
     }
 }

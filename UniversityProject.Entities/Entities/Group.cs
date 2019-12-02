@@ -15,9 +15,9 @@ namespace UniversityProject.Entities.Entities
         public CourseNumberType CourseNumberType { get; set; }
         public int GroupNumber { get; set; }
 
-        public int? ChairId { get; set; }
-        [ForeignKey("ChairId")]
-        public Chair Chair { get; set; }
+        public int? CathedraId { get; set; }
+        [ForeignKey("CathedraId")]
+        public Cathedra Cathedra { get; set; }
 
         public Journal Journal { get; set; }
 

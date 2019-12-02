@@ -18,7 +18,7 @@
         public string AddressLine { get; set; }
 
         public int FacultyId { get; set; }
-        public int ChairId { get; set; }
+        public int CathedraId { get; set; }
         public int SubjectId { get; set; }
     }
 }

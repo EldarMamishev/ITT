@@ -29,7 +29,7 @@ namespace UniversityProject.BusinessLogic.Mappers
             model.Country = viewModel.Country;
             model.City = viewModel.City;
             model.AddressLine = viewModel.AddressLine;
-            model.ChairId = viewModel.ChairId;
+            model.CathedraId = viewModel.CathedraId;
         }
     }
 }

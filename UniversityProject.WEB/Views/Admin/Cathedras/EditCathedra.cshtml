@@ -1,19 +1,19 @@
-﻿@using UniversityProject.ViewModels.AdminViewModels.ChairViewModels
-@model EditChairDataAdminView
+﻿@using UniversityProject.ViewModels.AdminViewModels.CathedraViewModels
+@model EditCathedraDataAdminView
 
 @{
     Layout = "_AdminLayout";
-    ViewData["Title"] = "Edit Chair";
+    ViewData["Title"] = "Edit Cathedra";
 }
 
 <section class="panel important">
     <div class="panel-navbar">
-        <h2 class="panel-navbar-title">Edit Chair</h2>
+        <h2 class="panel-navbar-title">Edit Cathedra</h2>
     </div>
 </section>
 
 <section class="panel important">
-    <form asp-action="EditChair" class="form">
+    <form asp-action="EditCathedra" class="form">
         <input type="hidden" name="id" value="@Model.Id" />
         <div class="form-group">
             <label for="" class="form__field__label">Name<span>*</span></label>
@@ -32,7 +32,7 @@
         
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
 
-        <a asp-action="ShowChairs" class="btn btn--main-outline">Go Back</a>
-        <button type="submit" class="btn btn--main">Edit Chair</button>
+        <a asp-action="ShowCathedras" class="btn btn--main-outline">Go Back</a>
+        <button type="submit" class="btn btn--main">Edit Cathedra</button>
     </form>
 </section>

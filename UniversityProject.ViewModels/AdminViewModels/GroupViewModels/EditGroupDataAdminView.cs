@@ -9,17 +9,17 @@ namespace UniversityProject.ViewModels.AdminViewModels.GroupViewModels
         public int CourseNumberType { get; set; }
         public int GroupNumber { get; set; }
         public int FacultyId { get; set; }
-        public int ChairId { get; set; }
+        public int CathedraId { get; set; }
 
         public List<int> CourseNumberTypes { get; set; }
         public List<FacultyEditGroupDataAdminViewItem> Faculties { get; set; }
-        public List<ChairEditGroupDataAdminViewItem> Chairs { get; set; }
+        public List<CathedraEditGroupDataAdminViewItem> Cathedras { get; set; }
 
         public EditGroupDataAdminView()
         {
             CourseNumberTypes = new List<int>();
             Faculties = new List<FacultyEditGroupDataAdminViewItem>();
-            Chairs = new List<ChairEditGroupDataAdminViewItem>();
+            Cathedras = new List<CathedraEditGroupDataAdminViewItem>();
         }
     }
 
@@ -29,9 +29,9 @@ namespace UniversityProject.ViewModels.AdminViewModels.GroupViewModels
         public string FacultyName { get; set; }
     }
 
-    public class ChairEditGroupDataAdminViewItem
+    public class CathedraEditGroupDataAdminViewItem
     {
         public int Id { get; set; }
-        public string ChairName { get; set; }
+        public string CathedraName { get; set; }
     }
 }

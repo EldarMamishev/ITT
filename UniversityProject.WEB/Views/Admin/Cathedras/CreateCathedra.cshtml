@@ -1,9 +1,9 @@
-﻿@using UniversityProject.ViewModels.AdminViewModels.ChairViewModels
-@model CreateChairDataAdminView
+﻿@using UniversityProject.ViewModels.AdminViewModels.CathedraViewModels
+@model CreateCathedraDataAdminView
 
 @{
     Layout = "_AdminLayout";
-    ViewData["Title"] = "Create Chair";
+    ViewData["Title"] = "Create Cathedra";
 }
 
 <section class="panel important">
@@ -13,7 +13,7 @@
 </section>
 
 <section class="panel important">
-    <form asp-action="CreateChair" class="form">
+    <form asp-action="CreateCathedra" class="form">
         <h3 class="section-title">Інформація</h3>
         <div class="section-form">
             <div class="form-group">
@@ -33,7 +33,7 @@
 
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
 
-        <a asp-action="ShowChairs" class="btn btn--main-outline">Повернутися</a>
+        <a asp-action="ShowCathedras" class="btn btn--main-outline">Повернутися</a>
         <button type="submit" class="btn btn--main">Зберегти</button>
     </form>
 </section>

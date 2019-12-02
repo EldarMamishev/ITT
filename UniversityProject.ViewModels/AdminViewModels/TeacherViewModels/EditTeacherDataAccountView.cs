@@ -20,17 +20,17 @@ namespace UniversityProject.ViewModels.AdminViewModels.TeacherViewModels
         public string AddressLine { get; set; }
 
         public int FacultyId { get; set; }
-        public int ChairId { get; set; }
+        public int CathedraId { get; set; }
         public List<SubjectEditTeacherDataAccountViewItem> SelectedSubjects { get; set; }
 
         public List<FacultyEditTeacherDataAccountViewItem> Faculties { get; set; }
-        public List<ChairEditTeacherDataAccountViewItem> Chairs { get; set; }
+        public List<CathedraEditTeacherDataAccountViewItem> Cathedras { get; set; }
         public List<SubjectEditTeacherDataAccountViewItem> Subjects { get; set; }
 
         public EditTeacherDataAccountView()
         {
             Faculties = new List<FacultyEditTeacherDataAccountViewItem>();
-            Chairs = new List<ChairEditTeacherDataAccountViewItem>();
+            Cathedras = new List<CathedraEditTeacherDataAccountViewItem>();
             Subjects = new List<SubjectEditTeacherDataAccountViewItem>();
             SelectedSubjects = new List<SubjectEditTeacherDataAccountViewItem>();
         }
@@ -42,7 +42,7 @@ namespace UniversityProject.ViewModels.AdminViewModels.TeacherViewModels
         public string Name { get; set; }
     }
 
-    public class ChairEditTeacherDataAccountViewItem
+    public class CathedraEditTeacherDataAccountViewItem
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -17,7 +17,7 @@ namespace UniversityProject.ViewModels.AdminViewModels.GroupViewModels
         public int Id { get; set; }
         public string Cipher { get; set; }
         public string FacultyName { get; set; }
-        public string ChairName { get; set; }
+        public string CathedraName { get; set; }
         public int CountOfStudents { get; set; }
     }
 }

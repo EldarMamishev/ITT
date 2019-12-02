@@ -34,7 +34,7 @@ namespace UniversityProject.BusinessLogic.Configs
             #region Mappers
             services.AddTransient<IAccountMapper, AccountMapper>();
             services.AddTransient<IFacultyMapper, FacultyMapper>();
-            services.AddTransient<IChairMapper, ChairMapper>();
+            services.AddTransient<ICathedraMapper, CathedraMapper>();
             services.AddTransient<IGroupMapper, GroupMapper>();
             services.AddTransient<ISubjectMapper, SubjectMapper>();
             services.AddTransient<ITeacherMapper, TeacherMapper>();
@@ -47,7 +47,7 @@ namespace UniversityProject.BusinessLogic.Configs
             #region Repositories
             services.AddTransient<IFacultyRepository, FacultyRepository>();
             services.AddTransient<IGroupRepository, GroupRepository>();
-            services.AddTransient<IChairRepository, ChairRepository>();
+            services.AddTransient<ICathedraRepository, CathedraRepository>();
             services.AddTransient<ISubjectRepository, SubjectRepository>();
             services.AddTransient<ITeacherSubjectRepository, TeacherSubjectRepository>();
             services.AddTransient<ITeacherRepository, TeacherRepository>();

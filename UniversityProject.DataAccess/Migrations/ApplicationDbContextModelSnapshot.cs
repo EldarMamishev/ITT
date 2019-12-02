@@ -212,7 +212,7 @@ namespace UniversityProject.DataAccess.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("ApplicationUser");
                 });
 
-            modelBuilder.Entity("UniversityProject.Entities.Entities.Chair", b =>
+            modelBuilder.Entity("UniversityProject.Entities.Entities.Cathedra", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -232,7 +232,7 @@ namespace UniversityProject.DataAccess.Migrations
 
                     b.HasIndex("FacultyId");
 
-                    b.ToTable("Chairs");
+                    b.ToTable("Cathedras");
                 });
 
             modelBuilder.Entity("UniversityProject.Entities.Entities.Faculty", b =>
@@ -268,7 +268,7 @@ namespace UniversityProject.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ChairId");
+                    b.Property<int?>("CathedraId");
 
                     b.Property<string>("Cipher")
                         .HasMaxLength(30);
@@ -283,7 +283,7 @@ namespace UniversityProject.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ChairId");
+                    b.HasIndex("CathedraId");
 
                     b.ToTable("Groups");
                 });
@@ -411,14 +411,14 @@ namespace UniversityProject.DataAccess.Migrations
                 {
                     b.HasBaseType("UniversityProject.Entities.Entities.ApplicationUser");
 
-                    b.Property<int>("ChairId");
+                    b.Property<int>("CathedraId");
 
                     b.Property<string>("ScienceDegree")
                         .HasMaxLength(20);
 
                     b.Property<TimeSpan>("WorkExperience");
 
-                    b.HasIndex("ChairId");
+                    b.HasIndex("CathedraId");
 
                     b.ToTable("AspNetUsers");
 
@@ -470,18 +470,18 @@ namespace UniversityProject.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("UniversityProject.Entities.Entities.Chair", b =>
+            modelBuilder.Entity("UniversityProject.Entities.Entities.Cathedra", b =>
                 {
                     b.HasOne("UniversityProject.Entities.Entities.Faculty", "Faculty")
-                        .WithMany("Chairs")
+                        .WithMany("Cathedras")
                         .HasForeignKey("FacultyId");
                 });
 
             modelBuilder.Entity("UniversityProject.Entities.Entities.Group", b =>
                 {
-                    b.HasOne("UniversityProject.Entities.Entities.Chair", "Chair")
+                    b.HasOne("UniversityProject.Entities.Entities.Cathedra", "Cathedra")
                         .WithMany("Groups")
-                        .HasForeignKey("ChairId");
+                        .HasForeignKey("CathedraId");
                 });
 
             modelBuilder.Entity("UniversityProject.Entities.Entities.Journal", b =>
@@ -539,9 +539,9 @@ namespace UniversityProject.DataAccess.Migrations
 
             modelBuilder.Entity("UniversityProject.Entities.Entities.Teacher", b =>
                 {
-                    b.HasOne("UniversityProject.Entities.Entities.Chair", "Chair")
+                    b.HasOne("UniversityProject.Entities.Entities.Cathedra", "Cathedra")
                         .WithMany("Teachers")
-                        .HasForeignKey("ChairId")
+                        .HasForeignKey("CathedraId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

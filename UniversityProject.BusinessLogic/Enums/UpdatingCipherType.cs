@@ -4,6 +4,6 @@
     {
         None = 0,
         Faculty = 1,
-        Chair = 2
+        Cathedra = 2
     }
 }

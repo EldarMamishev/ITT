@@ -86,7 +86,7 @@ namespace UniversityProject.BusinessLogic.Fabrics
             {
                 Title = "Кафедри",
                 ControllerName = "Admin",
-                ActionName = "ShowChairs"
+                ActionName = "ShowCathedras"
             };
             TryAddMenuViewModelItem(items, item);
 
@@ -101,16 +101,16 @@ namespace UniversityProject.BusinessLogic.Fabrics
             item = new MenuViewModelItem()
             {
                 Title = "Викладачі",
-                ControllerName = "Teacher",
-                ActionName = "Index"
+                ControllerName = "Admin",
+                ActionName = "ShowTeachers"
             };
             TryAddMenuViewModelItem(items, item);
 
             item = new MenuViewModelItem()
             {
                 Title = "Студенти",
-                ControllerName = "Student",
-                ActionName = "Index"
+                ControllerName = "Admin",
+                ActionName = "ShowStudents"
             };
             TryAddMenuViewModelItem(items, item);
 

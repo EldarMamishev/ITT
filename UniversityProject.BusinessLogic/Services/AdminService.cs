@@ -16,7 +16,7 @@ using UniversityProject.Entities.Entities;
 using UniversityProject.Entities.Enums;
 using UniversityProject.Shared.Constants;
 using UniversityProject.Shared.Exceptions.BusinessLogicExceptions;
-using UniversityProject.ViewModels.AdminViewModels.ChairViewModels;
+using UniversityProject.ViewModels.AdminViewModels.CathedraViewModels;
 using UniversityProject.ViewModels.AdminViewModels.GroupViewModels;
 using UniversityProject.ViewModels.AdminViewModels.SubjectsViewModels;
 using UniversityProject.ViewModels.AdminViewModels.TeacherViewModels;
@@ -28,14 +28,14 @@ namespace UniversityProject.BusinessLogic.Services
     {
         #region Properties
         private IFacultyRepository _facultyRepository;
-        private IChairRepository _chairRepository;
+        private ICathedraRepository _cathedraRepository;
         private IGroupRepository _groupRepository;
         private ISubjectRepository _subjectRepository;
         private ITeacherSubjectRepository _teacherSubjectRepository;
         private ITeacherRepository _teacherRepository;
 
         private IFacultyMapper _facultyMapper;
-        private IChairMapper _chairMapper;
+        private ICathedraMapper _cathedraMapper;
         private IGroupMapper _groupMapper;
         private ISubjectMapper _subjectMapper;
         private ITeacherMapper _teacherMapper;
@@ -52,13 +52,13 @@ namespace UniversityProject.BusinessLogic.Services
         #region Constructors
         public AdminService(
             IFacultyRepository facultyRepository,
-            IChairRepository chairRepository,
+            ICathedraRepository cathedraRepository,
             IGroupRepository groupRepository,
             ISubjectRepository subjectRepository,
             ITeacherSubjectRepository teacherSubjectRepository,
             ITeacherRepository teacherRepository,
             IFacultyMapper facultyMapper,
-            IChairMapper chairMapper,
+            ICathedraMapper cathedraMapper,
             IGroupMapper groupMapper,
             ISubjectMapper subjectMapper,
             ITeacherMapper teacherMapper,
@@ -69,14 +69,14 @@ namespace UniversityProject.BusinessLogic.Services
             SignInManager<ApplicationUser> signInManager)
         {
             _facultyRepository = facultyRepository;
-            _chairRepository = chairRepository;
+            _cathedraRepository = cathedraRepository;
             _groupRepository = groupRepository;
             _subjectRepository = subjectRepository;
             _teacherSubjectRepository = teacherSubjectRepository;
             _teacherRepository = teacherRepository;
 
             _facultyMapper = facultyMapper;
-            _chairMapper = chairMapper;
+            _cathedraMapper = cathedraMapper;
             _groupMapper = groupMapper;
             _subjectMapper = subjectMapper;
             _teacherMapper = teacherMapper;
@@ -194,25 +194,25 @@ namespace UniversityProject.BusinessLogic.Services
         }
         #endregion
 
-        #region Chairs
-        public async Task<ShowChairsAdminView> ShowChairs()
+        #region Cathedras
+        public async Task<ShowCathedrasAdminView> ShowCathedras()
         {
-            List<Chair> chairs = await _chairRepository.GetAllChairsWithFaculty();
+            List<Cathedra> cathedras = await _cathedraRepository.GetAllCathedrasWithFaculty();
 
-            ShowChairsAdminView result = _chairMapper.MapAllChairsToViewModel(chairs);
+            ShowCathedrasAdminView result = _cathedraMapper.MapAllCathedrasToViewModel(cathedras);
 
             return result;
         }
 
-        public async Task<CreateChairDataAdminView> LoadDataForCreateChairPage()
+        public async Task<CreateCathedraDataAdminView> LoadDataForCreateCathedraPage()
         {
             var faculties = await _facultyRepository.GetAll() as List<Faculty>;
 
-            var viewModel = new CreateChairDataAdminView();
+            var viewModel = new CreateCathedraDataAdminView();
 
             foreach (Faculty faculty in faculties)
             {
-                var item = new CreateChairDataAdminViewItem();
+                var item = new CreateCathedraDataAdminViewItem();
 
                 item.Id = faculty.Id;
                 item.FacultyName = faculty.Name;
@@ -223,18 +223,18 @@ namespace UniversityProject.BusinessLogic.Services
             return viewModel;
         }
 
-        public async Task CreateChair(CreateChairAdminView viewModel)
+        public async Task CreateCathedra(CreateCathedraAdminView viewModel)
         {
-            Chair chair = await _chairRepository.FindChairByName(viewModel.Name);
+            Cathedra cathedra = await _cathedraRepository.FindCathedraByName(viewModel.Name);
 
-            if (!(chair is null))
+            if (!(cathedra is null))
             {
-                throw new AdminException("Entered chair already exist.");
+                throw new AdminException("Entered cathedra already exist.");
             }
 
-            chair = await _chairRepository.FindChairByCipher(viewModel.Cipher);
+            cathedra = await _cathedraRepository.FindCathedraByCipher(viewModel.Cipher);
 
-            if (!(chair is null))
+            if (!(cathedra is null))
             {
                 throw new AdminException("Entered cipher already occupied.");
             }
@@ -246,63 +246,63 @@ namespace UniversityProject.BusinessLogic.Services
                 throw new AdminException("Selected faculty doesn't exist.");
             }
 
-            chair = _chairMapper.MapToChairModel(viewModel);
+            cathedra = _cathedraMapper.MapToCathedraModel(viewModel);
 
-            await _chairRepository.Create(chair);
+            await _cathedraRepository.Create(cathedra);
         }
 
-        public async Task<EditChairDataAdminView> EditChair(int id)
+        public async Task<EditCathedraDataAdminView> EditCathedra(int id)
         {
-            Chair chair = await _chairRepository.Get(id);
+            Cathedra cathedra = await _cathedraRepository.Get(id);
 
-            if (chair is null)
+            if (cathedra is null)
             {
-                throw new AdminException("Selected chair doesn't exist.");
+                throw new AdminException("Selected cathedra doesn't exist.");
             }
 
             var faculties = await _facultyRepository.GetAll() as List<Faculty>;
 
-            EditChairDataAdminView viewModel = _chairMapper.MapToEditChairDataModel(chair, faculties);
+            EditCathedraDataAdminView viewModel = _cathedraMapper.MapToEditCathedraDataModel(cathedra, faculties);
 
             return viewModel;
         }
 
-        public async Task EditChair(EditChairAdminView viewModel)
+        public async Task EditCathedra(EditCathedraAdminView viewModel)
         {
-            Chair chair = await _chairRepository.Get(viewModel.Id);
+            Cathedra cathedra = await _cathedraRepository.Get(viewModel.Id);
 
-            if (chair is null)
+            if (cathedra is null)
             {
-                throw new AdminException("Entered chair doesn't exist.");
+                throw new AdminException("Entered cathedra doesn't exist.");
             }
 
             var changeCiphers = false;
 
-            if (!(chair.Name.ToUpper().Equals(viewModel.Name.ToUpper())))
+            if (!(cathedra.Name.ToUpper().Equals(viewModel.Name.ToUpper())))
             {
-                chair = await _chairRepository.FindChairByName(viewModel.Name);
+                cathedra = await _cathedraRepository.FindCathedraByName(viewModel.Name);
 
-                if (!(chair is null))
+                if (!(cathedra is null))
                 {
-                    throw new AdminException("Entered chair already exist.");
+                    throw new AdminException("Entered cathedra already exist.");
                 }
             }
 
-            if (!(chair.Cipher.ToUpper().Equals(viewModel.Cipher.ToUpper())))
+            if (!(cathedra.Cipher.ToUpper().Equals(viewModel.Cipher.ToUpper())))
             {
-                chair = await _chairRepository.FindChairByCipher(viewModel.Cipher);
+                cathedra = await _cathedraRepository.FindCathedraByCipher(viewModel.Cipher);
 
-                if (!(chair is null))
+                if (!(cathedra is null))
                 {
                     throw new AdminException("Entered cipher already occupied.");
                 }
 
-                chair.Cipher = viewModel.Cipher;
+                cathedra.Cipher = viewModel.Cipher;
 
                 changeCiphers = true;
             }
 
-            if (!chair.FacultyId.Equals(viewModel.FacultyId))
+            if (!cathedra.FacultyId.Equals(viewModel.FacultyId))
             {
                 Faculty faculty = await _facultyRepository.Get(viewModel.FacultyId);
 
@@ -311,36 +311,36 @@ namespace UniversityProject.BusinessLogic.Services
                     throw new AdminException("Selected faculty doesn't exist.");
                 }
 
-                Chair checkExistedCipher = await _chairRepository.FindChairByCipherAndFaculty(chair.Cipher, viewModel.FacultyId);
+                Cathedra checkExistedCipher = await _cathedraRepository.FindCathedraByCipherAndFaculty(cathedra.Cipher, viewModel.FacultyId);
 
                 if (!(checkExistedCipher is null))
                 {
-                    throw new AdminException("Entered chair's cipher has already existed.");
+                    throw new AdminException("Entered cathedra's cipher has already existed.");
                 }
 
                 changeCiphers = true;
             }
 
-            _chairMapper.MapChairEditViewModelToChairModel(chair, viewModel);
+            _cathedraMapper.MapCathedraEditViewModelToCathedraModel(cathedra, viewModel);
 
-            await _chairRepository.Update(chair);
+            await _cathedraRepository.Update(cathedra);
 
             if (changeCiphers)
             {
-                await UpdateFacultiesCiphers(UpdatingCipherType.Chair, chair.Id);
+                await UpdateFacultiesCiphers(UpdatingCipherType.Cathedra, cathedra.Id);
             }
         }
 
-        public async Task DeleteChair(int id)
+        public async Task DeleteCathedra(int id)
         {
-            Chair chair = await _chairRepository.Get(id);
+            Cathedra cathedra = await _cathedraRepository.Get(id);
 
-            if (chair is null)
+            if (cathedra is null)
             {
-                throw new AdminException("Selected chair doesn't exist.");
+                throw new AdminException("Selected cathedra doesn't exist.");
             }
 
-            await _chairRepository.Delete(id);
+            await _cathedraRepository.Delete(id);
         }
         #endregion
 
@@ -374,16 +374,16 @@ namespace UniversityProject.BusinessLogic.Services
             {
                 int facultyId = faculties.FirstOrDefault().Id;
 
-                var chairs = await _chairRepository.GetAllChairsByFacultyId(facultyId) as List<Chair>;
+                var cathedras = await _cathedraRepository.GetAllCathedrasByFacultyId(facultyId) as List<Cathedra>;
 
-                foreach (Chair chair in chairs)
+                foreach (Cathedra cathedra in cathedras)
                 {
-                    var chairViewItem = new ChairCreateGroupDataAdminViewItem();
+                    var cathedraViewItem = new CathedraCreateGroupDataAdminViewItem();
 
-                    chairViewItem.Id = chair.Id;
-                    chairViewItem.ChairName = chair.Name;
+                    cathedraViewItem.Id = cathedra.Id;
+                    cathedraViewItem.CathedraName = cathedra.Name;
 
-                    result.Chairs.Add(chairViewItem);
+                    result.Cathedras.Add(cathedraViewItem);
                 }
             }
 
@@ -393,19 +393,19 @@ namespace UniversityProject.BusinessLogic.Services
             return result;
         }
         //TODO CACHEDATA
-        public async Task<JsonResult> LoadChairsByFacultyId(int facultyId)
+        public async Task<JsonResult> LoadCathedrasByFacultyId(int facultyId)
         {
-            var result = new List<ChairCreateGroupDataAdminViewItem>();
-            var chairs = await _chairRepository.GetAllChairsByFacultyId(facultyId) as List<Chair>;
+            var result = new List<CathedraCreateGroupDataAdminViewItem>();
+            var cathedras = await _cathedraRepository.GetAllCathedrasByFacultyId(facultyId) as List<Cathedra>;
 
-            foreach (Chair chair in chairs)
+            foreach (Cathedra cathedra in cathedras)
             {
-                var chairViewItem = new ChairCreateGroupDataAdminViewItem();
+                var cathedraViewItem = new CathedraCreateGroupDataAdminViewItem();
 
-                chairViewItem.Id = chair.Id;
-                chairViewItem.ChairName = chair.Name;
+                cathedraViewItem.Id = cathedra.Id;
+                cathedraViewItem.CathedraName = cathedra.Name;
 
-                result.Add(chairViewItem);
+                result.Add(cathedraViewItem);
             }
 
             return new JsonResult(result);
@@ -415,18 +415,18 @@ namespace UniversityProject.BusinessLogic.Services
         {
             var group = new Group();
 
-            Chair chair = await _chairRepository.GetChairWithFacultyById(viewModel.ChairId);
+            Cathedra cathedra = await _cathedraRepository.GetCathedraWithFacultyById(viewModel.CathedraId);
 
-            if (chair is null)
+            if (cathedra is null)
             {
-                throw new AdminException("Selected chair doesn't exist.");
+                throw new AdminException("Selected cathedra doesn't exist.");
             }
 
             group.CourseNumberType = (CourseNumberType)Enum.Parse(typeof(CourseNumberType), viewModel.CourseNumberTypeId.ToString());
             group.GroupNumber = viewModel.GroupNumber;
             group.CreationYear = _dateParseHelper.ParseStringToOnlyYearDatetime(viewModel.CreationYear).Value;
-            group.Cipher = $"{chair.Faculty.Cipher}.{chair.Cipher}.{group.CreationYear.ToString("yy")}.{group.GroupNumber}";
-            group.ChairId = viewModel.ChairId;
+            group.Cipher = $"{cathedra.Faculty.Cipher}.{cathedra.Cipher}.{group.CreationYear.ToString("yy")}.{group.GroupNumber}";
+            group.CathedraId = viewModel.CathedraId;
 
             Group groupItem = await _groupRepository.FindGroupByCipher(group.Cipher);
             if (!(groupItem is null))
@@ -441,7 +441,7 @@ namespace UniversityProject.BusinessLogic.Services
         {
             var viewModel = new EditGroupDataAdminView();
 
-            Group group = await _groupRepository.GetWithChairAndFaculty(id);
+            Group group = await _groupRepository.GetWithCathedraAndFaculty(id);
 
             if (group is null)
             {
@@ -449,16 +449,16 @@ namespace UniversityProject.BusinessLogic.Services
             }
 
             var faculties = await _facultyRepository.GetAll() as List<Faculty>;
-            var chairs = await _chairRepository.GetAllChairsByFacultyId(group.Chair.FacultyId.Value) as List<Chair>;
+            var cathedras = await _cathedraRepository.GetAllCathedrasByFacultyId(group.Cathedra.FacultyId.Value) as List<Cathedra>;
 
-            viewModel = _groupMapper.MapToEditGroupDataModel(group, faculties, chairs);
+            viewModel = _groupMapper.MapToEditGroupDataModel(group, faculties, cathedras);
 
             return viewModel;
         }
 
         public async Task EditGroup(EditGroupAdminView viewModel)
         {
-            Group group = await _groupRepository.GetWithChair(viewModel.Id);
+            Group group = await _groupRepository.GetWithCathedra(viewModel.Id);
 
             if (group is null)
             {
@@ -469,21 +469,21 @@ namespace UniversityProject.BusinessLogic.Services
             group.GroupNumber = viewModel.GroupNumber;
             group.CreationYear = _dateParseHelper.ParseStringToOnlyYearDatetime(viewModel.CreationYear).Value;
 
-            Chair chair = group.Chair;
+            Cathedra cathedra = group.Cathedra;
 
-            if (!group.ChairId.Equals(viewModel.ChairId))
+            if (!group.CathedraId.Equals(viewModel.CathedraId))
             {
-                chair = await _chairRepository.GetChairWithFacultyById(viewModel.ChairId);
+                cathedra = await _cathedraRepository.GetCathedraWithFacultyById(viewModel.CathedraId);
 
-                if (chair is null)
+                if (cathedra is null)
                 {
-                    throw new AdminException("Selected chair doesn't exist.");
+                    throw new AdminException("Selected cathedra doesn't exist.");
                 }
 
-                group.ChairId = viewModel.ChairId;
+                group.CathedraId = viewModel.CathedraId;
             }
 
-            var newCipher = $"{chair.Faculty.Cipher}.{chair.Cipher}.{group.CreationYear.ToString("yy")}.{group.GroupNumber}";
+            var newCipher = $"{cathedra.Faculty.Cipher}.{cathedra.Cipher}.{group.CreationYear.ToString("yy")}.{group.GroupNumber}";
 
             if (group.Cipher.Equals(newCipher))
             {
@@ -594,7 +594,7 @@ namespace UniversityProject.BusinessLogic.Services
         #region Teachers
         public async Task<ShowTeachersAdminView> ShowTeachers()
         {
-            List<Teacher> teachers = await _teacherRepository.GetAllTeachersWithSubjectAndChair();
+            List<Teacher> teachers = await _teacherRepository.GetAllTeachersWithSubjectAndCathedra();
 
             ShowTeachersAdminView result = _teacherMapper.MapTeacherModelsToViewModels(teachers);
 
@@ -613,11 +613,11 @@ namespace UniversityProject.BusinessLogic.Services
 
                 int facultyId = faculties.FirstOrDefault().Id;
 
-                var chairs = await _chairRepository.GetAllChairsByFacultyId(facultyId) as List<Chair>;
+                var cathedras = await _cathedraRepository.GetAllCathedrasByFacultyId(facultyId) as List<Cathedra>;
 
-                if (!(chairs is null))
+                if (!(cathedras is null))
                 {
-                    _teacherMapper.MapAllChairsToViewModel(chairs, result);
+                    _teacherMapper.MapAllCathedrasToViewModel(cathedras, result);
                 }
             }
 
@@ -648,11 +648,11 @@ namespace UniversityProject.BusinessLogic.Services
                 throw new AdminException("Account with such Email or UserID already exists");
             }
 
-            Chair chair = await _chairRepository.GetChairByIdAndFacultyById(viewModel.FacultyId, viewModel.ChairId);
+            Cathedra cathedra = await _cathedraRepository.GetCathedraByIdAndFacultyById(viewModel.FacultyId, viewModel.CathedraId);
 
-            if (chair is null)
+            if (cathedra is null)
             {
-                throw new AdminException("Selected chair doesn't exist.");
+                throw new AdminException("Selected cathedra doesn't exist.");
             }
 
             Subject subject = await _subjectRepository.Get(viewModel.SubjectId);
@@ -691,7 +691,7 @@ namespace UniversityProject.BusinessLogic.Services
 
         public async Task<EditTeacherDataAccountView> LoadDataForEditTeacherAccount(string userName)
         {
-            Teacher teacher = await _teacherRepository.GetTeacherWithSubjectAndChair(userName);
+            Teacher teacher = await _teacherRepository.GetTeacherWithSubjectAndCathedra(userName);
 
             if (teacher is null)
             {
@@ -699,10 +699,10 @@ namespace UniversityProject.BusinessLogic.Services
             }
 
             var faculties = await _facultyRepository.GetAll() as List<Faculty>;
-            var chairs = await _chairRepository.GetAllChairsByFacultyId(teacher.Chair.FacultyId.Value) as List<Chair>;
+            var cathedras = await _cathedraRepository.GetAllCathedrasByFacultyId(teacher.Cathedra.FacultyId.Value) as List<Cathedra>;
             var subjects = await _subjectRepository.GetAll() as List<Subject>;
 
-            EditTeacherDataAccountView viewModel = _teacherMapper.MapEditTeacherModelsToEditViewModels(teacher, faculties, chairs, subjects);
+            EditTeacherDataAccountView viewModel = _teacherMapper.MapEditTeacherModelsToEditViewModels(teacher, faculties, cathedras, subjects);
 
             return viewModel;
         }
@@ -716,7 +716,7 @@ namespace UniversityProject.BusinessLogic.Services
                 throw new AdminException("User not found.");
             }
 
-            Teacher teacher = await _teacherRepository.GetTeacherWithSubjectAndChair(viewModel.Username);
+            Teacher teacher = await _teacherRepository.GetTeacherWithSubjectAndCathedra(viewModel.Username);
             TeacherSubject checkExistingItem = teacher.TeacherSubjects.FirstOrDefault(item => item.Subject.Id.Equals(viewModel.SubjectId));
 
             if (!(checkExistingItem is null))
@@ -748,7 +748,7 @@ namespace UniversityProject.BusinessLogic.Services
 
         public async Task DeleteSubjectFromTeacher(RequestDeleteSubjectFromTeacherView requestViewModel)
         {
-            Teacher teacher = await _teacherRepository.GetTeacherWithSubjectAndChair(requestViewModel.Username);
+            Teacher teacher = await _teacherRepository.GetTeacherWithSubjectAndCathedra(requestViewModel.Username);
             TeacherSubject deleteSubjectItem = teacher.TeacherSubjects.FirstOrDefault(item => item.Subject.Id.Equals(requestViewModel.SubjectId));
 
             if (deleteSubjectItem is null)
@@ -768,11 +768,11 @@ namespace UniversityProject.BusinessLogic.Services
                 throw new AdminException("User not found.");
             }
 
-            Chair chair = await _chairRepository.GetChairByIdAndFacultyById(viewModel.FacultyId , viewModel.ChairId);
+            Cathedra cathedra = await _cathedraRepository.GetCathedraByIdAndFacultyById(viewModel.FacultyId , viewModel.CathedraId);
 
-            if (chair is null)
+            if (cathedra is null)
             {
-                throw new AdminException("Selected chair doesn't exist.");
+                throw new AdminException("Selected cathedra doesn't exist.");
             }
 
             user.FirstName = viewModel.FirstName;
@@ -785,10 +785,14 @@ namespace UniversityProject.BusinessLogic.Services
             user.City = viewModel.City;
             user.AddressLine = viewModel.AddressLine;
 
-            user.Chair = chair;
+            user.Cathedra = cathedra;
 
             await _userManager.UpdateAsync(user);
         }
+        #endregion
+
+        #region Students
+
         #endregion
 
         #endregion
@@ -803,14 +807,14 @@ namespace UniversityProject.BusinessLogic.Services
                 groups = await _groupRepository.FindGroupsByFacultyId(id);
             }
 
-            if (updatingType.Equals(UpdatingCipherType.Chair))
+            if (updatingType.Equals(UpdatingCipherType.Cathedra))
             {
-                groups = await _groupRepository.FindGroupsByChairId(id);
+                groups = await _groupRepository.FindGroupsByCathedraId(id);
             }
 
             foreach (Group group in groups)
             {
-                var newCipher = $"{group.Chair.Faculty.Cipher}.{group.Chair.Cipher}.{group.CreationYear.ToString("yy")}.{group.GroupNumber}";
+                var newCipher = $"{group.Cathedra.Faculty.Cipher}.{group.Cathedra.Cipher}.{group.CreationYear.ToString("yy")}.{group.GroupNumber}";
                 group.Cipher = newCipher;
             }
 

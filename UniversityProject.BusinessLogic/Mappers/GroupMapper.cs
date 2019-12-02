@@ -20,8 +20,8 @@ namespace UniversityProject.BusinessLogic.Mappers
 
                 viewModelItem.Id = group.Id;
                 viewModelItem.Cipher = group.Cipher;
-                viewModelItem.FacultyName = group.Chair.Faculty.Name;
-                viewModelItem.ChairName = group.Chair.Name;
+                viewModelItem.FacultyName = group.Cathedra.Faculty.Name;
+                viewModelItem.CathedraName = group.Cathedra.Name;
                 viewModelItem.CountOfStudents = group.Students.Count;
 
                 viewModel.Groups.Add(viewModelItem);
@@ -30,7 +30,7 @@ namespace UniversityProject.BusinessLogic.Mappers
             return viewModel;
         }
 
-        public EditGroupDataAdminView MapToEditGroupDataModel(Group group, List<Faculty> faculties, List<Chair> chairs)
+        public EditGroupDataAdminView MapToEditGroupDataModel(Group group, List<Faculty> faculties, List<Cathedra> cathedras)
         {
             var viewModel = new EditGroupDataAdminView();
 
@@ -38,7 +38,7 @@ namespace UniversityProject.BusinessLogic.Mappers
             viewModel.CreationYear = group.CreationYear.ToString("yyyy");
             viewModel.GroupNumber = group.GroupNumber;
             viewModel.CourseNumberType = (int)group.CourseNumberType;
-            viewModel.FacultyId = (int)group.Chair.FacultyId;
+            viewModel.FacultyId = (int)group.Cathedra.FacultyId;
 
             viewModel.CourseNumberTypes = Enum.GetValues(typeof(CourseNumberType))
                 .Cast<int>()
@@ -55,15 +55,15 @@ namespace UniversityProject.BusinessLogic.Mappers
                 viewModel.Faculties.Add(facultyViewItem);
             }
 
-            viewModel.ChairId = group.Chair.Id;
-            foreach (Chair chair in chairs)
+            viewModel.CathedraId = group.Cathedra.Id;
+            foreach (Cathedra cathedra in cathedras)
             {
-                var viewModelItem = new ChairEditGroupDataAdminViewItem();
+                var viewModelItem = new CathedraEditGroupDataAdminViewItem();
 
-                viewModelItem.Id = chair.Id;
-                viewModelItem.ChairName = chair.Name;
+                viewModelItem.Id = cathedra.Id;
+                viewModelItem.CathedraName = cathedra.Name;
 
-                viewModel.Chairs.Add(viewModelItem);
+                viewModel.Cathedras.Add(viewModelItem);
             }
 
             return viewModel;

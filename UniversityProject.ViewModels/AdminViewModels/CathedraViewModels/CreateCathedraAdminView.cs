@@ -1,6 +1,6 @@
-﻿namespace UniversityProject.ViewModels.AdminViewModels.ChairViewModels
+﻿namespace UniversityProject.ViewModels.AdminViewModels.CathedraViewModels
 {
-    public class CreateChairAdminView
+    public class CreateCathedraAdminView
     {
         public string Name { get; set; }
         public string Cipher { get; set; }

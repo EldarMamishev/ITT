@@ -11,6 +11,6 @@ namespace UniversityProject.ViewModels.AdminViewModels.GroupViewModels
         public string CreationYear { get; set; }
         public int CourseNumberTypeId { get; set; }
         public int GroupNumber { get; set; }
-        public int ChairId { get; set; }
+        public int CathedraId { get; set; }
     }
 }

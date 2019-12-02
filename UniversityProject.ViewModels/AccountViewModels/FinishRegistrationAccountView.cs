@@ -9,13 +9,13 @@ namespace UniversityProject.ViewModels.AccountViewModels
         public string Username { get; set; }
 
         public List<FacultyFinishRegistrationAccountViewItem> Faculties { get; set; }
-        public List<ChairFinishRegistrationAccountViewItem> Chairs { get; set; }
+        public List<CathedraFinishRegistrationAccountViewItem> Cathedras { get; set; }
         public List<GroupFinishRegistrationAccountViewItem> Groups { get; set; }
 
         public FinishRegistrationAccountView()
         {
             Faculties = new List<FacultyFinishRegistrationAccountViewItem>();
-            Chairs = new List<ChairFinishRegistrationAccountViewItem>();
+            Cathedras = new List<CathedraFinishRegistrationAccountViewItem>();
             Groups = new List<GroupFinishRegistrationAccountViewItem>();
         }
     }
@@ -26,10 +26,10 @@ namespace UniversityProject.ViewModels.AccountViewModels
         public string FacultyName { get; set; }
     }
 
-    public class ChairFinishRegistrationAccountViewItem
+    public class CathedraFinishRegistrationAccountViewItem
     {
         public int Id { get; set; }
-        public string ChairName { get; set; }
+        public string CathedraName { get; set; }
     }
 
     public class GroupFinishRegistrationAccountViewItem

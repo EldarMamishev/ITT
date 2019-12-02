@@ -8,8 +8,8 @@ namespace UniversityProject.BusinessLogic.Mappers.Interfaces
     {
         ShowTeachersAdminView MapTeacherModelsToViewModels(List<Teacher> teachers);
         void MapAllFacultiesToViewModel(List<Faculty> faculties, RegisterNewTeacherUserDataAccountView viewModel);
-        void MapAllChairsToViewModel(List<Chair> chairs, RegisterNewTeacherUserDataAccountView viewModel);
+        void MapAllCathedrasToViewModel(List<Cathedra> cathedras, RegisterNewTeacherUserDataAccountView viewModel);
         void MapAllSubjectsToViewModel(List<Subject> subjects, RegisterNewTeacherUserDataAccountView viewModel);
-        EditTeacherDataAccountView MapEditTeacherModelsToEditViewModels(Teacher teacher, List<Faculty> faculties, List<Chair> chairs, List<Subject> subjects);
+        EditTeacherDataAccountView MapEditTeacherModelsToEditViewModels(Teacher teacher, List<Faculty> faculties, List<Cathedra> cathedras, List<Subject> subjects);
     }
 }

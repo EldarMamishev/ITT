@@ -23,7 +23,7 @@ $(document).ready(function () {
             },
             { field: "cipher", title: "Шифр", width: "100px" },
             { field: "facultyName", title: "Факультет", width: "80px" },
-            { field: "chairName", title: "Кафедра", width: "80px" },
+            { field: "cathedraName", title: "Кафедра", width: "80px" },
             { field: "countOfStudents", title: "Кіл-ть студентів", width: "80px" },
             {
                 command: [

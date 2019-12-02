@@ -5,7 +5,7 @@ using UniversityProject.Entities.Entities.Base;
 
 namespace UniversityProject.Entities.Entities
 {
-    public class Chair : BaseEntity
+    public class Cathedra : BaseEntity
     {
         [MaxLength(30)]
         public string Name { get; set; }
@@ -19,7 +19,7 @@ namespace UniversityProject.Entities.Entities
         public ICollection<Teacher> Teachers { get; set; }
         public ICollection<Group> Groups { get; set; }
 
-        public Chair() : base()
+        public Cathedra() : base()
         {
             Teachers = new List<Teacher>();
             Groups = new List<Group>();

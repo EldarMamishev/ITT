@@ -17,7 +17,7 @@ namespace UniversityProject.BusinessLogic.Mappers
                 var viewModelItem = new TeacherShowTeachersAdminViewItem();
                 viewModelItem.UserName = teacher.UserName;
                 viewModelItem.FullName = $"{teacher.LastName} {teacher.FirstName} {teacher.MiddleName}";
-                viewModelItem.ChairName = teacher.Chair.Name;
+                viewModelItem.CathedraName = teacher.Cathedra.Name;
 
                 var subjectNames = string.Empty;
                 var teacherSubjects = teacher.TeacherSubjects.ToList();
@@ -54,16 +54,16 @@ namespace UniversityProject.BusinessLogic.Mappers
             }
         }
 
-        public void MapAllChairsToViewModel(List<Chair> chairs, RegisterNewTeacherUserDataAccountView viewModel)
+        public void MapAllCathedrasToViewModel(List<Cathedra> cathedras, RegisterNewTeacherUserDataAccountView viewModel)
         {
-            foreach (Chair chair in chairs)
+            foreach (Cathedra cathedra in cathedras)
             {
-                var chairViewItem = new ChairRegisterNewTeacherUserDataAccountViewItem();
+                var cathedraViewItem = new CathedraRegisterNewTeacherUserDataAccountViewItem();
 
-                chairViewItem.Id = chair.Id;
-                chairViewItem.Name = chair.Name;
+                cathedraViewItem.Id = cathedra.Id;
+                cathedraViewItem.Name = cathedra.Name;
 
-                viewModel.Chairs.Add(chairViewItem);
+                viewModel.Cathedras.Add(cathedraViewItem);
             }
         }
 
@@ -80,7 +80,7 @@ namespace UniversityProject.BusinessLogic.Mappers
             }
         }
 
-        public EditTeacherDataAccountView MapEditTeacherModelsToEditViewModels(Teacher teacher, List<Faculty> faculties, List<Chair> chairs, List<Subject> subjects)
+        public EditTeacherDataAccountView MapEditTeacherModelsToEditViewModels(Teacher teacher, List<Faculty> faculties, List<Cathedra> cathedras, List<Subject> subjects)
         {
             var viewModel = new EditTeacherDataAccountView();
 
@@ -95,8 +95,8 @@ namespace UniversityProject.BusinessLogic.Mappers
             viewModel.Country = teacher.Country;
             viewModel.City = teacher.City;
             viewModel.AddressLine = teacher.AddressLine;
-            viewModel.FacultyId = teacher.Chair.FacultyId.Value;
-            viewModel.ChairId = teacher.ChairId;
+            viewModel.FacultyId = teacher.Cathedra.FacultyId.Value;
+            viewModel.CathedraId = teacher.CathedraId;
 
             foreach (var item in teacher.TeacherSubjects)
             {
@@ -118,14 +118,14 @@ namespace UniversityProject.BusinessLogic.Mappers
                 viewModel.Faculties.Add(facultyViewItem);
             }
 
-            foreach (Chair chair in chairs)
+            foreach (Cathedra cathedra in cathedras)
             {
-                var chairViewItem = new ChairEditTeacherDataAccountViewItem();
+                var cathedraViewItem = new CathedraEditTeacherDataAccountViewItem();
 
-                chairViewItem.Id = chair.Id;
-                chairViewItem.Name = chair.Name;
+                cathedraViewItem.Id = cathedra.Id;
+                cathedraViewItem.Name = cathedra.Name;
 
-                viewModel.Chairs.Add(chairViewItem);
+                viewModel.Cathedras.Add(cathedraViewItem);
             }
 
             foreach (Subject subject in subjects)

@@ -9,14 +9,14 @@ $(document).ready(function () {
                     "id": 1,
                     "cipher": "06.05.01",
                     "facultyName": "EI",
-                    "chairName": "Комп'ютерні науки",
+                    "cathedraName": "Комп'ютерні науки",
                     "subject": "ООП"
                 },
                 {
                     "id": 2,
                     "cipher": "06.04.01",
                     "facultyName": "EI",
-                    "chairName": "Комп'ютерні науки",
+                    "cathedraName": "Комп'ютерні науки",
                     "subject": "КП"
                 }
             ]
@@ -38,7 +38,7 @@ $(document).ready(function () {
             },
             { field: "cipher", title: "Шифр групи", width: "100px" },
             { field: "facultyName", title: "Факультет", width: "80px" },
-            { field: "chairName", title: "Кафедра", width: "80px" },
+            { field: "cathedraName", title: "Кафедра", width: "80px" },
             { field: "subject", title: "Предмет", width: "80px" },
             {
                 command: [

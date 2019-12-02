@@ -78,7 +78,7 @@ namespace UniversityProject.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Chairs",
+                name: "Cathedras",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -90,9 +90,9 @@ namespace UniversityProject.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Chairs", x => x.Id);
+                    table.PrimaryKey("PK_Cathedras", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Chairs_Faculties_FacultyId",
+                        name: "FK_Cathedras_Faculties_FacultyId",
                         column: x => x.FacultyId,
                         principalTable: "Faculties",
                         principalColumn: "Id",
@@ -110,15 +110,15 @@ namespace UniversityProject.DataAccess.Migrations
                     CreationYear = table.Column<DateTime>(nullable: false),
                     CourseNumberType = table.Column<int>(nullable: false),
                     GroupNumber = table.Column<int>(nullable: false),
-                    ChairId = table.Column<int>(nullable: true)
+                    CathedraId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Groups", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Groups_Chairs_ChairId",
-                        column: x => x.ChairId,
-                        principalTable: "Chairs",
+                        name: "FK_Groups_Cathedras_CathedraId",
+                        column: x => x.CathedraId,
+                        principalTable: "Cathedras",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -158,7 +158,7 @@ namespace UniversityProject.DataAccess.Migrations
                     GroupId = table.Column<int>(nullable: true),
                     WorkExperience = table.Column<TimeSpan>(nullable: true),
                     ScienceDegree = table.Column<string>(maxLength: 20, nullable: true),
-                    ChairId = table.Column<int>(nullable: true)
+                    CathedraId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -170,9 +170,9 @@ namespace UniversityProject.DataAccess.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_Chairs_ChairId",
-                        column: x => x.ChairId,
-                        principalTable: "Chairs",
+                        name: "FK_AspNetUsers_Cathedras_CathedraId",
+                        column: x => x.CathedraId,
+                        principalTable: "Cathedras",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -411,19 +411,19 @@ namespace UniversityProject.DataAccess.Migrations
                 column: "GroupId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_ChairId",
+                name: "IX_AspNetUsers_CathedraId",
                 table: "AspNetUsers",
-                column: "ChairId");
+                column: "CathedraId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Chairs_FacultyId",
-                table: "Chairs",
+                name: "IX_Cathedras_FacultyId",
+                table: "Cathedras",
                 column: "FacultyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Groups_ChairId",
+                name: "IX_Groups_CathedraId",
                 table: "Groups",
-                column: "ChairId");
+                column: "CathedraId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Journals_GroupId",
@@ -504,7 +504,7 @@ namespace UniversityProject.DataAccess.Migrations
                 name: "Groups");
 
             migrationBuilder.DropTable(
-                name: "Chairs");
+                name: "Cathedras");
 
             migrationBuilder.DropTable(
                 name: "Faculties");

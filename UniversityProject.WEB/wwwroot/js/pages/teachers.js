@@ -22,7 +22,7 @@ $(document).ready(function () {
                 }
             },
             { field: "fullName", title: "FullName", width: "80px" },
-            { field: "chairName", title: "Chair", width: "80px" },
+            { field: "cathedraName", title: "Cathedra", width: "80px" },
             { field: "subjectName", title: "Subject", width: "80px" },
             {
                 command: [

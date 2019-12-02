@@ -1,10 +1,10 @@
 ﻿var wnd, detailsTemplate, deleteTemplate;
 
 $(document).ready(function () {
-    let grid = $("#chairsGrid").kendoGrid({
+    let grid = $("#cathedrasGrid").kendoGrid({
         dataSource: {
             pageSize: 10,
-            data: chairs
+            data: cathedras
         },
         sortable: {
             mode: "single",
@@ -27,8 +27,8 @@ $(document).ready(function () {
             {
                 command: [
                     { text: "View Details", click: showDetails },
-                    { text: "Edit", click: openEditChairItem },
-                    { text: "Delete", click: onDeleteChairItem }
+                    { text: "Edit", click: openEditCathedraItem },
+                    { text: "Delete", click: onDeleteCathedraItem }
                 ],
                 title: "&nbsp;",
                 width: "180px"
@@ -36,13 +36,13 @@ $(document).ready(function () {
         ],
         noRecords: true,
         messages: {
-            noRecords: "There are no chairs on current page"
+            noRecords: "There are no cathedras on current page"
         }
     }).data("kendoGrid");
 
-    wnd = $("#chairDetails")
+    wnd = $("#cathedraDetails")
         .kendoWindow({
-            title: "Chair Details",
+            title: "Cathedra Details",
             modal: true,
             visible: false,
             resizable: false,
@@ -61,14 +61,14 @@ function showDetails(e) {
     wnd.center().open();
 }
 
-function openEditChairItem(e) {
+function openEditCathedraItem(e) {
     let dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-    window.location.href = "EditChair?id=" + dataItem.id;
+    window.location.href = "EditCathedra?id=" + dataItem.id;
 }
 
 var itemToDelete;
 var rowToDelete;
-function onDeleteChairItem(e) {
+function onDeleteCathedraItem(e) {
     itemToDelete = this.dataItem($(e.currentTarget).closest("tr"));
     rowToDelete = $(e.currentTarget).closest("tr");
 
@@ -79,14 +79,14 @@ function onDeleteChairItem(e) {
 function confirmDelete(e) {
     $.ajax({
         type: "GET",
-        url: "/Admin/DeleteChair",
+        url: "/Admin/DeleteCathedra",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: {
             "id": itemToDelete.id
         },
         success: function (data) {
-            $("#chairsGrid").data("kendoGrid").removeRow(rowToDelete);
+            $("#cathedrasGrid").data("kendoGrid").removeRow(rowToDelete);
             closeModal(e);
         },
         error: function (data) {

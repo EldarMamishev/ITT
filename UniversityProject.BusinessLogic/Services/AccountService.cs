@@ -21,7 +21,7 @@ namespace UniversityProject.BusinessLogic.Services
     {
         #region Properties
         private IFacultyRepository _facultyRepository;
-        private IChairRepository _chairRepository;
+        private ICathedraRepository _cathedraRepository;
 
         private IAccountMapper _accountMapper;
 
@@ -34,14 +34,14 @@ namespace UniversityProject.BusinessLogic.Services
         #region Constructors
         public AccountService(
             IFacultyRepository facultyRepository,
-            IChairRepository chairRepository, 
+            ICathedraRepository cathedraRepository, 
             IAccountMapper accountMapper, 
             IEmailProvider emailProvider, 
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager)
         {
             _facultyRepository = facultyRepository;
-            _chairRepository = chairRepository;
+            _cathedraRepository = cathedraRepository;
 
             _accountMapper = accountMapper;
 
@@ -104,16 +104,16 @@ namespace UniversityProject.BusinessLogic.Services
             {
                 int facultyId = faculties.FirstOrDefault().Id;
 
-                var chairs = await _chairRepository.GetAllChairsByFacultyId(facultyId) as List<Chair>;
+                var cathedras = await _cathedraRepository.GetAllCathedrasByFacultyId(facultyId) as List<Cathedra>;
 
-                foreach (Chair chair in chairs)
+                foreach (Cathedra cathedra in cathedras)
                 {
-                    var chairViewItem = new ChairFinishRegistrationAccountViewItem();
+                    var cathedraViewItem = new CathedraFinishRegistrationAccountViewItem();
 
-                    chairViewItem.Id = chair.Id;
-                    chairViewItem.ChairName = chair.Name;
+                    cathedraViewItem.Id = cathedra.Id;
+                    cathedraViewItem.CathedraName = cathedra.Name;
 
-                    viewModel.Chairs.Add(chairViewItem);
+                    viewModel.Cathedras.Add(cathedraViewItem);
                 }
             }
         }

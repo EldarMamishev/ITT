@@ -90,14 +90,14 @@
                             htmlAttributes: new { @class = "form__field", @name = "facultyId", @id = "facultyBox" })
                             </div>
                             <div class="form-group">
-                                <label for="" class="form__field__label">Chair</label>
-                                @Html.DropDownList(string.Empty, new SelectList(Model.Chairs, "Id", "ChairName"),
-                             htmlAttributes: new { @class = "form__field", @name = "chairId", @id = "chairBox" })
+                                <label for="" class="form__field__label">Cathedra</label>
+                                @Html.DropDownList(string.Empty, new SelectList(Model.Cathedras, "Id", "CathedraName"),
+                             htmlAttributes: new { @class = "form__field", @name = "cathedraId", @id = "cathedraBox" })
                             </div>
                             <div class="form-group">
                                 <label for="" class="form__field__label">Group</label>
-                                @Html.DropDownList(string.Empty, new SelectList(Model.Chairs, "Id", "ChairName"),
-                             htmlAttributes: new { @class = "form__field", @name = "chairId", @id = "chairBox" })
+                                @Html.DropDownList(string.Empty, new SelectList(Model.Cathedras, "Id", "CathedraName"),
+                             htmlAttributes: new { @class = "form__field", @name = "cathedraId", @id = "cathedraBox" })
                             </div>
                         </div>
 

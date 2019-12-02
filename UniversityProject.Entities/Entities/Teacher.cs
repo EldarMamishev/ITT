@@ -11,9 +11,9 @@ namespace UniversityProject.Entities.Entities
         [MaxLength(20)]
         public string ScienceDegree { get; set; }
 
-        public int ChairId { get; set; }
-        [ForeignKey("ChairId")]
-        public Chair Chair { get; set; }
+        public int CathedraId { get; set; }
+        [ForeignKey("CathedraId")]
+        public Cathedra Cathedra { get; set; }
 
         public ICollection<TeacherSubject> TeacherSubjects { get; set; }
 

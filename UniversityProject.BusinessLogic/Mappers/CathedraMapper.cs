@@ -1,34 +1,34 @@
 ﻿using System.Collections.Generic;
 using UniversityProject.BusinessLogic.Mappers.Interfaces;
 using UniversityProject.Entities.Entities;
-using UniversityProject.ViewModels.AdminViewModels.ChairViewModels;
+using UniversityProject.ViewModels.AdminViewModels.CathedraViewModels;
 
 namespace UniversityProject.BusinessLogic.Mappers
 {
-    public class ChairMapper : IChairMapper
+    public class CathedraMapper : ICathedraMapper
     {
-        public ShowChairsAdminView MapAllChairsToViewModel(List<Chair> model)
+        public ShowCathedrasAdminView MapAllCathedrasToViewModel(List<Cathedra> model)
         {
-            var viewModel = new ShowChairsAdminView();
+            var viewModel = new ShowCathedrasAdminView();
 
-            foreach (Chair chair in model)
+            foreach (Cathedra cathedra in model)
             {
-                var item = new ShowChairsAdminViewItem();
+                var item = new ShowCathedrasAdminViewItem();
 
-                item.Id = chair.Id;
-                item.Name = chair.Name;
-                item.Cipher = chair.Cipher;
-                item.FacultyName = !(chair.Faculty is null) ? chair.Faculty.Name : "";
+                item.Id = cathedra.Id;
+                item.Name = cathedra.Name;
+                item.Cipher = cathedra.Cipher;
+                item.FacultyName = !(cathedra.Faculty is null) ? cathedra.Faculty.Name : "";
 
-                viewModel.Chairs.Add(item);
+                viewModel.Cathedras.Add(item);
             }
 
             return viewModel;
         }
 
-        public Chair MapToChairModel(CreateChairAdminView viewModel)
+        public Cathedra MapToCathedraModel(CreateCathedraAdminView viewModel)
         {
-            var model = new Chair();
+            var model = new Cathedra();
 
             model.Name = viewModel.Name;
             model.Cipher = viewModel.Cipher;
@@ -37,9 +37,9 @@ namespace UniversityProject.BusinessLogic.Mappers
             return model;
         }
 
-        public EditChairDataAdminView MapToEditChairDataModel(Chair model, List<Faculty> faculties)
+        public EditCathedraDataAdminView MapToEditCathedraDataModel(Cathedra model, List<Faculty> faculties)
         {
-            var viewModel = new EditChairDataAdminView();
+            var viewModel = new EditCathedraDataAdminView();
 
             viewModel.Id = model.Id;
             viewModel.Name = model.Name;
@@ -48,7 +48,7 @@ namespace UniversityProject.BusinessLogic.Mappers
 
             foreach (Faculty faculty in faculties)
             {
-                var viewItem = new EditChairDataAdminViewItem();
+                var viewItem = new EditCathedraDataAdminViewItem();
 
                 viewItem.Id = faculty.Id;
                 viewItem.FacultyName = faculty.Name;
@@ -59,7 +59,7 @@ namespace UniversityProject.BusinessLogic.Mappers
             return viewModel;
         }
 
-        public void MapChairEditViewModelToChairModel(Chair model, EditChairAdminView viewModel)
+        public void MapCathedraEditViewModelToCathedraModel(Cathedra model, EditCathedraAdminView viewModel)
         {
             model.Id = viewModel.Id;
             model.Name = viewModel.Name;

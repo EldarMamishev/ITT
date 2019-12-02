@@ -9,7 +9,7 @@ namespace UniversityProject.DataAccess.DataAccept
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Subject> Subjects { get; set; }
-        public DbSet<Chair> Chairs { get; set; }
+        public DbSet<Cathedra> Cathedras { get; set; }
         public DbSet<Journal> Journals { get; set; }
         public DbSet<Semester> Semesters { get; set; }
         public DbSet<Statement> Statements { get; set; }

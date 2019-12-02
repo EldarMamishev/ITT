@@ -1,9 +1,9 @@
-﻿@using UniversityProject.ViewModels.AdminViewModels.ChairViewModels
-@model ShowChairsAdminView
+﻿@using UniversityProject.ViewModels.AdminViewModels.CathedraViewModels
+@model ShowCathedrasAdminView
 
 @{
     Layout = "_AdminLayout";
-    ViewData["Title"] = "Chairs";
+    ViewData["Title"] = "Cathedras";
 }
 
 <link href="~/lib/kendo/kendo.common-material.css" rel="stylesheet" />
@@ -13,13 +13,13 @@
 <section class="panel important">
     <div class="panel-navbar">
         <h2 class="panel-navbar-title">Кафедри</h2>
-        <a asp-action="CreateChair" class="btn btn--main-outline">Створити кафедру</a>
+        <a asp-action="CreateCathedra" class="btn btn--main-outline">Створити кафедру</a>
     </div>
 </section>
 
 <div class="panel important">
-    <div id="chairsGrid"></div>
-    <div id="chairDetails"></div>
+    <div id="cathedrasGrid"></div>
+    <div id="cathedraDetails"></div>
 </div>
 
 <script type="text/x-kendo-template" id="detailWindowTemplate">
@@ -39,8 +39,8 @@
 </script>
 
 <script>
-    var chairs = @Html.Raw(Json.Serialize(Model.Chairs));
+    var cathedras = @Html.Raw(Json.Serialize(Model.Cathedras));
 </script>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/kendo/kendo.all.min.js"></script>
-<script src="~/js/pages/chair.js"></script>
+<script src="~/js/pages/cathedra.js"></script>

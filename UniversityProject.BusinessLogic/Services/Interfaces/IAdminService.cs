@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using UniversityProject.ViewModels.AdminViewModels.ChairViewModels;
+using UniversityProject.ViewModels.AdminViewModels.CathedraViewModels;
 using UniversityProject.ViewModels.AdminViewModels.GroupViewModels;
 using UniversityProject.ViewModels.AdminViewModels.SubjectsViewModels;
 using UniversityProject.ViewModels.AdminViewModels.TeacherViewModels;
@@ -18,19 +18,19 @@ namespace UniversityProject.BusinessLogic.Services.Interfaces
         Task DeleteFaculty(int id);
         #endregion
 
-        #region Chairs
-        Task<ShowChairsAdminView> ShowChairs();
-        Task<CreateChairDataAdminView> LoadDataForCreateChairPage();
-        Task CreateChair(CreateChairAdminView viewModel);
-        Task<EditChairDataAdminView> EditChair(int id);
-        Task EditChair(EditChairAdminView viewModel);
-        Task DeleteChair(int id);
+        #region Cathedras
+        Task<ShowCathedrasAdminView> ShowCathedras();
+        Task<CreateCathedraDataAdminView> LoadDataForCreateCathedraPage();
+        Task CreateCathedra(CreateCathedraAdminView viewModel);
+        Task<EditCathedraDataAdminView> EditCathedra(int id);
+        Task EditCathedra(EditCathedraAdminView viewModel);
+        Task DeleteCathedra(int id);
         #endregion
 
         #region Groups
         Task<ShowGroupsAdminView> ShowGroups();
         Task<CreateGroupDataAdminView> LoadDataForCreateGroupPage();
-        Task<JsonResult> LoadChairsByFacultyId(int facultyId);
+        Task<JsonResult> LoadCathedrasByFacultyId(int facultyId);
         Task CreateGroup(CreateGroupAdminView viewModel);
         Task<EditGroupDataAdminView> EditGroup(int id);
         Task EditGroup(EditGroupAdminView viewModel);

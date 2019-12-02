@@ -67,7 +67,7 @@ $(document).ready(function () {
     createTemplate = kendo.template($("#createWindowTemplate").html());
 
     $("#facultyBox").change(function () {
-        getChairs();
+        getCathedras();
     });
 });
 
@@ -143,15 +143,15 @@ function closeModal(e) {
     $(e).closest("[data-role=window]").data("kendoWindow").close();
 }
 
-function getChairs() {
+function getCathedras() {
     let facultyId = $("#facultyBox").val();
 
-    $("#chairBox").empty();
+    $("#cathedraBox").empty();
     //$(".stateSpinner").show();
 
     $.ajax({
         type: "GET",
-        url: "/Admin/LoadChairsByFacultyId",
+        url: "/Admin/LoadCathedrasByFacultyId",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: {
@@ -160,8 +160,8 @@ function getChairs() {
         success: function (response) {
             //$(".stateSpinner").hide();
 
-            $.each(response, function (i, chair) {
-                $("#chairBox").append('<option value="' + chair.id + '">' + chair.chairName + '</option>');
+            $.each(response, function (i, cathedra) {
+                $("#cathedraBox").append('<option value="' + cathedra.id + '">' + cathedra.cathedraName + '</option>');
             });
         },
         error: function (response) { }

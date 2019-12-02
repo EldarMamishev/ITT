@@ -5,13 +5,13 @@ namespace UniversityProject.ViewModels.AdminViewModels.TeacherViewModels
     public class RegisterNewTeacherUserDataAccountView
     {
         public List<FacultyRegisterNewTeacherUserDataAccountViewItem> Faculties { get; set; }
-        public List<ChairRegisterNewTeacherUserDataAccountViewItem> Chairs { get; set; }
+        public List<CathedraRegisterNewTeacherUserDataAccountViewItem> Cathedras { get; set; }
         public List<SubjectRegisterNewTeacherUserDataAccountViewItem> Subjects { get; set; }
 
         public RegisterNewTeacherUserDataAccountView()
         {
             Faculties = new List<FacultyRegisterNewTeacherUserDataAccountViewItem>();
-            Chairs = new List<ChairRegisterNewTeacherUserDataAccountViewItem>();
+            Cathedras = new List<CathedraRegisterNewTeacherUserDataAccountViewItem>();
             Subjects = new List<SubjectRegisterNewTeacherUserDataAccountViewItem>();
         }
     }
@@ -21,7 +21,7 @@ namespace UniversityProject.ViewModels.AdminViewModels.TeacherViewModels
         public int Id { get; set; }
         public string Name { get; set; }
     }
-    public class ChairRegisterNewTeacherUserDataAccountViewItem
+    public class CathedraRegisterNewTeacherUserDataAccountViewItem
     {
         public int Id { get; set; }
         public string Name { get; set; }

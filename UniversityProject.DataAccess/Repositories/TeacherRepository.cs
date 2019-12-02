@@ -14,21 +14,21 @@ namespace UniversityProject.DataAccess.Repositories
         {
         }
 
-        public async Task<List<Teacher>> GetAllTeachersWithSubjectAndChair()
+        public async Task<List<Teacher>> GetAllTeachersWithSubjectAndCathedra()
         {
             List<Teacher> teachers = await _context.Teachers
-                .Include(user => user.Chair)
+                .Include(user => user.Cathedra)
                 .Include(user => user.TeacherSubjects)
                 .ThenInclude(teacher => teacher.Subject)
                 .ToListAsync();
 
             return teachers;
         }
-        public async Task<Teacher> GetTeacherWithSubjectAndChair(string username)
+        public async Task<Teacher> GetTeacherWithSubjectAndCathedra(string username)
         {
             Teacher teacher = await _context.Teachers
-                .Include(user => user.Chair)
-                .ThenInclude(chair => chair.Faculty)
+                .Include(user => user.Cathedra)
+                .ThenInclude(cathedra => cathedra.Faculty)
                 .Include(user => user.TeacherSubjects)
                 .ThenInclude(t => t.Subject)
                 .FirstOrDefaultAsync(user => user.UserName.Equals(username));
