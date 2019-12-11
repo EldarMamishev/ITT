@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UniversityProject.DataAccess.DataAccept;
 using UniversityProject.DataAccess.Interfaces;
@@ -14,24 +15,19 @@ namespace UniversityProject.DataAccess.Repositories
         {
         }
 
-        public async Task<List<Teacher>> GetAllTeachersWithSubjectAndCathedra()
+        public async Task<List<Teacher>> GetAllTeachersByCompany(int companyId)
         {
             List<Teacher> teachers = await _context.Teachers
-                .Include(user => user.Cathedra)
-                .Include(user => user.TeacherSubjects)
-                .ThenInclude(teacher => teacher.Subject)
+                .Where(item => item.CompanyId.Equals(companyId))
                 .ToListAsync();
 
             return teachers;
         }
-        public async Task<Teacher> GetTeacherWithSubjectAndCathedra(string username)
+
+        public async Task<Teacher> GetTeacherByName(string name)
         {
             Teacher teacher = await _context.Teachers
-                .Include(user => user.Cathedra)
-                .ThenInclude(cathedra => cathedra.Faculty)
-                .Include(user => user.TeacherSubjects)
-                .ThenInclude(t => t.Subject)
-                .FirstOrDefaultAsync(user => user.UserName.Equals(username));
+                .FirstOrDefaultAsync(item => item.UserName.ToUpper().Equals(name.ToUpper()));
 
             return teacher;
         }

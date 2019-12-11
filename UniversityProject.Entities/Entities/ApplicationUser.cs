@@ -16,10 +16,6 @@ namespace UniversityProject.Entities.Entities
         [MaxLength(20)]
         public string MiddleName { get; set; }
         public DateTime BirthDate { get; set; }
-        [MaxLength(20)]
-        public string Country { get; set; }
-        [MaxLength(20)]
-        public string City { get; set; }
         [MaxLength(50)]
         public string AddressLine { get; set; }
         public string RefreshToken { get; set; }

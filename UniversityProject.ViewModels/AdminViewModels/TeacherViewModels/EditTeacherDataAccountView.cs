@@ -21,18 +21,9 @@ namespace UniversityProject.ViewModels.AdminViewModels.TeacherViewModels
 
         public int FacultyId { get; set; }
         public int CathedraId { get; set; }
-        public List<SubjectEditTeacherDataAccountViewItem> SelectedSubjects { get; set; }
-
-        public List<FacultyEditTeacherDataAccountViewItem> Faculties { get; set; }
-        public List<CathedraEditTeacherDataAccountViewItem> Cathedras { get; set; }
-        public List<SubjectEditTeacherDataAccountViewItem> Subjects { get; set; }
 
         public EditTeacherDataAccountView()
         {
-            Faculties = new List<FacultyEditTeacherDataAccountViewItem>();
-            Cathedras = new List<CathedraEditTeacherDataAccountViewItem>();
-            Subjects = new List<SubjectEditTeacherDataAccountViewItem>();
-            SelectedSubjects = new List<SubjectEditTeacherDataAccountViewItem>();
         }
     }
 

@@ -5,21 +5,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UniversityProject.Entities.Entities
 {
-    public class Teacher : ApplicationUser
+    public class Teacher : CompanyUser
     {
         public TimeSpan WorkExperience { get; set; }
         [MaxLength(20)]
         public string ScienceDegree { get; set; }
 
-        public int CathedraId { get; set; }
-        [ForeignKey("CathedraId")]
-        public Cathedra Cathedra { get; set; }
-
-        public ICollection<TeacherSubject> TeacherSubjects { get; set; }
+        public ICollection<TestSession> TestSessions { get; set; }
 
         public Teacher() : base()
         {
-            TeacherSubjects = new List<TeacherSubject>();
+            TestSessions = new List<TestSession>();
         }
     }
 }

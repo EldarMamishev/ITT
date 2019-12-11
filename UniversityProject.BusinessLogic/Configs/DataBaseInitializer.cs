@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading.Tasks;
+using UniversityProject.DataAccess.DataAccept;
 using UniversityProject.Entities.Entities;
 using UniversityProject.Shared.Constants;
 
@@ -34,6 +35,14 @@ namespace UniversityProject.BusinessLogic.Configs
             {
                 roleResult = await roleManager.CreateAsync(new ApplicationRole(ApplicationConstants.TEACHER_ROLE));
             }
+
+            bool localAdminRoleCheck = await roleManager.RoleExistsAsync(ApplicationConstants.LOCAL_ADMIN_ROLE);
+            if (!localAdminRoleCheck)
+            {
+                roleResult = await roleManager.CreateAsync(new ApplicationRole(ApplicationConstants.LOCAL_ADMIN_ROLE));
+            }
+
+            
         }
 
         private async static Task CreateAdminUser(UserManager<ApplicationUser> userManager)
@@ -52,8 +61,6 @@ namespace UniversityProject.BusinessLogic.Configs
             user.MiddleName = "Валерьевич";
             user.BirthDate = new DateTime(1992,5,6);
             user.AddressLine = "AddressLine avenue, house 56, flat 32";
-            user.Country = "Украина";
-            user.City = "Харьков";
             user.PhoneNumber = "+380451236957";
             user.EmailConfirmed = true;
 

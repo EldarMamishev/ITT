@@ -17,23 +17,6 @@ namespace UniversityProject.BusinessLogic.Mappers
                 var viewModelItem = new TeacherShowTeachersAdminViewItem();
                 viewModelItem.UserName = teacher.UserName;
                 viewModelItem.FullName = $"{teacher.LastName} {teacher.FirstName} {teacher.MiddleName}";
-                viewModelItem.CathedraName = teacher.Cathedra.Name;
-
-                var subjectNames = string.Empty;
-                var teacherSubjects = teacher.TeacherSubjects.ToList();
-                var countItems = teacherSubjects.Count;
-
-                for (int i = 0; i < countItems; i++)
-                {
-                    subjectNames += $"{teacherSubjects[i].Subject.Name}";
-
-                    if (i + 1 < countItems)
-                    {
-                        subjectNames += ", ";
-                    }
-                }
-
-                viewModelItem.SubjectName = subjectNames;
 
                 viewModel.Teachers.Add(viewModelItem);
             }
@@ -41,22 +24,9 @@ namespace UniversityProject.BusinessLogic.Mappers
             return viewModel;
         }
 
-        public void MapAllFacultiesToViewModel(List<Faculty> faculties, RegisterNewTeacherUserDataAccountView viewModel)
+        public void MapAllCathedrasToViewModel(List<Company> cathedras, RegisterNewTeacherUserDataAccountView viewModel)
         {
-            foreach (Faculty faculty in faculties)
-            {
-                var facultyViewItem = new FacultyRegisterNewTeacherUserDataAccountViewItem();
-
-                facultyViewItem.Id = faculty.Id;
-                facultyViewItem.Name = faculty.Name;
-
-                viewModel.Faculties.Add(facultyViewItem);
-            }
-        }
-
-        public void MapAllCathedrasToViewModel(List<Cathedra> cathedras, RegisterNewTeacherUserDataAccountView viewModel)
-        {
-            foreach (Cathedra cathedra in cathedras)
+            foreach (Company cathedra in cathedras)
             {
                 var cathedraViewItem = new CathedraRegisterNewTeacherUserDataAccountViewItem();
 
@@ -67,20 +37,7 @@ namespace UniversityProject.BusinessLogic.Mappers
             }
         }
 
-        public void MapAllSubjectsToViewModel(List<Subject> subjects, RegisterNewTeacherUserDataAccountView viewModel)
-        {
-            foreach (Subject subject in subjects)
-            {
-                var subjectViewItem = new SubjectRegisterNewTeacherUserDataAccountViewItem();
-
-                subjectViewItem.Id = subject.Id;
-                subjectViewItem.Name = subject.Name;
-
-                viewModel.Subjects.Add(subjectViewItem);
-            }
-        }
-
-        public EditTeacherDataAccountView MapEditTeacherModelsToEditViewModels(Teacher teacher, List<Faculty> faculties, List<Cathedra> cathedras, List<Subject> subjects)
+        public EditTeacherDataAccountView MapEditTeacherModelsToEditViewModels(Teacher teacher)
         {
             var viewModel = new EditTeacherDataAccountView();
 
@@ -92,51 +49,8 @@ namespace UniversityProject.BusinessLogic.Mappers
             viewModel.BirthDate = teacher.BirthDate.ToString("yyyy");
             viewModel.Username = teacher.UserName;
             viewModel.Email = teacher.Email;
-            viewModel.Country = teacher.Country;
-            viewModel.City = teacher.City;
             viewModel.AddressLine = teacher.AddressLine;
-            viewModel.FacultyId = teacher.Cathedra.FacultyId.Value;
-            viewModel.CathedraId = teacher.CathedraId;
-
-            foreach (var item in teacher.TeacherSubjects)
-            {
-                var subjectViewModelTeacherItem = new SubjectEditTeacherDataAccountViewItem();
-
-                subjectViewModelTeacherItem.Id = item.Subject.Id;
-                subjectViewModelTeacherItem.Name = item.Subject.Name;
-
-                viewModel.SelectedSubjects.Add(subjectViewModelTeacherItem);
-            }
-
-            foreach (Faculty faculty in faculties)
-            {
-                var facultyViewItem = new FacultyEditTeacherDataAccountViewItem();
-
-                facultyViewItem.Id = faculty.Id;
-                facultyViewItem.Name = faculty.Name;
-
-                viewModel.Faculties.Add(facultyViewItem);
-            }
-
-            foreach (Cathedra cathedra in cathedras)
-            {
-                var cathedraViewItem = new CathedraEditTeacherDataAccountViewItem();
-
-                cathedraViewItem.Id = cathedra.Id;
-                cathedraViewItem.Name = cathedra.Name;
-
-                viewModel.Cathedras.Add(cathedraViewItem);
-            }
-
-            foreach (Subject subject in subjects)
-            {
-                var subjectViewItem = new SubjectEditTeacherDataAccountViewItem();
-
-                subjectViewItem.Id = subject.Id;
-                subjectViewItem.Name = subject.Name;
-
-                viewModel.Subjects.Add(subjectViewItem);
-            }
+            viewModel.CathedraId = teacher.CompanyId;
 
             return viewModel;
         }

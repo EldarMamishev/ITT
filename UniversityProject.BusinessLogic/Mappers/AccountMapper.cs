@@ -15,8 +15,6 @@ namespace UniversityProject.BusinessLogic.Mappers
             model.BirthDate = viewModel.BirthDate;
             model.PhoneNumber = viewModel.PhoneNumber;
             model.ParentsPhoneNumber = viewModel.ParentsPhoneNumber;
-            model.Country = viewModel.Country;
-            model.City = viewModel.City;
             model.AddressLine = viewModel.AddressLine;
         }
 
@@ -26,10 +24,7 @@ namespace UniversityProject.BusinessLogic.Mappers
             model.LastName = viewModel.LastName;
             model.MiddleName = viewModel.MiddleName;
             model.PhoneNumber = viewModel.PhoneNumber;
-            model.Country = viewModel.Country;
-            model.City = viewModel.City;
             model.AddressLine = viewModel.AddressLine;
-            model.CathedraId = viewModel.CathedraId;
         }
     }
 }

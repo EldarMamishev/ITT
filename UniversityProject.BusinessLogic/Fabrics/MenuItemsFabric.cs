@@ -76,30 +76,6 @@ namespace UniversityProject.BusinessLogic.Fabrics
 
             item = new MenuViewModelItem()
             {
-                Title = "Факультети",
-                ControllerName = "Admin",
-                ActionName = "ShowFaculties"
-            };
-            TryAddMenuViewModelItem(items, item);
-
-            item = new MenuViewModelItem()
-            {
-                Title = "Кафедри",
-                ControllerName = "Admin",
-                ActionName = "ShowCathedras"
-            };
-            TryAddMenuViewModelItem(items, item);
-
-            item = new MenuViewModelItem()
-            {
-                Title = "Групи",
-                ControllerName = "Admin",
-                ActionName = "ShowGroups"
-            };
-            TryAddMenuViewModelItem(items, item);
-
-            item = new MenuViewModelItem()
-            {
                 Title = "Викладачі",
                 ControllerName = "Admin",
                 ActionName = "ShowTeachers"
@@ -119,38 +95,6 @@ namespace UniversityProject.BusinessLogic.Fabrics
                 Title = "Предмети",
                 ControllerName = "Admin",
                 ActionName = "ShowSubjects"
-            };
-            TryAddMenuViewModelItem(items, item);
-
-            item = new MenuViewModelItem()
-            {
-                Title = "Журнали",
-                ControllerName = "Admin",
-                ActionName = "ShowJournals"
-            };
-            TryAddMenuViewModelItem(items, item);
-
-            item = new MenuViewModelItem()
-            {
-                Title = "Розклад занять",
-                ControllerName = "Admin",
-                ActionName = "ShowScheduler"
-            };
-            TryAddMenuViewModelItem(items, item);
-
-            item = new MenuViewModelItem()
-            {
-                Title = "Оцінки",
-                ControllerName = "Admin",
-                ActionName = "ShowMarks"
-            };
-            TryAddMenuViewModelItem(items, item);
-
-            item = new MenuViewModelItem()
-            {
-                Title = "Список журналів",
-                ControllerName = "Admin",
-                ActionName = "ShowStudJournals"
             };
             TryAddMenuViewModelItem(items, item);
         }
@@ -187,15 +131,6 @@ namespace UniversityProject.BusinessLogic.Fabrics
                 ActionName = "Index"
             };
             TryAddMenuViewModelItem(items, item);
-
-            item = new MenuViewModelItem()
-            {
-                Title = "Journal",
-                ControllerName = "Journal",
-                ActionName = "Index"
-            };
-            TryAddMenuViewModelItem(items, item);
-
             item = new MenuViewModelItem()
             {
                 Title = "Cabinet",

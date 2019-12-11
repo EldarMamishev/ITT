@@ -5,9 +5,8 @@ using UniversityProject.Entities.Entities;
 
 namespace UniversityProject.DataAccess.Interfaces
 {
-    public interface ITeacherRepository : IBaseRepository<Teacher>
+    public interface ICompanyRepository : IBaseRepository<Company>
     {
-        Task<List<Teacher>> GetAllTeachersByCompany(int companyId);
-        Task<Teacher> GetTeacherByName(string name);
+        Task<Company> FindCompanyByName(string name);
     }
 }

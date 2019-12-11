@@ -40,80 +40,6 @@ namespace UniversityProject.WEB.Controllers
         }
         #endregion
 
-        #region Faculties
-        [HttpGet]
-        public async Task<IActionResult> ShowFaculties()
-        {
-            ShowFacultiesAdminView result = await _adminService.ShowFaculties();
-
-            return View(viewName: "Faculties/Faculties", result);
-        }
-
-        [HttpGet]
-        public IActionResult CreateFaculty()
-        {
-            return View("Faculties/CreateFaculty");
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> CreateFaculty(CreateFacultyAdminView viewModel)
-        {
-            try
-            {
-                await _adminService.CreateFaculty(viewModel);
-
-                return RedirectToAction("ShowFaculties");
-            }
-            catch (AdminException ex)
-            {
-                ModelState.AddModelError(string.Empty, ex.Message);
-                return View("Faculties/CreateFaculty");
-            }
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> EditFaculty(int id)
-        {
-            EditFacultyAdminView result = await _adminService.EditFaculty(id);
-
-            return View("Faculties/EditFaculty", result);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> EditFaculty(EditFacultyAdminView viewModel)
-        {
-            try
-            {
-                await _adminService.EditFaculty(viewModel);
-
-                return RedirectToAction("ShowFaculties");
-            }
-            catch (AdminException ex)
-            {
-                ModelState.AddModelError(string.Empty, ex.Message);
-
-                EditFacultyAdminView result = await _adminService.EditFaculty(viewModel.Id);
-
-                return View("Faculties/EditFaculty", result);
-            }
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> DeleteFaculty(int id)
-        {
-            try
-            {
-                await _adminService.DeleteFaculty(id);
-
-                return new JsonResult(new OkResult());
-            }
-            catch (AdminException)
-            {
-                return RedirectToAction("ShowFaculties");
-            }
-        }
-        #endregion
-
         #region Cathedras
         [HttpGet]
         public async Task<IActionResult> ShowCathedras()
@@ -193,93 +119,6 @@ namespace UniversityProject.WEB.Controllers
         }
         #endregion
 
-        #region Groups
-        [HttpGet]
-        public async Task<IActionResult> ShowGroups()
-        {
-            ShowGroupsAdminView result = await _adminService.ShowGroups();
-
-            return View(viewName: "Groups/Groups", result);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> CreateGroup()
-        {
-            CreateGroupDataAdminView result = await _adminService.LoadDataForCreateGroupPage();
-
-            return View("Groups/CreateGroup", result);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> CreateGroup(CreateGroupAdminView viewModel)
-        {
-            try
-            {
-                await _adminService.CreateGroup(viewModel);
-
-                return RedirectToAction("ShowGroups");
-            }
-            catch (BaseException ex)
-            {
-                ModelState.AddModelError(string.Empty, ex.Message);
-
-                CreateGroupDataAdminView result = await _adminService.LoadDataForCreateGroupPage();
-
-                return View("Groups/CreateGroup", result);
-            }
-        }
-
-        [HttpGet]
-        public async Task<JsonResult> LoadCathedrasByFacultyId(int facultyId)
-        {
-            JsonResult result = await _adminService.LoadCathedrasByFacultyId(facultyId);
-
-            return result;
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> EditGroup(int id)
-        {
-            EditGroupDataAdminView result = await _adminService.EditGroup(id);
-
-            return View("Groups/EditGroup", result);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> EditGroup(EditGroupAdminView viewModel)
-        {
-            try
-            {
-                await _adminService.EditGroup(viewModel);
-
-                return RedirectToAction("ShowGroups");
-            }
-            catch (AdminException ex)
-            {
-                ModelState.AddModelError(string.Empty, ex.Message);
-
-                EditGroupDataAdminView result = await _adminService.EditGroup(viewModel.Id);
-
-                return View("Groups/EditGroup", result);
-            }
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> DeleteGroup(int id)
-        {
-            try
-            {
-                await _adminService.DeleteGroup(id);
-
-                return new JsonResult(new OkResult());
-            }
-            catch (AdminException)
-            {
-                return RedirectToAction("ShowGroups");
-            }
-        }
-        #endregion
-
         #region Subjects
         [HttpGet]
         public async Task<IActionResult> ShowSubjects()
@@ -332,6 +171,7 @@ namespace UniversityProject.WEB.Controllers
             return View(viewName: "Teachers/Teachers", result);
         }
 
+
         [HttpGet]
         public async Task<IActionResult> RegisterTeacher()
         {
@@ -344,7 +184,7 @@ namespace UniversityProject.WEB.Controllers
         public async Task<IActionResult> RegisterTeacher(RegisterNewTeacherUserAccountView viewModel)
         {
             try
-            {
+            {              
                 await _adminService.RegisterTeacher(viewModel);
 
                 return RedirectToAction("ShowTeachers");
@@ -353,9 +193,7 @@ namespace UniversityProject.WEB.Controllers
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
 
-                RegisterNewTeacherUserDataAccountView result = await _adminService.LoadDataForRegisterTeacherPage();
-
-                return View(viewName: "Teachers/RegisterNewTeacher", result);
+                return View(viewName: "Teachers/RegisterNewTeacher");
             }
         }
 
@@ -386,66 +224,10 @@ namespace UniversityProject.WEB.Controllers
             }
 
         }
-
-        [ValidateErrorHandlerFilter]
-        [HttpPost]
-        public async Task<JsonResult> AddSubjectToTeacher([FromBody]RequestAddSubjectToTeacherView requestViewModel)
-        {
-            ResponseAddSubjectToTeacherView result = await _adminService.AddSubjectToTeacher(requestViewModel);
-
-            return new JsonResult(result);
-        }
-
-        [ValidateErrorHandlerFilter]
-        [HttpPost]
-        public async Task<IActionResult> DeleteSubjectFromTeacher([FromBody]RequestDeleteSubjectFromTeacherView requestViewModel)
-        {
-            await _adminService.DeleteSubjectFromTeacher(requestViewModel);
-
-            return new JsonResult(new OkResult());
-        }
         #endregion
 
         #region Students
 
-        #endregion
-
-        #region Journals
-        [HttpGet]
-        public IActionResult ShowScheduler()
-        {
-            return View(viewName: "Scheduler/Scheduler");
-        }
-
-        [HttpGet]
-        public IActionResult ShowJournals()
-        {
-            return View(viewName: "Journals/Journals");
-        }
-
-        [HttpGet]
-        public IActionResult CreateJournal()
-        {
-            return View(viewName: "Journals/CreateJournal");
-        }
-
-        [HttpGet]
-        public IActionResult CreateJournalTeacher()
-        {
-            return View(viewName: "Journals/CreateJournalTeacher");
-        }
-
-        [HttpGet]
-        public IActionResult ShowMarks()
-        {
-            return View(viewName: "Marks/ShowMarks");
-        }
-
-        [HttpGet]
-        public IActionResult ShowStudJournals()
-        {
-            return View(viewName: "Journals/ShowStudJournals");
-        }
         #endregion
 
         #endregion

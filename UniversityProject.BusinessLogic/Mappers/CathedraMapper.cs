@@ -5,20 +5,18 @@ using UniversityProject.ViewModels.AdminViewModels.CathedraViewModels;
 
 namespace UniversityProject.BusinessLogic.Mappers
 {
-    public class CathedraMapper : ICathedraMapper
+    public class CompanyMapper : ICompanyMapper
     {
-        public ShowCathedrasAdminView MapAllCathedrasToViewModel(List<Cathedra> model)
+        public ShowCathedrasAdminView MapAllCathedrasToViewModel(List<Company> model)
         {
             var viewModel = new ShowCathedrasAdminView();
 
-            foreach (Cathedra cathedra in model)
+            foreach (Company cathedra in model)
             {
                 var item = new ShowCathedrasAdminViewItem();
 
                 item.Id = cathedra.Id;
                 item.Name = cathedra.Name;
-                item.Cipher = cathedra.Cipher;
-                item.FacultyName = !(cathedra.Faculty is null) ? cathedra.Faculty.Name : "";
 
                 viewModel.Cathedras.Add(item);
             }
@@ -26,27 +24,23 @@ namespace UniversityProject.BusinessLogic.Mappers
             return viewModel;
         }
 
-        public Cathedra MapToCathedraModel(CreateCathedraAdminView viewModel)
+        public Company MapToCathedraModel(CreateCathedraAdminView viewModel)
         {
-            var model = new Cathedra();
+            var model = new Company();
 
             model.Name = viewModel.Name;
-            model.Cipher = viewModel.Cipher;
-            model.FacultyId = viewModel.FacultyId;
 
             return model;
         }
 
-        public EditCathedraDataAdminView MapToEditCathedraDataModel(Cathedra model, List<Faculty> faculties)
+        public EditCathedraDataAdminView MapToEditCathedraDataModel(Company model, List<Test> faculties)
         {
             var viewModel = new EditCathedraDataAdminView();
 
             viewModel.Id = model.Id;
             viewModel.Name = model.Name;
-            viewModel.Cipher = model.Cipher;
-            viewModel.FacultyId = model.FacultyId is null ? 0 : model.FacultyId.Value;
 
-            foreach (Faculty faculty in faculties)
+            foreach (Test faculty in faculties)
             {
                 var viewItem = new EditCathedraDataAdminViewItem();
 
@@ -59,12 +53,10 @@ namespace UniversityProject.BusinessLogic.Mappers
             return viewModel;
         }
 
-        public void MapCathedraEditViewModelToCathedraModel(Cathedra model, EditCathedraAdminView viewModel)
+        public void MapCathedraEditViewModelToCathedraModel(Company model, EditCathedraAdminView viewModel)
         {
             model.Id = viewModel.Id;
             model.Name = viewModel.Name;
-            model.Cipher = viewModel.Cipher;
-            model.FacultyId = viewModel.FacultyId;
         }
     }
 }

@@ -4,11 +4,11 @@ using UniversityProject.ViewModels.AdminViewModels.CathedraViewModels;
 
 namespace UniversityProject.BusinessLogic.Mappers.Interfaces
 {
-    public interface ICathedraMapper
+    public interface ICompanyMapper
     {
-        ShowCathedrasAdminView MapAllCathedrasToViewModel(List<Cathedra> model);
-        Cathedra MapToCathedraModel(CreateCathedraAdminView viewModel);
-        EditCathedraDataAdminView MapToEditCathedraDataModel(Cathedra model, List<Faculty> faculties);
-        void MapCathedraEditViewModelToCathedraModel(Cathedra model, EditCathedraAdminView viewModel);
+        ShowCathedrasAdminView MapAllCathedrasToViewModel(List<Company> model);
+        Company MapToCathedraModel(CreateCathedraAdminView viewModel);
+        EditCathedraDataAdminView MapToEditCathedraDataModel(Company model, List<Test> faculties);
+        void MapCathedraEditViewModelToCathedraModel(Company model, EditCathedraAdminView viewModel);
     }
 }

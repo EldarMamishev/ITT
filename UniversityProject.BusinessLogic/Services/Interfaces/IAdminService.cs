@@ -10,14 +10,6 @@ namespace UniversityProject.BusinessLogic.Services.Interfaces
 {
     public interface IAdminService
     {
-        #region Faculties
-        Task<ShowFacultiesAdminView> ShowFaculties();
-        Task CreateFaculty(CreateFacultyAdminView viewModel);
-        Task<EditFacultyAdminView> EditFaculty(int id);
-        Task EditFaculty(EditFacultyAdminView viewModel);
-        Task DeleteFaculty(int id);
-        #endregion
-
         #region Cathedras
         Task<ShowCathedrasAdminView> ShowCathedras();
         Task<CreateCathedraDataAdminView> LoadDataForCreateCathedraPage();
@@ -26,17 +18,7 @@ namespace UniversityProject.BusinessLogic.Services.Interfaces
         Task EditCathedra(EditCathedraAdminView viewModel);
         Task DeleteCathedra(int id);
         #endregion
-
-        #region Groups
-        Task<ShowGroupsAdminView> ShowGroups();
-        Task<CreateGroupDataAdminView> LoadDataForCreateGroupPage();
-        Task<JsonResult> LoadCathedrasByFacultyId(int facultyId);
-        Task CreateGroup(CreateGroupAdminView viewModel);
-        Task<EditGroupDataAdminView> EditGroup(int id);
-        Task EditGroup(EditGroupAdminView viewModel);
-        Task DeleteGroup(int id);
-        #endregion
-
+        
         #region Subjects
         Task<ShowSubjectsAdminView> ShowSubjects();
         Task<ResponseSubjectView> CreateSubject(string subjectName);
@@ -46,12 +28,10 @@ namespace UniversityProject.BusinessLogic.Services.Interfaces
 
         #region Teachers
         Task<ShowTeachersAdminView> ShowTeachers();
-        Task<RegisterNewTeacherUserDataAccountView> LoadDataForRegisterTeacherPage();
         Task RegisterTeacher(RegisterNewTeacherUserAccountView viewModel);
         Task<EditTeacherDataAccountView> LoadDataForEditTeacherAccount(string userName);
-        Task<ResponseAddSubjectToTeacherView> AddSubjectToTeacher(RequestAddSubjectToTeacherView viewModel);
-        Task DeleteSubjectFromTeacher(RequestDeleteSubjectFromTeacherView viewModel);
         Task EditTeacherInformation(EditTeacherInformationView viewModel);
+        Task<RegisterNewTeacherUserDataAccountView> LoadDataForRegisterTeacherPage();
         #endregion
     }
 }

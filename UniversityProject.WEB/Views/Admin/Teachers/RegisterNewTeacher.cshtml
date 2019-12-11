@@ -82,26 +82,7 @@
         </div>
     </section>
 
-    <section class="panel important">
-        <h3 class="section-title">Education information</h3>
-        <div class="section-form">
-            <div class="form-group">
-                <label for="" class="form__field__label">Faculty</label>
-                @Html.DropDownList(string.Empty, new SelectList(Model.Faculties, "Id", "Name"),
-            htmlAttributes: new { @class = "form__field", @name = "facultyId", @id = "facultyBox" })
-            </div>
-            <div class="form-group">
-                <label for="" class="form__field__label">Cathedra</label>
-                @Html.DropDownList(string.Empty, new SelectList(Model.Cathedras, "Id", "Name"),
-            htmlAttributes: new { @class = "form__field", @name = "cathedraId", @id = "cathedraBox" })
-            </div>
-            <div class="form-group">
-                <label for="" class="form__field__label">Subject</label>
-                @Html.DropDownList(string.Empty, new SelectList(Model.Subjects, "Id", "Name"),
-            htmlAttributes: new { @class = "form__field", @name = "subjectId" })
-            </div>
-        </div>
-
+    <section class="panel important">        
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
 
         <a asp-action="ShowTeachers" class="btn btn--main-outline">Go Back</a>

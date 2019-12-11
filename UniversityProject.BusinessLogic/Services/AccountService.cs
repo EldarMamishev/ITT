@@ -20,8 +20,7 @@ namespace UniversityProject.BusinessLogic.Services
     public class AccountService : IAccountService
     {
         #region Properties
-        private IFacultyRepository _facultyRepository;
-        private ICathedraRepository _cathedraRepository;
+        private ICompanyRepository _cathedraRepository;
 
         private IAccountMapper _accountMapper;
 
@@ -33,14 +32,12 @@ namespace UniversityProject.BusinessLogic.Services
 
         #region Constructors
         public AccountService(
-            IFacultyRepository facultyRepository,
-            ICathedraRepository cathedraRepository, 
+            ICompanyRepository cathedraRepository, 
             IAccountMapper accountMapper, 
             IEmailProvider emailProvider, 
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager)
         {
-            _facultyRepository = facultyRepository;
             _cathedraRepository = cathedraRepository;
 
             _accountMapper = accountMapper;
@@ -88,34 +85,18 @@ namespace UniversityProject.BusinessLogic.Services
         
         public async Task LoadFinishRegistrationData(FinishRegistrationAccountView viewModel)
         {
-            var faculties = await _facultyRepository.GetAll() as List<Faculty>;
+            var cathedras = await _cathedraRepository.GetAll() as List<Company>;
 
-            foreach (Faculty faculty in faculties)
+            foreach (Company cathedra in cathedras)
             {
-                var facultyViewItem = new FacultyFinishRegistrationAccountViewItem();
+                var cathedraViewItem = new CathedraFinishRegistrationAccountViewItem();
 
-                facultyViewItem.Id = faculty.Id;
-                facultyViewItem.FacultyName = faculty.Name;
+                cathedraViewItem.Id = cathedra.Id;
+                cathedraViewItem.CathedraName = cathedra.Name;
 
-                viewModel.Faculties.Add(facultyViewItem);
+                viewModel.Cathedras.Add(cathedraViewItem);
             }
-
-            if (!(faculties is null))
-            {
-                int facultyId = faculties.FirstOrDefault().Id;
-
-                var cathedras = await _cathedraRepository.GetAllCathedrasByFacultyId(facultyId) as List<Cathedra>;
-
-                foreach (Cathedra cathedra in cathedras)
-                {
-                    var cathedraViewItem = new CathedraFinishRegistrationAccountViewItem();
-
-                    cathedraViewItem.Id = cathedra.Id;
-                    cathedraViewItem.CathedraName = cathedra.Name;
-
-                    viewModel.Cathedras.Add(cathedraViewItem);
-                }
-            }
+            
         }
 
         public async Task<IdentityResult> FinishRegistrationAndConfirmAccount(FinishRegistrationAndConfirmAccountAccountView viewModel)
