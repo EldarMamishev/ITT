@@ -348,9 +348,5 @@ namespace UniversityProject.BusinessLogic.Services
             await _userManager.UpdateAsync(user);
         }
         #endregion
-
-        #region Students
-
-        #endregion
     }
 }
