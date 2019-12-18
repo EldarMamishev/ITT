@@ -8,6 +8,7 @@ using UniversityProject.Shared.Exceptions.BaseExceptions;
 using UniversityProject.Shared.Exceptions.BusinessLogicExceptions;
 using UniversityProject.ViewModels.AdminViewModels.CathedraViewModels;
 using UniversityProject.ViewModels.AdminViewModels.GroupViewModels;
+using UniversityProject.ViewModels.AdminViewModels.StudentViewModels;
 using UniversityProject.ViewModels.AdminViewModels.SubjectsViewModels;
 using UniversityProject.ViewModels.AdminViewModels.TeacherViewModels;
 using UniversityProject.ViewModels.Faculty;
@@ -222,12 +223,71 @@ namespace UniversityProject.WEB.Controllers
 
                 return View(viewName: "Teachers/EditTeacherAccount", result);
             }
-
         }
         #endregion
 
         #region Students
+        [HttpGet]
+        public async Task<IActionResult> ShowStudents()
+        {
+            ShowStudentsAdminView result = await _adminService.ShowStudents();
 
+            return View(viewName: "Students/Students", result);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> RegisterStudent()
+        {
+            RegisterNewStudentUserDataAccountView result = await _adminService.LoadDataForRegisterStudentPage();
+
+            return View(viewName: "Students/RegisterNewStudent", result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RegisterStudent(RegisterNewStudentUserAccountView viewModel)
+        {
+            try
+            {
+                await _adminService.RegisterStudent(viewModel);
+
+                return RedirectToAction("ShowStudents");
+            }
+            catch (BaseException ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+
+                return View(viewName: "Students/RegisterNewStudent");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditStudentAccount(string userName)
+        {
+            EditStudentDataAccountView result = await _adminService.LoadDataForEditStudentAccount(userName);
+
+            return View(viewName: "Students/EditStudentAccount", result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditStudentInformation(EditStudentInformationView viewModel)
+        {
+            try
+            {
+                await _adminService.EditStudentInformation(viewModel);
+
+                return await EditStudentAccount(viewModel.Username);
+            }
+            catch (BaseException ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+
+                EditStudentDataAccountView result = await _adminService.LoadDataForEditStudentAccount(viewModel.Username);
+
+                return View(viewName: "Students/EditStudentAccount", result);
+            }
+
+        }
         #endregion
 
         #endregion

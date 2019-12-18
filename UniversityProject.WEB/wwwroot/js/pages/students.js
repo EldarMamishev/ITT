@@ -1,10 +1,10 @@
 ﻿var wnd, detailsTemplate, deleteTemplate;
 
 $(document).ready(function () {
-    let grid = $("#teachersGrid").kendoGrid({
+    let grid = $("#studentsGrid").kendoGrid({
         dataSource: {
             pageSize: 10,
-            data: teachers
+            data: students
         },
         sortable: {
             mode: "single",
@@ -22,7 +22,6 @@ $(document).ready(function () {
                 }
             },
             { field: "fullName", title: "FullName", width: "80px" },
-            { field: "subjectName", title: "Subject", width: "80px" },
             {
                 command: [
                     { text: "View Details", click: showDetails },
@@ -35,11 +34,11 @@ $(document).ready(function () {
         ],
         noRecords: true,
         messages: {
-            noRecords: "There are no teachers on current page"
+            noRecords: "There are no students on current page"
         }
     }).data("kendoGrid");
 
-    wnd = $("#teacherDetails").kendoWindow({
+    wnd = $("#studentDetails").kendoWindow({
         title: "Group Details",
         modal: true,
         visible: false,
@@ -61,7 +60,7 @@ function showDetails(e) {
 
 function openEditTeacherItem(e) {
     let dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-    window.location.href = "EditTeacherAccount?userName=" + dataItem.userName;
+    window.location.href = "EditStudentAccount?userName=" + dataItem.userName;
 }
 
 var itemToDelete;
@@ -77,14 +76,14 @@ function onDeleteTeacherItem(e) {
 function confirmDelete(e) {
     $.ajax({
         type: "GET",
-        url: "/Admin/DeleteTeacher",
+        url: "/Admin/DeleteStudent",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: {
             "userName": itemToDelete.itemUserName
         },
         success: function (data) {
-            $("#teachersGrid").data("kendoGrid").removeRow(rowToDelete);
+            $("#studentsGrid").data("kendoGrid").removeRow(rowToDelete);
             closeModal(e);
         },
         error: function (data) {

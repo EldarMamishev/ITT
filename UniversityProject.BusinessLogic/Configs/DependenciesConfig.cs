@@ -36,6 +36,7 @@ namespace UniversityProject.BusinessLogic.Configs
             services.AddTransient<ICompanyMapper, CompanyMapper>();
             services.AddTransient<ISubjectMapper, SubjectMapper>();
             services.AddTransient<ITeacherMapper, TeacherMapper>();
+            services.AddTransient<IStudentMapper, StudentMapper>();
             #endregion
 
             #region Helpers
@@ -46,6 +47,7 @@ namespace UniversityProject.BusinessLogic.Configs
             services.AddTransient<ICompanyRepository, CompanyRepository>();
             services.AddTransient<ISubjectRepository, SubjectRepository>();
             services.AddTransient<ITeacherRepository, TeacherRepository>();
+            services.AddTransient<IStudentRepository, StudentRepository>();
             #endregion
 
             #region Services

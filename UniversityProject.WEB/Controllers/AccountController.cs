@@ -93,24 +93,6 @@ namespace UniversityProject.WEB.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> RegisterNewStudentUser([FromForm]RegisterNewStudentUserAccountView registerNewUserView)
-        {
-            try
-            {
-                var url = new Uri($"{Request.Scheme}://{Request.Host}");
-                registerNewUserView.CurrentUrl = url;
-                await _accountService.RegisterNewStudentUser(registerNewUserView);
-
-                return RedirectToAction("LogIn", "Account");
-            }
-            catch (AccountException ex)
-            {
-                ModelState.AddModelError(string.Empty, ex.Message);
-                return View();
-            }
-        }
-
         [HttpGet]
         public async Task<IActionResult> FinishRegistration(FinishRegistrationAccountView viewModel)
         {

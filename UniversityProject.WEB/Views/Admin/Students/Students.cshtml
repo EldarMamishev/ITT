@@ -1,0 +1,45 @@
+﻿@using UniversityProject.ViewModels.AdminViewModels.StudentViewModels
+@model ShowStudentsAdminView
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Students";
+}
+
+<link href="~/lib/kendo/kendo.common-material.css" rel="stylesheet" />
+<link href="~/lib/kendo/kendo.material.css" rel="stylesheet" />
+<link href="~/lib/kendo/kendo.material.mobile.css" rel="stylesheet" />
+
+<section class="panel important">
+    <div class="panel-navbar">
+        <h2 class="panel-navbar-title">Student</h2>
+        <a asp-action="RegisterStudent" class="btn btn--main-outline">Створити студента</a>
+    </div>
+</section>
+
+<div class="panel important">
+    <div id="studentsGrid"></div>
+    <div id="studentDetails"></div>
+</div>
+
+<script type="text/x-kendo-template" id="detailWindowTemplate">
+    <div id="details-container">
+        <h4>Student: <em>#= fullName #</em></h4><br />
+        <h4>Cathedra: <em>#= cathedraName #</em></h4><br />
+        <h4>Subjects: <em>#= subjectName #</em></h4><br />
+    </div>
+</script>
+
+<script type="text/x-kendo-template" id="deleteWindowTemplate">
+    <div id="details-container">
+        <h4>Are you sure to delete item?</h4><br />
+        <button type="button" class="btn confirm-button" onclick="confirmDelete(this)">Confirm</button>
+        <button type="button" class="btn cancel-button" onclick="closeModal(this)">Cancel</button>
+    </div>
+</script>
+
+<script>
+    var students = @Html.Raw(Json.Serialize(Model.Students));
+</script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/kendo/kendo.all.min.js"></script>
+<script src="~/js/pages/students.js"></script>

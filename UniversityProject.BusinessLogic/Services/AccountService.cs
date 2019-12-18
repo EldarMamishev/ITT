@@ -49,40 +49,7 @@ namespace UniversityProject.BusinessLogic.Services
         }
         #endregion
 
-        #region Public Methods
-        public async Task RegisterNewStudentUser(RegisterNewStudentUserAccountView viewModel)
-        {
-            var user = new Student();
-
-            user.Email = viewModel.Email;
-            user.UserName = viewModel.Username;
-
-            if (!viewModel.Password.Equals(viewModel.ConfirmPassword))
-            {
-                throw new AccountException("Passwords are different");
-            }
-
-            if (!(await _userManager.FindByEmailAsync(viewModel.Email) is null) || !(await _userManager.FindByNameAsync(viewModel.Username) is null))
-            {
-                throw new AccountException("Account with such Email or UserID already exists");
-            }
-
-            IdentityResult result = await _userManager.CreateAsync(user, viewModel.Password);
-
-            if (!result.Succeeded)
-            {
-                string responseError = result.GetFirstError();
-
-                throw new AccountException(responseError);
-            }
-
-            ApplicationUser userRegistered = await _userManager.FindByNameAsync(viewModel.Username);
-
-            await EmailConfirmation(userRegistered, viewModel.CurrentUrl);
-
-            await _userManager.AddToRoleAsync(userRegistered, ApplicationConstants.USER_ROLE);
-        }
-        
+        #region Public Methods     
         public async Task LoadFinishRegistrationData(FinishRegistrationAccountView viewModel)
         {
             var cathedras = await _cathedraRepository.GetAll() as List<Company>;

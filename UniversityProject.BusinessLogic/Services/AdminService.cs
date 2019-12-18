@@ -18,6 +18,7 @@ using UniversityProject.Shared.Constants;
 using UniversityProject.Shared.Exceptions.BusinessLogicExceptions;
 using UniversityProject.ViewModels.AdminViewModels.CathedraViewModels;
 using UniversityProject.ViewModels.AdminViewModels.GroupViewModels;
+using UniversityProject.ViewModels.AdminViewModels.StudentViewModels;
 using UniversityProject.ViewModels.AdminViewModels.SubjectsViewModels;
 using UniversityProject.ViewModels.AdminViewModels.TeacherViewModels;
 using UniversityProject.ViewModels.Faculty;
@@ -30,10 +31,12 @@ namespace UniversityProject.BusinessLogic.Services
         private ICompanyRepository _companyRepository;
         private ISubjectRepository _subjectRepository;
         private ITeacherRepository _teacherRepository;
+        private IStudentRepository _studentRepository;
 
         private ICompanyMapper _cathedraMapper;
         private ISubjectMapper _subjectMapper;
         private ITeacherMapper _teacherMapper;
+        private IStudentMapper _studentMapper;
         private IAccountMapper _accountMapper;
 
         private IDateParseHelper _dateParseHelper;
@@ -49,9 +52,11 @@ namespace UniversityProject.BusinessLogic.Services
             ICompanyRepository cathedraRepository,
             ISubjectRepository subjectRepository,
             ITeacherRepository teacherRepository,
+            IStudentRepository studentRepository,
             ICompanyMapper cathedraMapper,
             ISubjectMapper subjectMapper,
             ITeacherMapper teacherMapper,
+            IStudentMapper studentMapper,
             IAccountMapper accountMapper,
             IDateParseHelper dateParseHelper,
             IEmailProvider emailProvider,
@@ -61,10 +66,12 @@ namespace UniversityProject.BusinessLogic.Services
             _companyRepository = cathedraRepository;
             _subjectRepository = subjectRepository;
             _teacherRepository = teacherRepository;
+            _studentRepository = studentRepository;
 
             _cathedraMapper = cathedraMapper;
             _subjectMapper = subjectMapper;
             _teacherMapper = teacherMapper;
+            _studentMapper = studentMapper;
             _accountMapper = accountMapper;
 
             _dateParseHelper = dateParseHelper;
@@ -345,6 +352,105 @@ namespace UniversityProject.BusinessLogic.Services
 
             user.AddressLine = viewModel.AddressLine;
             
+            await _userManager.UpdateAsync(user);
+        }
+        #endregion
+
+        #region Students
+        public async Task<ShowStudentsAdminView> ShowStudents()
+        {
+            List<Student> teachers = await _studentRepository.GetAllStudentsByCompany(ApplicationConstants.CurrentCompanyId);
+
+            ShowStudentsAdminView result = _studentMapper.MapStudentModelsToViewModels(teachers);
+
+            return result;
+        }
+
+        public async Task<RegisterNewStudentUserDataAccountView> LoadDataForRegisterStudentPage()
+        {
+            var result = new RegisterNewStudentUserDataAccountView();
+
+            return result;
+        }
+
+        public async Task RegisterStudent(RegisterNewStudentUserAccountView viewModel)
+        {
+            var companies = _companyRepository.GetAll();
+            if (companies.Result == null || companies.Result.ToList().Count == 0)
+            {
+                Company company = new Company() { Name = "Test" };
+                await _companyRepository.Create(company);
+
+                ApplicationConstants.CurrentCompanyId = company.Id;
+            }
+
+            var teacher = new Student();
+
+            teacher.Email = viewModel.Email;
+            teacher.UserName = viewModel.Username;
+            teacher.CompanyId = ApplicationConstants.CurrentCompanyId;
+
+            if (!viewModel.Password.Equals(viewModel.ConfirmPassword))
+            {
+                throw new AdminException("Passwords are different");
+            }
+
+            if (!(await _userManager.FindByEmailAsync(viewModel.Email) is null) || !(await _userManager.FindByNameAsync(viewModel.Username) is null))
+            {
+                throw new AdminException("Account with such Email or UserID already exists");
+            }
+
+            teacher.BirthDate = _dateParseHelper.ParseStringToDatetime(viewModel.BirthDate);
+
+            _accountMapper.MapStudentViewModelToModel(viewModel, teacher);
+            /// TODOOOOOOOOOOO
+            teacher.EmailConfirmed = true;
+            ///
+            IdentityResult result = await _userManager.CreateAsync(teacher, viewModel.Password);
+
+            if (!result.Succeeded)
+            {
+                string responseError = result.GetFirstError();
+
+                throw new AdminException(responseError);
+            }
+
+            ApplicationUser registeredTeacher = await _userManager.FindByNameAsync(viewModel.Username);
+
+            await _userManager.AddToRoleAsync(registeredTeacher, ApplicationConstants.USER_ROLE);
+        }
+
+        public async Task<EditStudentDataAccountView> LoadDataForEditStudentAccount(string userName)
+        {
+            Student teacher = await _studentRepository.GetStudentByName(userName);
+
+            if (teacher is null)
+            {
+                throw new AdminException("User not found");
+            }
+
+            EditStudentDataAccountView viewModel = _studentMapper.MapEditStudentModelsToEditViewModels(teacher);
+
+            return viewModel;
+        }
+
+        public async Task EditStudentInformation(EditStudentInformationView viewModel)
+        {
+            var user = await _userManager.FindByNameAsync(viewModel.Username) as Student;
+
+            if (user is null)
+            {
+                throw new AdminException("User not found.");
+            }
+
+            user.FirstName = viewModel.FirstName;
+            user.LastName = viewModel.LastName;
+            user.MiddleName = viewModel.MiddleName;
+            user.PhoneNumber = viewModel.PhoneNumber;
+            user.BirthDate = _dateParseHelper.ParseStringToOnlyYearDatetime(viewModel.BirthDate).Value;
+
+            user.AddressLine = viewModel.AddressLine;
+
             await _userManager.UpdateAsync(user);
         }
         #endregion

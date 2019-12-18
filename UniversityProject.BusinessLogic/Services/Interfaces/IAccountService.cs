@@ -6,7 +6,6 @@ namespace UniversityProject.BusinessLogic.Services.Interfaces
 {
     public interface IAccountService
     {
-        Task RegisterNewStudentUser(RegisterNewStudentUserAccountView viewModel);
         Task LoadFinishRegistrationData(FinishRegistrationAccountView viewModel);
         Task<IdentityResult> FinishRegistrationAndConfirmAccount(FinishRegistrationAndConfirmAccountAccountView viewModel);
         Task SignIn(LoginAccountAccountView loginAccountAccountView);

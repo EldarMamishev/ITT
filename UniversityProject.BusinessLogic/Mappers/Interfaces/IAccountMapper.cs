@@ -1,5 +1,6 @@
 ﻿using UniversityProject.Entities.Entities;
 using UniversityProject.ViewModels.AccountViewModels;
+using UniversityProject.ViewModels.AdminViewModels.StudentViewModels;
 using UniversityProject.ViewModels.AdminViewModels.TeacherViewModels;
 
 namespace UniversityProject.BusinessLogic.Mappers.Interfaces
@@ -8,5 +9,6 @@ namespace UniversityProject.BusinessLogic.Mappers.Interfaces
     {
         void MapFinishRegistrationAndConfirmAccountToApplicationUser(FinishRegistrationAndConfirmAccountAccountView mapFrom, Student mapTo);
         void MapTeacherViewModelToModel(RegisterNewTeacherUserAccountView viewModel, Teacher model);
+        void MapStudentViewModelToModel(RegisterNewStudentUserAccountView viewModel, Student model);
     }
 }
